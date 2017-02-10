@@ -1,0 +1,5 @@
+runtime.c:5:6:timer_init	8	static
+runtime.c:11:6:sleep	0	static
+runtime.c:17:6:handler_undefined	0	static
+runtime.c:30:6:handler_irq	0	static
+runtime.c:70:6:main	64	static

@@ -1,0 +1,7 @@
+io.c:3:6:leds_init	0	static
+io.c:8:6:leds_set	0	static
+io.c:13:6:rtc_init	12	static
+io.c:25:6:rtc_irq	0	static
+io.c:43:6:uart_init	4	static
+io.c:76:6:uart_putc	8	static
+io.c:85:6:uart_putf	56	static
