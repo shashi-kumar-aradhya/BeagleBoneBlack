@@ -1,2 +1,5 @@
-git rm *.swp
-git rm --cached *.swp
+.*.swp
+*.o
+*.lst
+*.bin
+
