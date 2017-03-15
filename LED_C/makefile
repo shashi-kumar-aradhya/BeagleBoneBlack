@@ -11,10 +11,9 @@ all: start.s main.c
 
    
 copy:
-	cp spl.boot /tftpboot/download.bin
+	@cp spl.boot /tftpboot/download.bin
 
 clean:
 	rm -rf *.o *.lst
 	rm -rf *.elf
 	rm -rf *.boot
-	rm -rf ../boot/*.boot
