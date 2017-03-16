@@ -26,7 +26,7 @@ typedef enum
 typedef enum
 {
    // CKM_PER zone
-
+/*
    CKM_PER_L4LS_CLKSTCTRL        = 0x000,
    CKM_PER_L3S_CLKSTCTRL         = 0x004,
    CKM_PER_L4FW_CLKSTCTRL        = 0x008,
@@ -57,9 +57,9 @@ typedef enum
    CKM_PER_TIMER2_CLKCTRL        = 0x080,
    CKM_PER_TIMER3_CLKCTRL        = 0x084,
    CKM_PER_TIMER4_CLKCTRL        = 0x088,
-
+*/
    CKM_PER_GPIO1_CLKCTRL         = 0x0AC,
-
+/*
   CKM_PER_GPIO2_CLKCTRL         = 0x0B0,
    CKM_PER_GPIO3_CLKCTRL         = 0x0B4,
    CKM_PER_TPCC_CLKCTRL          = 0x0BC,
@@ -90,9 +90,9 @@ typedef enum
    CKM_PER_LCDC_CLKSTCTRL        = 0x148,
    CKM_PER_CLKDIV32K_CLKCTRL     = 0x14C,
    CKM_PER_CLK_24MHZ_CLKSTCTRL   = 0x150,
- 
+*/ 
    // CKM_WKUP zone
-
+/*
    CKM_WKUP_CLKSTCTRL            = 0x00,
    CKM_WKUP_CONTROL_CLKCTRL      = 0x04,
    CKM_WKUP_GPIO0_CLKCTRL        = 0x08,
@@ -147,8 +147,8 @@ typedef enum
    CKM_L4_WKUP_AON_CLKSTCTRL     = 0xCC,
    CKM_WKUP_WDT1_CLKCTRL         = 0xD4,
    CKM_DIV_M6_DPLL_CORE          = 0xD8
-
-}CM_MODULE_REG;
+*/
+}CKM_MODULE_REG;
 
 
 #endif
