@@ -10,8 +10,9 @@ int UART_init(unsigned int baudrate, STOP_BIT_t stopBit, PARITY_BIT_t parity, FL
 {
 	//UART mux config
 	Uart0_Mux();
+
 	//Init clock and muxing of pins
-	Init_UART0_Clock();
+	Init_UART0_Clk();
 }
 void UART_putc(char c);
 char UART_getc();

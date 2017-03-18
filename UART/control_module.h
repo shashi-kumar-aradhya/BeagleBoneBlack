@@ -1,6 +1,8 @@
 #ifndef __CONTROL_MODULE_H_
 #define __CONTROL_MODULE_H_
 
+#define CONTROL_MODULE_REGISTER_BASE  0x44E10000
+
 typedef enum 
 {
 	CM_control_module		= 0x0,
@@ -221,7 +223,7 @@ typedef enum
 	CM_conf_ddr_cmd2_ioctrl		= 0x140C,
 	CM_conf_ddr_data0_ioctrl	= 0x1440,
 	CM_conf_ddr_data1_ioctrl	= 0x1444
-}CM_REG_t;
+}CONTROL_MODULE_REG_t;
 
 void CM_setCtrlModule(CM_REG_t module, unsigned int value);
 
