@@ -6,7 +6,7 @@
  */
 typedef enum
 {
-   CM_PER     = 0x44E00000
+   CM_PER     = 0x44E00000,
    CM_WKUP    = 0x44E00400,
    CM_DPLL    = 0x44E00500,
    CM_MPU     = 0x44E00600,

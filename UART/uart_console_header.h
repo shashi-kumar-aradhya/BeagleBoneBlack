@@ -1,12 +1,6 @@
 #ifndef __UART_CONSOLE_H_
 #define __UART_CONSOLE_H_
 
-#define PUT32 (volatile unsigned int *)
-#define GET32 *(volatile unsigned int *)
-/*	(*PUT32(CM_PER_BASE+CM_PER_GPIO1)) = 1<<18 | 2;
-	ra = GET32(GPIO1_BASE+GPIO_OE);
-*/
-
 /**
  * Brief flow control
  */
