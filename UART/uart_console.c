@@ -15,7 +15,7 @@ void Uart0_Reset()
 	while(((GET32(UART0+LSR) & 0x40) !=0x40));    		// wait for txfifo to be empty
 
 	/* UART Interrupt Enable Register */
-	PUT32(UART0+IER, 0);					/*Disable uart interrupts*/
+	PUT8(UART0+IER, 0);					/*Disable uart interrupts*/
 
 	PUT8(UART0+MDR1, 0x7);        			// Disable modeselect (default)
 }
