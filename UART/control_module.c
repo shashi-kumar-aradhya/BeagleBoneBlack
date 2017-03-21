@@ -1,14 +1,14 @@
 #include "control_module.h"
 
-void CM_setCtrlModule(CM_REG_t module, unsigned int value)
+void CM_setCtrlModule(CONTROL_MODULE_REG_t module, unsigned int value)
 {
 
-	PUT32(CM_MODULE_REGISTER_BASE + module, value);
+	PUT32(CONTROL_MODULE_REGISTER_BASE + module, value);
 }
 
-unsigned int CM_getCtrlModule(CM_REG_t module)
+unsigned int CM_getCtrlModule(CONTROL_MODULE_REG_t module)
 {
-	return GET32(CM_MODULE_REGISTER_BASE+module);
+	return GET32(CONTROL_MODULE_REGISTER_BASE + module);
 }
 
 void Uart0_Mux()

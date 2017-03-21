@@ -1,6 +1,9 @@
 
 #ifndef __CLOCK_H_
 #define __CLOCK_H_
+
+#include "types.h"
+
 /*
  * @brief Clock Modules bases memory map : TRM 2.1
  */

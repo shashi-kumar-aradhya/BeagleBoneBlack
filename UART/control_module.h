@@ -1,6 +1,8 @@
 #ifndef __CONTROL_MODULE_H_
 #define __CONTROL_MODULE_H_
 
+#include "types.h"
+
 #define CONTROL_MODULE_REGISTER_BASE  0x44E10000
 
 typedef enum 

@@ -1,6 +1,8 @@
 #ifndef __UART_CONSOLE_H_
 #define __UART_CONSOLE_H_
 
+#include "types.h"
+
 /**
  * Brief flow control
  */

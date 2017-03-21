@@ -10,7 +10,7 @@ typedef short int		int16_t;
 typedef char			int8_t;
 
 
-#define PUT32(addr, val) (*(volatile uint32_t *) (addr) = (unsigned int) (val))
+#define PUT32(addr, val) (*(volatile uint32_t *) (addr) = (uint32_t) (val))
 #define GET32(addr) (*(volatile uint32_t *) (addr))
 
 #define PUT16(addr, val) (*(volatile uint16_t *) (addr) = (uint16_t) (val))

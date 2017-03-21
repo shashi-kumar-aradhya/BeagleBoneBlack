@@ -1,6 +1,8 @@
 #ifndef __UART_H_
 #define __UART_H_
 
+#include "types.h"
+
 #define UART0		0X44E09000
 /*
 #define UART1		0X48022000
