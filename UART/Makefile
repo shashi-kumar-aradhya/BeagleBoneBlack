@@ -5,11 +5,11 @@ AFLAGS=-mfpu=neon
 OBJ=obj/
 BIN=bin/
 
-all: dir start.o1 control_module.o clock.o uart_console.o
-	#$(CHAIN)-ld -T memmap.ld $(OBJ)start.o1 $(OBJ)*.o -o $(OBJ)main.elf
-	#$(CHAIN)-objcopy $(OBJ)main.elf $(BIN)spl.boot -O binary
-	#$(CHAIN)-objdump -DS $(OBJ)main.elf > $(BIN)startup.lst
-	#cp -v $(BIN)spl.boot /tftpboot/download.bin
+all: dir start.o1 control_module.o clock.o uart_console.o main.o
+	$(CHAIN)-ld -T memmap.ld $(OBJ)start.o1 $(OBJ)*.o -o $(OBJ)main.elf
+	$(CHAIN)-objcopy $(OBJ)main.elf $(BIN)spl.boot -O binary
+	$(CHAIN)-objdump -DS $(OBJ)main.elf > $(BIN)startup.lst
+	cp -v $(BIN)spl.boot /tftpboot/download.bin
 
 dir :
 	-@mkdir $(OBJ) $(BIN)

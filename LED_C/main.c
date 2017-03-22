@@ -24,23 +24,5 @@ void _main(void)
 	ra &= ~(1<<21);
 	(*PUT32(GPIO1_BASE+GPIO_OE)) = ra;
 
-/*
-	PUT32(CM_PER_BASE+CM_PER_GPIO1,(1<<18 | 2));
-	ra = GET32(GPIO1_BASE+GPIO_OE);
-	ra &= ~(1<<21);
-	PUT32(GPIO1_BASE+GPIO_OE, ra);
-*/
-	//	for(;;)
-	//	{
-/*
-	PUT32(GPIO1_BASE+GPIO_SETDATAOUT, (1<<21));
-*/
 	(*PUT32(GPIO1_BASE+GPIO_SETDATAOUT)) = 1<<21;
-	//		for(ra = 0; ra < TIME; ra ++);
-	//		(*PUT32(GPIO1_BASE+GPIO_CLRDATAOUT)) = 1<<21;
-
-	//		for(ra = 0; ra < TIME; ra++);
-	//	}
-	return;
-
 }

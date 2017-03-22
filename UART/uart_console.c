@@ -61,9 +61,28 @@ char UART_getC()
 	return GET8(UART0+0x0);
 }
 
+int UART_putString(char *str, unsigned int length)
+{  
+	for(int i = 0; i < length; i++)
+	{   
+		UART_putC(str[i]);
+	}   
+	return length;
+}
+
+int UART_getString(char *buf, unsigned int length)
+{
+	for(int i = 0; i < length; i ++)
+	{
+		buf[i] = UART_getC();
+	}
+	return length;
+}
+
+
 /*
-int UART_putstring(char *str, unsigned int length);
-int UART_getstring(char *buf, unsigned int length);
-*/
+   int UART_putstring(char *str, unsigned int length);
+   int UART_getstring(char *buf, unsigned int length);
+ */
 
 

@@ -35,18 +35,20 @@ typedef enum
 	STOP2
 }STOP_BIT_t;
 
+void UART_init(unsigned int baudrate, STOP_BIT_t stopBit, PARITY_BIT_t parity, FLOW_t flowControl);
+
 /**
  * @brief		Send a character
  * @param[in] uart	Character to send
  * @return		void
  */
-void UART_putc(char c);
+void UART_putC(char c);
 
 /**
  * @brief		Get a character
  * @return		The character gotten from the uart
  */
-char UART_getc();
+char UART_getC();
 
 /**
  * @fn int UART_putString(UART_t uart, char *str, unsigned int length)
@@ -55,7 +57,7 @@ char UART_getc();
  * @param[in] length       Length of the string to send.
  * @return                 The length sent.
  */
-int UART_putstring(char *str, unsigned int length);
+int UART_putString(char *str, unsigned int length);
 
 /**
  * @fn int UART_getString(UART_t uart, char *buf, unsigned int length)
@@ -64,7 +66,7 @@ int UART_putstring(char *str, unsigned int length);
  * @param[in]  length      Length to read.
  * @return                 The lenght read
  */
-int UART_getstring(char *buf, unsigned int length);
+int UART_getString(char *buf, unsigned int length);
 
 void Uart0_Reset(unsigned int baudrate); 
 #endif
