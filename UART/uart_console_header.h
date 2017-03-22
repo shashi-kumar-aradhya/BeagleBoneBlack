@@ -8,18 +8,31 @@
  */
 typedef enum
 {
-    FLOW_OFF = 0,
-    FLOW_ON = 1
+	FLOW_OFF = 0,
+	FLOW_ON = 1
 }FLOW_t;
 
 /**
- * Parity control
- */
- typedef enum
+ * @brief Parity control
+ **/
+typedef enum
 {
-    STOP1,
-    STOP1_5,
-    STOP2
+	PARITY_NONE,
+	PARITY_EVEN,
+	PARITY_ODD
+}PARITY_BIT_t;
+
+
+
+
+/**
+ * stop control
+ */
+typedef enum
+{
+	STOP1,
+	STOP1_5,
+	STOP2
 }STOP_BIT_t;
 
 /**
@@ -53,6 +66,7 @@ int UART_putstring(char *str, unsigned int length);
  */
 int UART_getstring(char *buf, unsigned int length);
 
+void Uart0_Reset(unsigned int baudrate); 
 #endif
 
 

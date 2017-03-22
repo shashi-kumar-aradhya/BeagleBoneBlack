@@ -147,4 +147,8 @@ typedef enum
 }CM_PER_REG;
 
 
+void CM_SetClk(CLK_MODULE_t module, CM_PER_REG reg, unsigned int value);
+
+unsigned int CM_GetClk(CLK_MODULE_t module, CM_PER_REG reg);
+void Init_UART0_Clk();
 #endif

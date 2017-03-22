@@ -11,7 +11,7 @@ unsigned int CM_GetClk(CLK_MODULE_t module, CM_PER_REG reg)
 	return GET32(module+reg);
 }
 
-void Init_UART0_clk()
+void Init_UART0_Clk()
 {
 
 	unsigned int temp;

@@ -16,7 +16,7 @@ typedef char			int8_t;
 #define PUT16(addr, val) (*(volatile uint16_t *) (addr) = (uint16_t) (val))
 #define GET16(addr) (*(volatile uint16_t *) (addr))
 
-#define PUT8(addr, val) (*(volatile uint8_t *) (addr) = (uint8_t)) (val))
+#define PUT8(addr, val) (*(volatile uint8_t *) (addr) = (uint8_t) (val))
 #define GET8(addr) (*(volatile uint8_t *) (addr))
 
 

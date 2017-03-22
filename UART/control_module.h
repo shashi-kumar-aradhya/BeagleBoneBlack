@@ -193,7 +193,6 @@ typedef enum
 	CM_conf_tpcc_evt_mux_12_15	= 0xF9C,
 	CM_conf_tpcc_evt_mux_16_19	= 0xFA0,
 	CM_conf_tpcc_evt_mux_20_23	= 0xFA4,
-	CM_conf_tpcc_evt_mux_20_23	= 0xFA4,
 	CM_conf_tpcc_evt_mux_24_27	= 0xFA8,
 	CM_conf_tpcc_evt_mux_28_31	= 0xFAC,
 	CM_conf_tpcc_evt_mux_32_35	= 0xFB0,
@@ -227,8 +226,10 @@ typedef enum
 	CM_conf_ddr_data1_ioctrl	= 0x1444
 }CONTROL_MODULE_REG_t;
 
-void CM_setCtrlModule(CM_REG_t module, unsigned int value);
+void CM_setCtrlModule(CONTROL_MODULE_REG_t module, unsigned int value);
 
-unsigned int CM_getCtrlModule(CM_REG_t module);
+unsigned int CM_getCtrlModule(CONTROL_MODULE_REG_t module);
 
+void Uart0_Mux();
+#endif
 
