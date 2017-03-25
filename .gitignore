@@ -3,4 +3,5 @@
 *.lst
 *.bin
 *.elf
+*.boot
 *cscope.out

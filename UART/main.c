@@ -16,6 +16,7 @@ void _main(void)
 
 
 	volatile unsigned int ra;
+	char a = 'a';
 
 	PUT32(CM_PER_BASE+CM_PER_GPIO1, 1<<18 | 2);
 	ra = GET32(GPIO1_BASE+GPIO_OE);
@@ -25,10 +26,16 @@ void _main(void)
 	PUT32(GPIO1_BASE+GPIO_SETDATAOUT, 1<<21);
 
 	UART_init(115200,STOP1,PARITY_NONE,FLOW_OFF);
+/*	while(a != 'z') {
+	UART_putC(a);
+	a++;
+	}*/
 	UART_putString("UART0 Initialized...\n",21);
+/*
 	while(1)
 	{   
 		UART_putC(UART_getC());
 	}   
+*/
 
 }

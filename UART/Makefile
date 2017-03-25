@@ -5,15 +5,17 @@ AFLAGS=-mfpu=neon
 OBJ=obj/
 BIN=bin/
 
-all: dir start.o1 control_module.o clock.o uart_console.o main.o
+
+
+all: test copy
+
+test : dir start.o1 control_module.o clock.o uart_console.o main.o
 	$(CHAIN)-ld -T memmap.ld $(OBJ)start.o1 $(OBJ)*.o -o $(OBJ)main.elf
 	$(CHAIN)-objcopy $(OBJ)main.elf $(BIN)spl.boot -O binary
 	$(CHAIN)-objdump -DS $(OBJ)main.elf > $(BIN)startup.lst
 
-
-
 dir :
-	-@mkdir -f $(OBJ) $(BIN)
+	@mkdir $(OBJ) $(BIN)
 start.o1: start.s
 	$(CHAIN)-as $(AFLAGS) start.s -o $(OBJ)start.o1
 
@@ -39,20 +41,19 @@ uart_console.o:uart_console.c
 	$(CHAIN)-gcc $(CFLAGS) -c uart_console.c -o $(OBJ)uart_console.o
 
 copy:
-	cp $(BIN)spl.boot ../boot
+	@cp -v $(BIN)spl.boot /tftpboot/download.bin 
 
 clean:
-	rm -rf $(OBJ)*.o
-	rm -rf $(OBJ)*.objstart
-	rm -rf $(OBJ)*.elf
-	rm -rf $(BIN)*.boot
-	rm -rf ../boot/*.boot
-	rm -rf $(OBJ)
-	rm -rf $(BIN)
-	rm cscope.out
+	@rm -rf $(OBJ)*.o
+	@rm -rf $(OBJ)*.objstart
+	@rm -rf $(OBJ)*.elf
+	@rm -rf $(BIN)*.boot
+	@rm -rf ../boot/*.boot
+	@rm -rf $(OBJ)
+	@rm -rf $(BIN)
 
 cscope :
-	cscope -R
+	@cscope -R
 
 dump:
 	$(CHAIN)-objdump -D $(OBJ)main.elf
