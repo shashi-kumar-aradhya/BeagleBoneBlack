@@ -15,7 +15,7 @@ test : dir start.o1 control_module.o clock.o uart_console.o main.o
 	$(CHAIN)-objdump -DS $(OBJ)main.elf > $(BIN)startup.lst
 
 dir :
-	@mkdir $(OBJ) $(BIN)
+	@mkdir -p $(OBJ) $(BIN)
 start.o1: start.s
 	$(CHAIN)-as $(AFLAGS) start.s -o $(OBJ)start.o1
 

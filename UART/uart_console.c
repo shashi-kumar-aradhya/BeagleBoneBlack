@@ -55,7 +55,7 @@ void Uart0_Reset(unsigned int baudrate)
 void UART_init(unsigned int baudrate, STOP_BIT_t stopBit, PARITY_BIT_t parity, FLOW_t flowControl) 
 {
 
-	GPIO_init();
+//	GPIO_init();
 
 	//UART mux config
 	Uart0_Mux();
