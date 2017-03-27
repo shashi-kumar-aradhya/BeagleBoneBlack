@@ -18,16 +18,12 @@ void Uart0_Reset(unsigned int baudrate)
 	temp |= 0x2;
 	PUT32(UART0+SYSC, temp);				//Uart soft reset
 	while(((GET32(UART0+SYSS)) & 0x1) == 0);		//Wait till reset is complete
-	//while(((GET32(UART0+SYSS)) & 0x1) == 0);		//Wait till reset is complete
 
 	temp = GET8(UART0+SYSC);
 	temp |= (0x1 << 0x3);
 	PUT8(UART0+SYSC, temp);				//No idle
 
 	while(((GET32(UART0+LSR) & 0x40) !=0x40));    		// wait for txfifo to be empty
-/*	while (!(GET8(UART0 + 20) & 0x40))
-	        ;
-*/
 	float div = 48000000.0/(16.0*(float)baudrate);
 	unsigned int intdiv = (unsigned int) div; 
 	/* UART Interrupt Enable Register */
@@ -40,13 +36,10 @@ void Uart0_Reset(unsigned int baudrate)
 	PUT8(UART0+MCR,0x3);        // force /rts & /drt to active (low) (?!)
 	PUT8(UART0+FCR,0x7);        // clear rx&tx FIFOs, and enables them (each 64 bytes deep)
 	PUT8(UART0+LCR,~(0x7C));    // divisor latch enable, access DLL DHL, set uart as 8bit
-//	PUT8(UART0+RHR,26);          // DLL = 0
 	PUT8(UART0+RHR,intdiv&0xFF);          // DLL = 0
 	PUT8(UART0+IER,(intdiv>>8)&0x3F);          // DHL = 0
-//	PUT8(UART0+IER,0);          // DHL = 0
 
 
-	//            PUT8(uart_base+0x00,26);         // DLL/DHL value for 115200
 	PUT8(UART0+LCR,0x3);        // set uart as 8 bit
 	PUT8(UART0+MDR1,0);          // uart 16x oversampling
 
@@ -55,7 +48,7 @@ void Uart0_Reset(unsigned int baudrate)
 void UART_init(unsigned int baudrate, STOP_BIT_t stopBit, PARITY_BIT_t parity, FLOW_t flowControl) 
 {
 
-//	GPIO_init();
+	//	GPIO_init();
 
 	//UART mux config
 	Uart0_Mux();
@@ -73,8 +66,9 @@ void UART_putC( char c)
 	if (c == '\n')
 		UART_putC('\r');
 
-	while((GET8(UART0+0x14)&0x20)!=0x20);   //wait until txfifo is empty
-//	while((GET8(UART0+0x14)&0x20) == 0);   //wait until txfifo is empty
+	while((GET8(UART0+0x14)&0x20)!=0x20)	//wait until txfifo is empty
+		;
+
 
 	PUT8(UART0 +0,c);
 }
@@ -85,10 +79,12 @@ char UART_getC()
 }
 
 int UART_putString(char *str, unsigned int length)
-{  
-	for(int i = 0; i < length; i++)
+{ 
+	int i = 0;
+	while( i < length)
 	{   
 		UART_putC(str[i]);
+		i++;
 	}   
 	return length;
 }
@@ -101,11 +97,4 @@ int UART_getString(char *buf, unsigned int length)
 	}
 	return length;
 }
-
-
-/*
-   int UART_putstring(char *str, unsigned int length);
-   int UART_getstring(char *buf, unsigned int length);
- */
-
 
