@@ -1,6 +1,5 @@
 .*.swp
 *.o
-*.lst
 *.bin
 *.elf
 *.boot
