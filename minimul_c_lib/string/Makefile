@@ -1,15 +1,21 @@
+CHAIN=arm-linux-gnueabi
+CFLAGS=-std=gnu99 -g -Wall -mfpu=neon -mhard-float -mcpu=cortex-a8
 INC=./include/
 SRC=./src/
 OBJ=./obj/
 BIN=./bin/
 
 
-all : $(INC)string.h $(SRC)string.c main.c
-	gcc -g -Wall -std=c99 -ffreestanding -nostdinc  -c -I$(INC) $(SRC)string.c -o $(OBJ)string.o
+all : dir $(INC)string.h $(SRC)string.c  
+	#gcc -g -Wall -std=c99 -ffreestanding -nostdinc  -c -I$(INC) $(SRC)string.c -o $(OBJ)string.o
+	 $(CHAIN)-gcc $(CFLAGS) -c -I$(INC) $(SRC)string.c -o $(OBJ)string.o
+	$(CHAIN)-ar rc $(BIN)libutil.a $(OBJ)string.o
 
+dir :
+	@mkdir -p $(OBJ) $(BIN)
 main :
 	gcc -g -Wall -std=c99 -ffreestanding -nostdinc  -c -I$(INC) main.c -o $(OBJ)main.o
-	gcc -g -Wall -std=c99 -ffreestanding -nostdinc $(OBJ)main.o $(OBJ)string.o -o $(BIN)exe
+	gcc -g -Wall -std=c99 -ffreestanding -nostdinc $(OBJ)main.o -L. -lutil -o $(BIN)exe
 
 
 clean :

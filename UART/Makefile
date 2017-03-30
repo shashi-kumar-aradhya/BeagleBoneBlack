@@ -3,13 +3,13 @@ CFLAGS=-std=gnu99 -g -Wall -mfpu=neon -mhard-float -mcpu=cortex-a8
 AFLAGS=-mfpu=neon
 OBJ=obj/
 BIN=bin/
-
+LIB_PATH=./../minimul_c_lib/string/obj/
 
 
 all: test copy
 
-test : dir start.o1 control_module.o clock.o uart_console.o main.o
-	$(CHAIN)-ld -T memmap.ld $(OBJ)start.o1 $(OBJ)*.o -o $(OBJ)main.elf
+test : dir start.o1 control_module.o clock.o uart_console.o main.o 
+	$(CHAIN)-ld -T memmap.ld $(OBJ)start.o1 $(OBJ)*.o $(LIB_PATH)string.o -o $(OBJ)main.elf
 	$(CHAIN)-objcopy $(OBJ)main.elf $(BIN)spl.boot -O binary
 	$(CHAIN)-objdump -DS $(OBJ)main.elf > $(BIN)startup.lst
 

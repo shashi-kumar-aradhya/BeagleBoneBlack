@@ -57,7 +57,7 @@ char UART_getC();
  * @param[in] length       Length of the string to send.
  * @return                 The length sent.
  */
-int UART_putString(char *str, unsigned int length);
+int UART_putString(char *str);
 
 /**
  * @fn int UART_getString(UART_t uart, char *buf, unsigned int length)
@@ -66,7 +66,7 @@ int UART_putString(char *str, unsigned int length);
  * @param[in]  length      Length to read.
  * @return                 The lenght read
  */
-int UART_getString(char *buf, unsigned int length);
+int UART_getString(char *buf);
 
 void Uart0_Reset(unsigned int baudrate); 
 #endif

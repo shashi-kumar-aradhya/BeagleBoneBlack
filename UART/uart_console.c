@@ -2,7 +2,7 @@
 #include "uart_console_header.h"
 #include "clock.h"
 #include "control_module.h"
-
+#include "string.h"
 void GPIO_init()
 {
 	unsigned int setting = (1<<18) | (0x2<<0);
@@ -78,8 +78,9 @@ char UART_getC()
 	return GET8(UART0+0x0);
 }
 
-int UART_putString(char *str, unsigned int length)
+int UART_putString(char *str)
 {
+   int length = strlen(str);
    for(int i = 0; i < length; i++)
    {
       UART_putC(str[i]);
@@ -87,8 +88,9 @@ int UART_putString(char *str, unsigned int length)
    return length;
 }
 
-int UART_getString(char *buf, unsigned int length)
+int UART_getString(char *buf)
 {
+   int length = strlen(buf);
    for(int i = 0; i < length; i ++)
    {
       buf[i] = UART_getC();
