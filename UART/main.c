@@ -26,7 +26,7 @@ void _main(void)
 	PUT32(GPIO1_BASE+GPIO_SETDATAOUT, 1<<21);
 
 	UART_init(115200,STOP1,PARITY_NONE,FLOW_OFF);
+	UART_putString("Uart init done\n",15);
 
-	UART_putString("UART0 Initialized...\n",21);
 
 }

@@ -79,22 +79,22 @@ char UART_getC()
 }
 
 int UART_putString(char *str, unsigned int length)
-{ 
-	int i = 0;
-	while( i < length)
-	{   
-		UART_putC(str[i]);
-		i++;
-	}   
-	return length;
+{
+   for(int i = 0; i < length; i++)
+   {
+      UART_putC(str[i]);
+   }
+   return length;
 }
 
 int UART_getString(char *buf, unsigned int length)
 {
-	for(int i = 0; i < length; i ++)
-	{
-		buf[i] = UART_getC();
-	}
-	return length;
+   for(int i = 0; i < length; i ++)
+   {
+      buf[i] = UART_getC();
+   }
+   return length;
 }
+
+
 

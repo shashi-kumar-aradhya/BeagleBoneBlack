@@ -4,717 +4,712 @@ obj/main.elf:     file format elf32-littlearm
 
 Disassembly of section .text:
 
-00000000 <_start>:
-   0:	e10f0000 	mrs	r0, CPSR
-   4:	e3c0001f 	bic	r0, r0, #31
-   8:	e3800013 	orr	r0, r0, #19
-   c:	e38000c0 	orr	r0, r0, #192	; 0xc0
-  10:	e129f000 	msr	CPSR_fc, r0
-  14:	ee110f50 	mrc	15, 0, r0, cr1, cr0, {2}
-  18:	e380060f 	orr	r0, r0, #15728640	; 0xf00000
-  1c:	ee010f50 	mcr	15, 0, r0, cr1, cr0, {2}
-  20:	f57ff06f 	isb	sy
-  24:	e3a00101 	mov	r0, #1073741824	; 0x40000000
-  28:	eee80a10 	vmsr	fpexc, r0
-  2c:	e59fd034 	ldr	sp, [pc, #52]	; 68 <GET8+0x8>
-  30:	eb000093 	bl	284 <_main>
+80000000 <_start>:
+80000000:	e10f0000 	mrs	r0, CPSR
+80000004:	e3c0001f 	bic	r0, r0, #31
+80000008:	e3800013 	orr	r0, r0, #19
+8000000c:	e38000c0 	orr	r0, r0, #192	; 0xc0
+80000010:	e129f000 	msr	CPSR_fc, r0
+80000014:	ee110f50 	mrc	15, 0, r0, cr1, cr0, {2}
+80000018:	e380060f 	orr	r0, r0, #15728640	; 0xf00000
+8000001c:	ee010f50 	mcr	15, 0, r0, cr1, cr0, {2}
+80000020:	f57ff06f 	isb	sy
+80000024:	e3a00101 	mov	r0, #1073741824	; 0x40000000
+80000028:	eee80a10 	vmsr	fpexc, r0
+8000002c:	e59fd034 	ldr	sp, [pc, #52]	; 80000068 <GET8+0x8>
+80000030:	eb000093 	bl	80000284 <_main>
 
-00000034 <.loop>:
-  34:	eafffffe 	b	34 <.loop>
+80000034 <.loop>:
+80000034:	eafffffe 	b	80000034 <.loop>
 
-00000038 <PUT32>:
-  38:	e5801000 	str	r1, [r0]
-  3c:	e12fff1e 	bx	lr
+80000038 <PUT32>:
+80000038:	e5801000 	str	r1, [r0]
+8000003c:	e12fff1e 	bx	lr
 
-00000040 <GET32>:
-  40:	e5900000 	ldr	r0, [r0]
-  44:	e12fff1e 	bx	lr
+80000040 <GET32>:
+80000040:	e5900000 	ldr	r0, [r0]
+80000044:	e12fff1e 	bx	lr
 
-00000048 <PUT16>:
-  48:	e1c010b0 	strh	r1, [r0]
-  4c:	e12fff1e 	bx	lr
+80000048 <PUT16>:
+80000048:	e1c010b0 	strh	r1, [r0]
+8000004c:	e12fff1e 	bx	lr
 
-00000050 <GET16>:
-  50:	e1d000b0 	ldrh	r0, [r0]
-  54:	e12fff1e 	bx	lr
+80000050 <GET16>:
+80000050:	e1d000b0 	ldrh	r0, [r0]
+80000054:	e12fff1e 	bx	lr
 
-00000058 <PUT8>:
-  58:	e5c01000 	strb	r1, [r0]
-  5c:	e12fff1e 	bx	lr
+80000058 <PUT8>:
+80000058:	e5c01000 	strb	r1, [r0]
+8000005c:	e12fff1e 	bx	lr
 
-00000060 <GET8>:
-  60:	e5d00000 	ldrb	r0, [r0]
-  64:	e12fff1e 	bx	lr
-  68:	4030cdfc 	ldrshtmi	ip, [r0], -ip
+80000060 <GET8>:
+80000060:	e5d00000 	ldrb	r0, [r0]
+80000064:	e12fff1e 	bx	lr
+80000068:	4030cdfc 	ldrshtmi	ip, [r0], -ip
 
-0000006c <CM_SetClk>:
+8000006c <CM_SetClk>:
 #include "clock.h"
 
 void CM_SetClk(CLK_MODULE_t module, CM_PER_REG reg, unsigned int value)
 {
-  6c:	e52db004 	push	{fp}		; (str fp, [sp, #-4]!)
-  70:	e28db000 	add	fp, sp, #0
-  74:	e24dd014 	sub	sp, sp, #20
-  78:	e50b0008 	str	r0, [fp, #-8]
-  7c:	e50b100c 	str	r1, [fp, #-12]
-  80:	e50b2010 	str	r2, [fp, #-16]
+8000006c:	e52db004 	push	{fp}		; (str fp, [sp, #-4]!)
+80000070:	e28db000 	add	fp, sp, #0
+80000074:	e24dd014 	sub	sp, sp, #20
+80000078:	e50b0008 	str	r0, [fp, #-8]
+8000007c:	e50b100c 	str	r1, [fp, #-12]
+80000080:	e50b2010 	str	r2, [fp, #-16]
 
 	PUT32(module+reg, value);
-  84:	e51b2008 	ldr	r2, [fp, #-8]
-  88:	e51b300c 	ldr	r3, [fp, #-12]
-  8c:	e0823003 	add	r3, r2, r3
-  90:	e51b2010 	ldr	r2, [fp, #-16]
-  94:	e5832000 	str	r2, [r3]
+80000084:	e51b2008 	ldr	r2, [fp, #-8]
+80000088:	e51b300c 	ldr	r3, [fp, #-12]
+8000008c:	e0823003 	add	r3, r2, r3
+80000090:	e51b2010 	ldr	r2, [fp, #-16]
+80000094:	e5832000 	str	r2, [r3]
 }
-  98:	e28bd000 	add	sp, fp, #0
-  9c:	e8bd0800 	ldmfd	sp!, {fp}
-  a0:	e12fff1e 	bx	lr
+80000098:	e28bd000 	add	sp, fp, #0
+8000009c:	e8bd0800 	ldmfd	sp!, {fp}
+800000a0:	e12fff1e 	bx	lr
 
-000000a4 <CM_GetClk>:
+800000a4 <CM_GetClk>:
 
 unsigned int CM_GetClk(CLK_MODULE_t module, CM_PER_REG reg)
 {
-  a4:	e52db004 	push	{fp}		; (str fp, [sp, #-4]!)
-  a8:	e28db000 	add	fp, sp, #0
-  ac:	e24dd00c 	sub	sp, sp, #12
-  b0:	e50b0008 	str	r0, [fp, #-8]
-  b4:	e50b100c 	str	r1, [fp, #-12]
+800000a4:	e52db004 	push	{fp}		; (str fp, [sp, #-4]!)
+800000a8:	e28db000 	add	fp, sp, #0
+800000ac:	e24dd00c 	sub	sp, sp, #12
+800000b0:	e50b0008 	str	r0, [fp, #-8]
+800000b4:	e50b100c 	str	r1, [fp, #-12]
 	return GET32(module+reg);
-  b8:	e51b2008 	ldr	r2, [fp, #-8]
-  bc:	e51b300c 	ldr	r3, [fp, #-12]
-  c0:	e0823003 	add	r3, r2, r3
-  c4:	e5933000 	ldr	r3, [r3]
+800000b8:	e51b2008 	ldr	r2, [fp, #-8]
+800000bc:	e51b300c 	ldr	r3, [fp, #-12]
+800000c0:	e0823003 	add	r3, r2, r3
+800000c4:	e5933000 	ldr	r3, [r3]
 }
-  c8:	e1a00003 	mov	r0, r3
-  cc:	e28bd000 	add	sp, fp, #0
-  d0:	e8bd0800 	ldmfd	sp!, {fp}
-  d4:	e12fff1e 	bx	lr
+800000c8:	e1a00003 	mov	r0, r3
+800000cc:	e28bd000 	add	sp, fp, #0
+800000d0:	e8bd0800 	ldmfd	sp!, {fp}
+800000d4:	e12fff1e 	bx	lr
 
-000000d8 <Init_UART0_Clk>:
+800000d8 <Init_UART0_Clk>:
 
 void Init_UART0_Clk()
 {
-  d8:	e92d4800 	push	{fp, lr}
-  dc:	e28db004 	add	fp, sp, #4
-  e0:	e24dd008 	sub	sp, sp, #8
+800000d8:	e92d4800 	push	{fp, lr}
+800000dc:	e28db004 	add	fp, sp, #4
+800000e0:	e24dd008 	sub	sp, sp, #8
 
 	unsigned int temp;
 	 // software-forced wake-up transition on the "always on clock domain", TRM Table 8-92
 	temp = CM_GetClk(CM_WKUP, CM_WKUP_CLKSTCTRL);		//This register enables the domain power state transition. It controls the SW supervised clock domain state transition between ON-ACTIVE and ON-INACTIVE states. It also hold one status bit per clock input of the domain
-  e4:	e3a00b01 	mov	r0, #1024	; 0x400
-  e8:	e34404e0 	movt	r0, #17632	; 0x44e0
-  ec:	e3a01000 	mov	r1, #0
-  f0:	ebffffeb 	bl	a4 <CM_GetClk>
-  f4:	e50b0008 	str	r0, [fp, #-8]
+800000e4:	e3a00b01 	mov	r0, #1024	; 0x400
+800000e8:	e34404e0 	movt	r0, #17632	; 0x44e0
+800000ec:	e3a01000 	mov	r1, #0
+800000f0:	ebffffeb 	bl	800000a4 <CM_GetClk>
+800000f4:	e50b0008 	str	r0, [fp, #-8]
 	temp &= ~(0x3);
-  f8:	e51b3008 	ldr	r3, [fp, #-8]
-  fc:	e3c33003 	bic	r3, r3, #3
- 100:	e50b3008 	str	r3, [fp, #-8]
+800000f8:	e51b3008 	ldr	r3, [fp, #-8]
+800000fc:	e3c33003 	bic	r3, r3, #3
+80000100:	e50b3008 	str	r3, [fp, #-8]
 	temp |= (0x2);
- 104:	e51b3008 	ldr	r3, [fp, #-8]
- 108:	e3833002 	orr	r3, r3, #2
- 10c:	e50b3008 	str	r3, [fp, #-8]
+80000104:	e51b3008 	ldr	r3, [fp, #-8]
+80000108:	e3833002 	orr	r3, r3, #2
+8000010c:	e50b3008 	str	r3, [fp, #-8]
 	CM_SetClk(CM_WKUP, CM_WKUP_CLKSTCTRL, temp);		//0x2=SW_WKUP
- 110:	e3a00b01 	mov	r0, #1024	; 0x400
- 114:	e34404e0 	movt	r0, #17632	; 0x44e0
- 118:	e3a01000 	mov	r1, #0
- 11c:	e51b2008 	ldr	r2, [fp, #-8]
- 120:	ebffffd1 	bl	6c <CM_SetClk>
+80000110:	e3a00b01 	mov	r0, #1024	; 0x400
+80000114:	e34404e0 	movt	r0, #17632	; 0x44e0
+80000118:	e3a01000 	mov	r1, #0
+8000011c:	e51b2008 	ldr	r2, [fp, #-8]
+80000120:	ebffffd1 	bl	8000006c <CM_SetClk>
 
 	// software-forced wake up transition on the L4 high speed domain
 	temp = CM_GetClk(CM_PER, CM_PER_L4HS_CLKSTCTRL);	//This register enables the domain power state transition. It controls the SW supervised clock domain state transition between ON-ACTIVE and ON-INACTIVE states. It also hold one status bit per clock input of the domain
- 124:	e3a00000 	mov	r0, #0
- 128:	e34404e0 	movt	r0, #17632	; 0x44e0
- 12c:	e3a01f47 	mov	r1, #284	; 0x11c
- 130:	ebffffdb 	bl	a4 <CM_GetClk>
- 134:	e50b0008 	str	r0, [fp, #-8]
+80000124:	e3a00000 	mov	r0, #0
+80000128:	e34404e0 	movt	r0, #17632	; 0x44e0
+8000012c:	e3a01f47 	mov	r1, #284	; 0x11c
+80000130:	ebffffdb 	bl	800000a4 <CM_GetClk>
+80000134:	e50b0008 	str	r0, [fp, #-8]
 	temp &= ~(0x3);
- 138:	e51b3008 	ldr	r3, [fp, #-8]
- 13c:	e3c33003 	bic	r3, r3, #3
- 140:	e50b3008 	str	r3, [fp, #-8]
+80000138:	e51b3008 	ldr	r3, [fp, #-8]
+8000013c:	e3c33003 	bic	r3, r3, #3
+80000140:	e50b3008 	str	r3, [fp, #-8]
 	temp |= (0x2);
- 144:	e51b3008 	ldr	r3, [fp, #-8]
- 148:	e3833002 	orr	r3, r3, #2
- 14c:	e50b3008 	str	r3, [fp, #-8]
+80000144:	e51b3008 	ldr	r3, [fp, #-8]
+80000148:	e3833002 	orr	r3, r3, #2
+8000014c:	e50b3008 	str	r3, [fp, #-8]
 	CM_SetClk(CM_PER, CM_PER_L4HS_CLKSTCTRL, temp);		//0x2=SW_WKUP
- 150:	e3a00000 	mov	r0, #0
- 154:	e34404e0 	movt	r0, #17632	; 0x44e0
- 158:	e3a01f47 	mov	r1, #284	; 0x11c
- 15c:	e51b2008 	ldr	r2, [fp, #-8]
- 160:	ebffffc1 	bl	6c <CM_SetClk>
+80000150:	e3a00000 	mov	r0, #0
+80000154:	e34404e0 	movt	r0, #17632	; 0x44e0
+80000158:	e3a01f47 	mov	r1, #284	; 0x11c
+8000015c:	e51b2008 	ldr	r2, [fp, #-8]
+80000160:	ebffffc1 	bl	8000006c <CM_SetClk>
 
 	// Module is explicitly enabled,    TRM Table 8-137
 	temp = CM_GetClk(CM_WKUP, CM_WKUP_UART0_CLKCTRL);		//This register enables the domain power state transition. It controls the SW supervised clock domain state transition between ON-ACTIVE and ON-INACTIVE states. It also hold one status bit per clock input of the domain
- 164:	e3a00b01 	mov	r0, #1024	; 0x400
- 168:	e34404e0 	movt	r0, #17632	; 0x44e0
- 16c:	e3a010b4 	mov	r1, #180	; 0xb4
- 170:	ebffffcb 	bl	a4 <CM_GetClk>
- 174:	e50b0008 	str	r0, [fp, #-8]
+80000164:	e3a00b01 	mov	r0, #1024	; 0x400
+80000168:	e34404e0 	movt	r0, #17632	; 0x44e0
+8000016c:	e3a010b4 	mov	r1, #180	; 0xb4
+80000170:	ebffffcb 	bl	800000a4 <CM_GetClk>
+80000174:	e50b0008 	str	r0, [fp, #-8]
 	temp &= ~(0x3);
- 178:	e51b3008 	ldr	r3, [fp, #-8]
- 17c:	e3c33003 	bic	r3, r3, #3
- 180:	e50b3008 	str	r3, [fp, #-8]
+80000178:	e51b3008 	ldr	r3, [fp, #-8]
+8000017c:	e3c33003 	bic	r3, r3, #3
+80000180:	e50b3008 	str	r3, [fp, #-8]
 	temp |= (0x2);
- 184:	e51b3008 	ldr	r3, [fp, #-8]
- 188:	e3833002 	orr	r3, r3, #2
- 18c:	e50b3008 	str	r3, [fp, #-8]
+80000184:	e51b3008 	ldr	r3, [fp, #-8]
+80000188:	e3833002 	orr	r3, r3, #2
+8000018c:	e50b3008 	str	r3, [fp, #-8]
 	CM_SetClk(CM_WKUP, CM_WKUP_UART0_CLKCTRL, temp);		//0x2=SW_WKUP
- 190:	e3a00b01 	mov	r0, #1024	; 0x400
- 194:	e34404e0 	movt	r0, #17632	; 0x44e0
- 198:	e3a010b4 	mov	r1, #180	; 0xb4
- 19c:	e51b2008 	ldr	r2, [fp, #-8]
- 1a0:	ebffffb1 	bl	6c <CM_SetClk>
+80000190:	e3a00b01 	mov	r0, #1024	; 0x400
+80000194:	e34404e0 	movt	r0, #17632	; 0x44e0
+80000198:	e3a010b4 	mov	r1, #180	; 0xb4
+8000019c:	e51b2008 	ldr	r2, [fp, #-8]
+800001a0:	ebffffb1 	bl	8000006c <CM_SetClk>
 */
 	
 
    
 
 }
- 1a4:	e24bd004 	sub	sp, fp, #4
- 1a8:	e8bd8800 	pop	{fp, pc}
+800001a4:	e24bd004 	sub	sp, fp, #4
+800001a8:	e8bd8800 	pop	{fp, pc}
 
-000001ac <CM_setCtrlModule>:
+800001ac <CM_setCtrlModule>:
 #include "control_module.h"
 
 void CM_setCtrlModule(CONTROL_MODULE_REG_t module, unsigned int value)
 {
- 1ac:	e52db004 	push	{fp}		; (str fp, [sp, #-4]!)
- 1b0:	e28db000 	add	fp, sp, #0
- 1b4:	e24dd00c 	sub	sp, sp, #12
- 1b8:	e50b0008 	str	r0, [fp, #-8]
- 1bc:	e50b100c 	str	r1, [fp, #-12]
+800001ac:	e52db004 	push	{fp}		; (str fp, [sp, #-4]!)
+800001b0:	e28db000 	add	fp, sp, #0
+800001b4:	e24dd00c 	sub	sp, sp, #12
+800001b8:	e50b0008 	str	r0, [fp, #-8]
+800001bc:	e50b100c 	str	r1, [fp, #-12]
 
 	PUT32(CONTROL_MODULE_REGISTER_BASE + module, value);
- 1c0:	e51b3008 	ldr	r3, [fp, #-8]
- 1c4:	e2833311 	add	r3, r3, #1140850688	; 0x44000000
- 1c8:	e28338e1 	add	r3, r3, #14745600	; 0xe10000
- 1cc:	e51b200c 	ldr	r2, [fp, #-12]
- 1d0:	e5832000 	str	r2, [r3]
+800001c0:	e51b3008 	ldr	r3, [fp, #-8]
+800001c4:	e2833311 	add	r3, r3, #1140850688	; 0x44000000
+800001c8:	e28338e1 	add	r3, r3, #14745600	; 0xe10000
+800001cc:	e51b200c 	ldr	r2, [fp, #-12]
+800001d0:	e5832000 	str	r2, [r3]
 }
- 1d4:	e28bd000 	add	sp, fp, #0
- 1d8:	e8bd0800 	ldmfd	sp!, {fp}
- 1dc:	e12fff1e 	bx	lr
+800001d4:	e28bd000 	add	sp, fp, #0
+800001d8:	e8bd0800 	ldmfd	sp!, {fp}
+800001dc:	e12fff1e 	bx	lr
 
-000001e0 <CM_getCtrlModule>:
+800001e0 <CM_getCtrlModule>:
 
 unsigned int CM_getCtrlModule(CONTROL_MODULE_REG_t module)
 {
- 1e0:	e52db004 	push	{fp}		; (str fp, [sp, #-4]!)
- 1e4:	e28db000 	add	fp, sp, #0
- 1e8:	e24dd00c 	sub	sp, sp, #12
- 1ec:	e50b0008 	str	r0, [fp, #-8]
+800001e0:	e52db004 	push	{fp}		; (str fp, [sp, #-4]!)
+800001e4:	e28db000 	add	fp, sp, #0
+800001e8:	e24dd00c 	sub	sp, sp, #12
+800001ec:	e50b0008 	str	r0, [fp, #-8]
 	return GET32(CONTROL_MODULE_REGISTER_BASE + module);
- 1f0:	e51b3008 	ldr	r3, [fp, #-8]
- 1f4:	e2833311 	add	r3, r3, #1140850688	; 0x44000000
- 1f8:	e28338e1 	add	r3, r3, #14745600	; 0xe10000
- 1fc:	e5933000 	ldr	r3, [r3]
+800001f0:	e51b3008 	ldr	r3, [fp, #-8]
+800001f4:	e2833311 	add	r3, r3, #1140850688	; 0x44000000
+800001f8:	e28338e1 	add	r3, r3, #14745600	; 0xe10000
+800001fc:	e5933000 	ldr	r3, [r3]
 }
- 200:	e1a00003 	mov	r0, r3
- 204:	e28bd000 	add	sp, fp, #0
- 208:	e8bd0800 	ldmfd	sp!, {fp}
- 20c:	e12fff1e 	bx	lr
+80000200:	e1a00003 	mov	r0, r3
+80000204:	e28bd000 	add	sp, fp, #0
+80000208:	e8bd0800 	ldmfd	sp!, {fp}
+8000020c:	e12fff1e 	bx	lr
 
-00000210 <PAD_setMode>:
+80000210 <PAD_setMode>:
 
 void PAD_setMode(CONTROL_MODULE_REG_t module, unsigned int mode)
 {
- 210:	e92d4800 	push	{fp, lr}
- 214:	e28db004 	add	fp, sp, #4
- 218:	e24dd010 	sub	sp, sp, #16
- 21c:	e50b0010 	str	r0, [fp, #-16]
- 220:	e50b1014 	str	r1, [fp, #-20]
+80000210:	e92d4800 	push	{fp, lr}
+80000214:	e28db004 	add	fp, sp, #4
+80000218:	e24dd010 	sub	sp, sp, #16
+8000021c:	e50b0010 	str	r0, [fp, #-16]
+80000220:	e50b1014 	str	r1, [fp, #-20]
 	unsigned int temp = CM_getCtrlModule(0);
- 224:	e3a00000 	mov	r0, #0
- 228:	ebffffec 	bl	1e0 <CM_getCtrlModule>
- 22c:	e50b0008 	str	r0, [fp, #-8]
+80000224:	e3a00000 	mov	r0, #0
+80000228:	ebffffec 	bl	800001e0 <CM_getCtrlModule>
+8000022c:	e50b0008 	str	r0, [fp, #-8]
 	temp &= ~(0b111);    // turn down MUXMODE
- 230:	e51b3008 	ldr	r3, [fp, #-8]
- 234:	e3c33007 	bic	r3, r3, #7
- 238:	e50b3008 	str	r3, [fp, #-8]
+80000230:	e51b3008 	ldr	r3, [fp, #-8]
+80000234:	e3c33007 	bic	r3, r3, #7
+80000238:	e50b3008 	str	r3, [fp, #-8]
 	temp |= mode;        // set new MUXMODE
- 23c:	e51b2008 	ldr	r2, [fp, #-8]
- 240:	e51b3014 	ldr	r3, [fp, #-20]
- 244:	e1823003 	orr	r3, r2, r3
- 248:	e50b3008 	str	r3, [fp, #-8]
+8000023c:	e51b2008 	ldr	r2, [fp, #-8]
+80000240:	e51b3014 	ldr	r3, [fp, #-20]
+80000244:	e1823003 	orr	r3, r2, r3
+80000248:	e50b3008 	str	r3, [fp, #-8]
 	CM_setCtrlModule(module, temp);
- 24c:	e51b0010 	ldr	r0, [fp, #-16]
- 250:	e51b1008 	ldr	r1, [fp, #-8]
- 254:	ebffffd4 	bl	1ac <CM_setCtrlModule>
+8000024c:	e51b0010 	ldr	r0, [fp, #-16]
+80000250:	e51b1008 	ldr	r1, [fp, #-8]
+80000254:	ebffffd4 	bl	800001ac <CM_setCtrlModule>
 
 
 }
- 258:	e24bd004 	sub	sp, fp, #4
- 25c:	e8bd8800 	pop	{fp, pc}
+80000258:	e24bd004 	sub	sp, fp, #4
+8000025c:	e8bd8800 	pop	{fp, pc}
 
-00000260 <Uart0_Mux>:
+80000260 <Uart0_Mux>:
 
 
 
 
 void Uart0_Mux()
 {
- 260:	e92d4800 	push	{fp, lr}
- 264:	e28db004 	add	fp, sp, #4
+80000260:	e92d4800 	push	{fp, lr}
+80000264:	e28db004 	add	fp, sp, #4
 
 	CM_setCtrlModule(CM_conf_uart0_rxd, (1 << 4) | (1 << 5));		//Rx muxing
- 268:	e3a00e97 	mov	r0, #2416	; 0x970
- 26c:	e3a01030 	mov	r1, #48	; 0x30
- 270:	ebffffcd 	bl	1ac <CM_setCtrlModule>
+80000268:	e3a00e97 	mov	r0, #2416	; 0x970
+8000026c:	e3a01030 	mov	r1, #48	; 0x30
+80000270:	ebffffcd 	bl	800001ac <CM_setCtrlModule>
 	CM_setCtrlModule(CM_conf_uart0_txd,0);					//tx muxing
- 274:	e3000974 	movw	r0, #2420	; 0x974
- 278:	e3a01000 	mov	r1, #0
- 27c:	ebffffca 	bl	1ac <CM_setCtrlModule>
+80000274:	e3000974 	movw	r0, #2420	; 0x974
+80000278:	e3a01000 	mov	r1, #0
+8000027c:	ebffffca 	bl	800001ac <CM_setCtrlModule>
 /*
 	PAD_setMode(CM_conf_uart0_txd, 0);
 	PAD_setMode(CM_conf_uart0_rxd, 0);
 */
 }
- 280:	e8bd8800 	pop	{fp, pc}
+80000280:	e8bd8800 	pop	{fp, pc}
 
-00000284 <_main>:
+80000284 <_main>:
 #define CM_PER_BASE 		 0x44e00000
 #define CM_PER_GPIO1		 0xac
 
 
 void _main(void)
 {
- 284:	e92d4800 	push	{fp, lr}
- 288:	e28db004 	add	fp, sp, #4
- 28c:	e24dd008 	sub	sp, sp, #8
+80000284:	e92d4800 	push	{fp, lr}
+80000288:	e28db004 	add	fp, sp, #4
+8000028c:	e24dd008 	sub	sp, sp, #8
 
 
 	volatile unsigned int ra;
 	char a = 'a';
- 290:	e3a03061 	mov	r3, #97	; 0x61
- 294:	e54b3009 	strb	r3, [fp, #-9]
+80000290:	e3a03061 	mov	r3, #97	; 0x61
+80000294:	e54b3009 	strb	r3, [fp, #-9]
 
 	PUT32(CM_PER_BASE+CM_PER_GPIO1, 1<<18 | 2);
- 298:	e3a030ac 	mov	r3, #172	; 0xac
- 29c:	e34434e0 	movt	r3, #17632	; 0x44e0
- 2a0:	e3a02002 	mov	r2, #2
- 2a4:	e3402004 	movt	r2, #4
- 2a8:	e5832000 	str	r2, [r3]
+80000298:	e3a030ac 	mov	r3, #172	; 0xac
+8000029c:	e34434e0 	movt	r3, #17632	; 0x44e0
+800002a0:	e3a02002 	mov	r2, #2
+800002a4:	e3402004 	movt	r2, #4
+800002a8:	e5832000 	str	r2, [r3]
 	ra = GET32(GPIO1_BASE+GPIO_OE);
- 2ac:	e30c3134 	movw	r3, #49460	; 0xc134
- 2b0:	e3443804 	movt	r3, #18436	; 0x4804
- 2b4:	e5933000 	ldr	r3, [r3]
- 2b8:	e50b3008 	str	r3, [fp, #-8]
+800002ac:	e30c3134 	movw	r3, #49460	; 0xc134
+800002b0:	e3443804 	movt	r3, #18436	; 0x4804
+800002b4:	e5933000 	ldr	r3, [r3]
+800002b8:	e50b3008 	str	r3, [fp, #-8]
 	ra &= ~(1<<21);
- 2bc:	e51b3008 	ldr	r3, [fp, #-8]
- 2c0:	e3c33602 	bic	r3, r3, #2097152	; 0x200000
- 2c4:	e50b3008 	str	r3, [fp, #-8]
+800002bc:	e51b3008 	ldr	r3, [fp, #-8]
+800002c0:	e3c33602 	bic	r3, r3, #2097152	; 0x200000
+800002c4:	e50b3008 	str	r3, [fp, #-8]
 	PUT32(GPIO1_BASE+GPIO_OE, ra);
- 2c8:	e30c3134 	movw	r3, #49460	; 0xc134
- 2cc:	e3443804 	movt	r3, #18436	; 0x4804
- 2d0:	e51b2008 	ldr	r2, [fp, #-8]
- 2d4:	e5832000 	str	r2, [r3]
+800002c8:	e30c3134 	movw	r3, #49460	; 0xc134
+800002cc:	e3443804 	movt	r3, #18436	; 0x4804
+800002d0:	e51b2008 	ldr	r2, [fp, #-8]
+800002d4:	e5832000 	str	r2, [r3]
 
 	PUT32(GPIO1_BASE+GPIO_SETDATAOUT, 1<<21);
- 2d8:	e30c3194 	movw	r3, #49556	; 0xc194
- 2dc:	e3443804 	movt	r3, #18436	; 0x4804
- 2e0:	e3a02602 	mov	r2, #2097152	; 0x200000
- 2e4:	e5832000 	str	r2, [r3]
+800002d8:	e30c3194 	movw	r3, #49556	; 0xc194
+800002dc:	e3443804 	movt	r3, #18436	; 0x4804
+800002e0:	e3a02602 	mov	r2, #2097152	; 0x200000
+800002e4:	e5832000 	str	r2, [r3]
 
 	UART_init(115200,STOP1,PARITY_NONE,FLOW_OFF);
- 2e8:	e3a00cc2 	mov	r0, #49664	; 0xc200
- 2ec:	e3400001 	movt	r0, #1
- 2f0:	e3a01000 	mov	r1, #0
- 2f4:	e3a02000 	mov	r2, #0
- 2f8:	e3a03000 	mov	r3, #0
- 2fc:	eb00008f 	bl	540 <UART_init>
+800002e8:	e3a00cc2 	mov	r0, #49664	; 0xc200
+800002ec:	e3400001 	movt	r0, #1
+800002f0:	e3a01000 	mov	r1, #0
+800002f4:	e3a02000 	mov	r2, #0
+800002f8:	e3a03000 	mov	r3, #0
+800002fc:	eb00008f 	bl	80000540 <UART_init>
+	UART_putString("Uart init done\n",15);
+80000300:	e30006e8 	movw	r0, #1768	; 0x6e8
+80000304:	e3480000 	movt	r0, #32768	; 0x8000
+80000308:	e3a0100f 	mov	r1, #15
+8000030c:	eb0000c2 	bl	8000061c <UART_putString>
 
-	UART_putString("UART0 Initialized...\n",21);
- 300:	e30006e8 	movw	r0, #1768	; 0x6e8
- 304:	e3400000 	movt	r0, #0
- 308:	e3a01015 	mov	r1, #21
- 30c:	eb0000c2 	bl	61c <UART_putString>
 
 }
- 310:	e24bd004 	sub	sp, fp, #4
- 314:	e8bd8800 	pop	{fp, pc}
+80000310:	e24bd004 	sub	sp, fp, #4
+80000314:	e8bd8800 	pop	{fp, pc}
 
-00000318 <GPIO_init>:
+80000318 <GPIO_init>:
 #include "uart_console_header.h"
 #include "clock.h"
 #include "control_module.h"
 
 void GPIO_init()
 {
- 318:	e92d4800 	push	{fp, lr}
- 31c:	e28db004 	add	fp, sp, #4
- 320:	e24dd008 	sub	sp, sp, #8
+80000318:	e92d4800 	push	{fp, lr}
+8000031c:	e28db004 	add	fp, sp, #4
+80000320:	e24dd008 	sub	sp, sp, #8
 	unsigned int setting = (1<<18) | (0x2<<0);
- 324:	e3a03002 	mov	r3, #2
- 328:	e3403004 	movt	r3, #4
- 32c:	e50b3008 	str	r3, [fp, #-8]
+80000324:	e3a03002 	mov	r3, #2
+80000328:	e3403004 	movt	r3, #4
+8000032c:	e50b3008 	str	r3, [fp, #-8]
 	CM_SetClk(CM_PER, CM_PER_GPIO1_CLKCTRL, setting);
- 330:	e3a00000 	mov	r0, #0
- 334:	e34404e0 	movt	r0, #17632	; 0x44e0
- 338:	e3a010ac 	mov	r1, #172	; 0xac
- 33c:	e51b2008 	ldr	r2, [fp, #-8]
- 340:	ebffff49 	bl	6c <CM_SetClk>
+80000330:	e3a00000 	mov	r0, #0
+80000334:	e34404e0 	movt	r0, #17632	; 0x44e0
+80000338:	e3a010ac 	mov	r1, #172	; 0xac
+8000033c:	e51b2008 	ldr	r2, [fp, #-8]
+80000340:	ebffff49 	bl	8000006c <CM_SetClk>
 	while((CM_GetClk(CM_PER, CM_PER_GPIO1_CLKCTRL) & (0x3<<16)) != 0);
- 344:	e1a00000 	nop			; (mov r0, r0)
- 348:	e3a00000 	mov	r0, #0
- 34c:	e34404e0 	movt	r0, #17632	; 0x44e0
- 350:	e3a010ac 	mov	r1, #172	; 0xac
- 354:	ebffff52 	bl	a4 <CM_GetClk>
- 358:	e1a03000 	mov	r3, r0
- 35c:	e2033803 	and	r3, r3, #196608	; 0x30000
- 360:	e3530000 	cmp	r3, #0
- 364:	1afffff7 	bne	348 <GPIO_init+0x30>
+80000344:	e1a00000 	nop			; (mov r0, r0)
+80000348:	e3a00000 	mov	r0, #0
+8000034c:	e34404e0 	movt	r0, #17632	; 0x44e0
+80000350:	e3a010ac 	mov	r1, #172	; 0xac
+80000354:	ebffff52 	bl	800000a4 <CM_GetClk>
+80000358:	e1a03000 	mov	r3, r0
+8000035c:	e2033803 	and	r3, r3, #196608	; 0x30000
+80000360:	e3530000 	cmp	r3, #0
+80000364:	1afffff7 	bne	80000348 <GPIO_init+0x30>
 
 }
- 368:	e24bd004 	sub	sp, fp, #4
- 36c:	e8bd8800 	pop	{fp, pc}
+80000368:	e24bd004 	sub	sp, fp, #4
+8000036c:	e8bd8800 	pop	{fp, pc}
 
-00000370 <Uart0_Reset>:
+80000370 <Uart0_Reset>:
 
 
 void Uart0_Reset(unsigned int baudrate) 
 {
- 370:	e52db004 	push	{fp}		; (str fp, [sp, #-4]!)
- 374:	e28db000 	add	fp, sp, #0
- 378:	e24dd01c 	sub	sp, sp, #28
- 37c:	e50b0018 	str	r0, [fp, #-24]
+80000370:	e52db004 	push	{fp}		; (str fp, [sp, #-4]!)
+80000374:	e28db000 	add	fp, sp, #0
+80000378:	e24dd01c 	sub	sp, sp, #28
+8000037c:	e50b0018 	str	r0, [fp, #-24]
 	unsigned int temp = GET32(UART0+SYSC);
- 380:	e3093054 	movw	r3, #36948	; 0x9054
- 384:	e34434e0 	movt	r3, #17632	; 0x44e0
- 388:	e5933000 	ldr	r3, [r3]
- 38c:	e50b3010 	str	r3, [fp, #-16]
+80000380:	e3093054 	movw	r3, #36948	; 0x9054
+80000384:	e34434e0 	movt	r3, #17632	; 0x44e0
+80000388:	e5933000 	ldr	r3, [r3]
+8000038c:	e50b3010 	str	r3, [fp, #-16]
 	temp |= 0x2;
- 390:	e51b3010 	ldr	r3, [fp, #-16]
- 394:	e3833002 	orr	r3, r3, #2
- 398:	e50b3010 	str	r3, [fp, #-16]
+80000390:	e51b3010 	ldr	r3, [fp, #-16]
+80000394:	e3833002 	orr	r3, r3, #2
+80000398:	e50b3010 	str	r3, [fp, #-16]
 	PUT32(UART0+SYSC, temp);				//Uart soft reset
- 39c:	e3093054 	movw	r3, #36948	; 0x9054
- 3a0:	e34434e0 	movt	r3, #17632	; 0x44e0
- 3a4:	e51b2010 	ldr	r2, [fp, #-16]
- 3a8:	e5832000 	str	r2, [r3]
+8000039c:	e3093054 	movw	r3, #36948	; 0x9054
+800003a0:	e34434e0 	movt	r3, #17632	; 0x44e0
+800003a4:	e51b2010 	ldr	r2, [fp, #-16]
+800003a8:	e5832000 	str	r2, [r3]
 	while(((GET32(UART0+SYSS)) & 0x1) == 0);		//Wait till reset is complete
- 3ac:	e1a00000 	nop			; (mov r0, r0)
- 3b0:	e3093058 	movw	r3, #36952	; 0x9058
- 3b4:	e34434e0 	movt	r3, #17632	; 0x44e0
- 3b8:	e5933000 	ldr	r3, [r3]
- 3bc:	e2033001 	and	r3, r3, #1
- 3c0:	e3530000 	cmp	r3, #0
- 3c4:	0afffff9 	beq	3b0 <Uart0_Reset+0x40>
+800003ac:	e1a00000 	nop			; (mov r0, r0)
+800003b0:	e3093058 	movw	r3, #36952	; 0x9058
+800003b4:	e34434e0 	movt	r3, #17632	; 0x44e0
+800003b8:	e5933000 	ldr	r3, [r3]
+800003bc:	e2033001 	and	r3, r3, #1
+800003c0:	e3530000 	cmp	r3, #0
+800003c4:	0afffff9 	beq	800003b0 <Uart0_Reset+0x40>
 
 	temp = GET8(UART0+SYSC);
- 3c8:	e3093054 	movw	r3, #36948	; 0x9054
- 3cc:	e34434e0 	movt	r3, #17632	; 0x44e0
- 3d0:	e5d33000 	ldrb	r3, [r3]
- 3d4:	e6ef3073 	uxtb	r3, r3
- 3d8:	e50b3010 	str	r3, [fp, #-16]
+800003c8:	e3093054 	movw	r3, #36948	; 0x9054
+800003cc:	e34434e0 	movt	r3, #17632	; 0x44e0
+800003d0:	e5d33000 	ldrb	r3, [r3]
+800003d4:	e6ef3073 	uxtb	r3, r3
+800003d8:	e50b3010 	str	r3, [fp, #-16]
 	temp |= (0x1 << 0x3);
- 3dc:	e51b3010 	ldr	r3, [fp, #-16]
- 3e0:	e3833008 	orr	r3, r3, #8
- 3e4:	e50b3010 	str	r3, [fp, #-16]
+800003dc:	e51b3010 	ldr	r3, [fp, #-16]
+800003e0:	e3833008 	orr	r3, r3, #8
+800003e4:	e50b3010 	str	r3, [fp, #-16]
 	PUT8(UART0+SYSC, temp);				//No idle
- 3e8:	e3093054 	movw	r3, #36948	; 0x9054
- 3ec:	e34434e0 	movt	r3, #17632	; 0x44e0
- 3f0:	e51b2010 	ldr	r2, [fp, #-16]
- 3f4:	e6ef2072 	uxtb	r2, r2
- 3f8:	e5c32000 	strb	r2, [r3]
+800003e8:	e3093054 	movw	r3, #36948	; 0x9054
+800003ec:	e34434e0 	movt	r3, #17632	; 0x44e0
+800003f0:	e51b2010 	ldr	r2, [fp, #-16]
+800003f4:	e6ef2072 	uxtb	r2, r2
+800003f8:	e5c32000 	strb	r2, [r3]
 
 	while(((GET32(UART0+LSR) & 0x40) !=0x40));    		// wait for txfifo to be empty
- 3fc:	e1a00000 	nop			; (mov r0, r0)
- 400:	e3093014 	movw	r3, #36884	; 0x9014
- 404:	e34434e0 	movt	r3, #17632	; 0x44e0
- 408:	e5933000 	ldr	r3, [r3]
- 40c:	e2033040 	and	r3, r3, #64	; 0x40
- 410:	e3530000 	cmp	r3, #0
- 414:	0afffff9 	beq	400 <Uart0_Reset+0x90>
+800003fc:	e1a00000 	nop			; (mov r0, r0)
+80000400:	e3093014 	movw	r3, #36884	; 0x9014
+80000404:	e34434e0 	movt	r3, #17632	; 0x44e0
+80000408:	e5933000 	ldr	r3, [r3]
+8000040c:	e2033040 	and	r3, r3, #64	; 0x40
+80000410:	e3530000 	cmp	r3, #0
+80000414:	0afffff9 	beq	80000400 <Uart0_Reset+0x90>
 	float div = 48000000.0/(16.0*(float)baudrate);
- 418:	ed5b7a06 	vldr	s15, [fp, #-24]	; 0xffffffe8
- 41c:	eef87a67 	vcvt.f32.u32	s15, s15
- 420:	eef71ae7 	vcvt.f64.f32	d17, s15
- 424:	eef30b00 	vmov.f64	d16, #48	; 0x30
- 428:	ee610ba0 	vmul.f64	d16, d17, d16
- 42c:	eddf1b41 	vldr	d17, [pc, #260]	; 538 <Uart0_Reset+0x1c8>
- 430:	eec10ba0 	vdiv.f64	d16, d17, d16
- 434:	eef77be0 	vcvt.f32.f64	s15, d16
- 438:	ed4b7a03 	vstr	s15, [fp, #-12]
+80000418:	ed5b7a06 	vldr	s15, [fp, #-24]	; 0xffffffe8
+8000041c:	eef87a67 	vcvt.f32.u32	s15, s15
+80000420:	eef71ae7 	vcvt.f64.f32	d17, s15
+80000424:	eef30b00 	vmov.f64	d16, #48	; 0x30
+80000428:	ee610ba0 	vmul.f64	d16, d17, d16
+8000042c:	eddf1b41 	vldr	d17, [pc, #260]	; 80000538 <Uart0_Reset+0x1c8>
+80000430:	eec10ba0 	vdiv.f64	d16, d17, d16
+80000434:	eef77be0 	vcvt.f32.f64	s15, d16
+80000438:	ed4b7a03 	vstr	s15, [fp, #-12]
 	unsigned int intdiv = (unsigned int) div; 
- 43c:	ed5b7a03 	vldr	s15, [fp, #-12]
- 440:	eefc7ae7 	vcvt.u32.f32	s15, s15
- 444:	ed4b7a02 	vstr	s15, [fp, #-8]
+8000043c:	ed5b7a03 	vldr	s15, [fp, #-12]
+80000440:	eefc7ae7 	vcvt.u32.f32	s15, s15
+80000444:	ed4b7a02 	vstr	s15, [fp, #-8]
 	/* UART Interrupt Enable Register */
 	PUT8(UART0+IER, 0);					//Disable uart interrupts
- 448:	e3093004 	movw	r3, #36868	; 0x9004
- 44c:	e34434e0 	movt	r3, #17632	; 0x44e0
- 450:	e3a02000 	mov	r2, #0
- 454:	e5c32000 	strb	r2, [r3]
+80000448:	e3093004 	movw	r3, #36868	; 0x9004
+8000044c:	e34434e0 	movt	r3, #17632	; 0x44e0
+80000450:	e3a02000 	mov	r2, #0
+80000454:	e5c32000 	strb	r2, [r3]
 	PUT8(UART0+MDR1,0x7);        // Disable modeselect (default) TRM table 19-50
- 458:	e3093020 	movw	r3, #36896	; 0x9020
- 45c:	e34434e0 	movt	r3, #17632	; 0x44e0
- 460:	e3a02007 	mov	r2, #7
- 464:	e5c32000 	strb	r2, [r3]
+80000458:	e3093020 	movw	r3, #36896	; 0x9020
+8000045c:	e34434e0 	movt	r3, #17632	; 0x44e0
+80000460:	e3a02007 	mov	r2, #7
+80000464:	e5c32000 	strb	r2, [r3]
 	PUT8(UART0+LCR,~(0x7C));    // divisor latch enable, access DLL DHL, set uart as 8bit
- 468:	e309300c 	movw	r3, #36876	; 0x900c
- 46c:	e34434e0 	movt	r3, #17632	; 0x44e0
- 470:	e3e0207c 	mvn	r2, #124	; 0x7c
- 474:	e5c32000 	strb	r2, [r3]
+80000468:	e309300c 	movw	r3, #36876	; 0x900c
+8000046c:	e34434e0 	movt	r3, #17632	; 0x44e0
+80000470:	e3e0207c 	mvn	r2, #124	; 0x7c
+80000474:	e5c32000 	strb	r2, [r3]
 	PUT8(UART0+RHR,0);          // DLL = 0
- 478:	e3a03a09 	mov	r3, #36864	; 0x9000
- 47c:	e34434e0 	movt	r3, #17632	; 0x44e0
- 480:	e3a02000 	mov	r2, #0
- 484:	e5c32000 	strb	r2, [r3]
+80000478:	e3a03a09 	mov	r3, #36864	; 0x9000
+8000047c:	e34434e0 	movt	r3, #17632	; 0x44e0
+80000480:	e3a02000 	mov	r2, #0
+80000484:	e5c32000 	strb	r2, [r3]
 	PUT8(UART0+IER,0);          // DHL = 0
- 488:	e3093004 	movw	r3, #36868	; 0x9004
- 48c:	e34434e0 	movt	r3, #17632	; 0x44e0
- 490:	e3a02000 	mov	r2, #0
- 494:	e5c32000 	strb	r2, [r3]
+80000488:	e3093004 	movw	r3, #36868	; 0x9004
+8000048c:	e34434e0 	movt	r3, #17632	; 0x44e0
+80000490:	e3a02000 	mov	r2, #0
+80000494:	e5c32000 	strb	r2, [r3]
 	PUT8(UART0+LCR,0x3);        // set uart as 8bit
- 498:	e309300c 	movw	r3, #36876	; 0x900c
- 49c:	e34434e0 	movt	r3, #17632	; 0x44e0
- 4a0:	e3a02003 	mov	r2, #3
- 4a4:	e5c32000 	strb	r2, [r3]
+80000498:	e309300c 	movw	r3, #36876	; 0x900c
+8000049c:	e34434e0 	movt	r3, #17632	; 0x44e0
+800004a0:	e3a02003 	mov	r2, #3
+800004a4:	e5c32000 	strb	r2, [r3]
 	PUT8(UART0+MCR,0x3);        // force /rts & /drt to active (low) (?!)
- 4a8:	e3093010 	movw	r3, #36880	; 0x9010
- 4ac:	e34434e0 	movt	r3, #17632	; 0x44e0
- 4b0:	e3a02003 	mov	r2, #3
- 4b4:	e5c32000 	strb	r2, [r3]
+800004a8:	e3093010 	movw	r3, #36880	; 0x9010
+800004ac:	e34434e0 	movt	r3, #17632	; 0x44e0
+800004b0:	e3a02003 	mov	r2, #3
+800004b4:	e5c32000 	strb	r2, [r3]
 	PUT8(UART0+FCR,0x7);        // clear rx&tx FIFOs, and enables them (each 64 bytes deep)
- 4b8:	e3093008 	movw	r3, #36872	; 0x9008
- 4bc:	e34434e0 	movt	r3, #17632	; 0x44e0
- 4c0:	e3a02007 	mov	r2, #7
- 4c4:	e5c32000 	strb	r2, [r3]
+800004b8:	e3093008 	movw	r3, #36872	; 0x9008
+800004bc:	e34434e0 	movt	r3, #17632	; 0x44e0
+800004c0:	e3a02007 	mov	r2, #7
+800004c4:	e5c32000 	strb	r2, [r3]
 	PUT8(UART0+LCR,~(0x7C));    // divisor latch enable, access DLL DHL, set uart as 8bit
- 4c8:	e309300c 	movw	r3, #36876	; 0x900c
- 4cc:	e34434e0 	movt	r3, #17632	; 0x44e0
- 4d0:	e3e0207c 	mvn	r2, #124	; 0x7c
- 4d4:	e5c32000 	strb	r2, [r3]
+800004c8:	e309300c 	movw	r3, #36876	; 0x900c
+800004cc:	e34434e0 	movt	r3, #17632	; 0x44e0
+800004d0:	e3e0207c 	mvn	r2, #124	; 0x7c
+800004d4:	e5c32000 	strb	r2, [r3]
 	PUT8(UART0+RHR,intdiv&0xFF);          // DLL = 0
- 4d8:	e3a03a09 	mov	r3, #36864	; 0x9000
- 4dc:	e34434e0 	movt	r3, #17632	; 0x44e0
- 4e0:	e51b2008 	ldr	r2, [fp, #-8]
- 4e4:	e6ef2072 	uxtb	r2, r2
- 4e8:	e5c32000 	strb	r2, [r3]
+800004d8:	e3a03a09 	mov	r3, #36864	; 0x9000
+800004dc:	e34434e0 	movt	r3, #17632	; 0x44e0
+800004e0:	e51b2008 	ldr	r2, [fp, #-8]
+800004e4:	e6ef2072 	uxtb	r2, r2
+800004e8:	e5c32000 	strb	r2, [r3]
 	PUT8(UART0+IER,(intdiv>>8)&0x3F);          // DHL = 0
- 4ec:	e3093004 	movw	r3, #36868	; 0x9004
- 4f0:	e34434e0 	movt	r3, #17632	; 0x44e0
- 4f4:	e51b2008 	ldr	r2, [fp, #-8]
- 4f8:	e1a02422 	lsr	r2, r2, #8
- 4fc:	e6ef2072 	uxtb	r2, r2
- 500:	e202203f 	and	r2, r2, #63	; 0x3f
- 504:	e6ef2072 	uxtb	r2, r2
- 508:	e5c32000 	strb	r2, [r3]
+800004ec:	e3093004 	movw	r3, #36868	; 0x9004
+800004f0:	e34434e0 	movt	r3, #17632	; 0x44e0
+800004f4:	e51b2008 	ldr	r2, [fp, #-8]
+800004f8:	e1a02422 	lsr	r2, r2, #8
+800004fc:	e6ef2072 	uxtb	r2, r2
+80000500:	e202203f 	and	r2, r2, #63	; 0x3f
+80000504:	e6ef2072 	uxtb	r2, r2
+80000508:	e5c32000 	strb	r2, [r3]
 
 
 	PUT8(UART0+LCR,0x3);        // set uart as 8 bit
- 50c:	e309300c 	movw	r3, #36876	; 0x900c
- 510:	e34434e0 	movt	r3, #17632	; 0x44e0
- 514:	e3a02003 	mov	r2, #3
- 518:	e5c32000 	strb	r2, [r3]
+8000050c:	e309300c 	movw	r3, #36876	; 0x900c
+80000510:	e34434e0 	movt	r3, #17632	; 0x44e0
+80000514:	e3a02003 	mov	r2, #3
+80000518:	e5c32000 	strb	r2, [r3]
 	PUT8(UART0+MDR1,0);          // uart 16x oversampling
- 51c:	e3093020 	movw	r3, #36896	; 0x9020
- 520:	e34434e0 	movt	r3, #17632	; 0x44e0
- 524:	e3a02000 	mov	r2, #0
- 528:	e5c32000 	strb	r2, [r3]
+8000051c:	e3093020 	movw	r3, #36896	; 0x9020
+80000520:	e34434e0 	movt	r3, #17632	; 0x44e0
+80000524:	e3a02000 	mov	r2, #0
+80000528:	e5c32000 	strb	r2, [r3]
 
 }
- 52c:	e28bd000 	add	sp, fp, #0
- 530:	e8bd0800 	ldmfd	sp!, {fp}
- 534:	e12fff1e 	bx	lr
- 538:	00000000 	andeq	r0, r0, r0
- 53c:	4186e360 	orrmi	lr, r6, r0, ror #6
+8000052c:	e28bd000 	add	sp, fp, #0
+80000530:	e8bd0800 	ldmfd	sp!, {fp}
+80000534:	e12fff1e 	bx	lr
+80000538:	00000000 	andeq	r0, r0, r0
+8000053c:	4186e360 	orrmi	lr, r6, r0, ror #6
 
-00000540 <UART_init>:
+80000540 <UART_init>:
 
 void UART_init(unsigned int baudrate, STOP_BIT_t stopBit, PARITY_BIT_t parity, FLOW_t flowControl) 
 {
- 540:	e92d4800 	push	{fp, lr}
- 544:	e28db004 	add	fp, sp, #4
- 548:	e24dd010 	sub	sp, sp, #16
- 54c:	e50b0008 	str	r0, [fp, #-8]
- 550:	e50b100c 	str	r1, [fp, #-12]
- 554:	e50b2010 	str	r2, [fp, #-16]
- 558:	e50b3014 	str	r3, [fp, #-20]
+80000540:	e92d4800 	push	{fp, lr}
+80000544:	e28db004 	add	fp, sp, #4
+80000548:	e24dd010 	sub	sp, sp, #16
+8000054c:	e50b0008 	str	r0, [fp, #-8]
+80000550:	e50b100c 	str	r1, [fp, #-12]
+80000554:	e50b2010 	str	r2, [fp, #-16]
+80000558:	e50b3014 	str	r3, [fp, #-20]
 
 	//	GPIO_init();
 
 	//UART mux config
 	Uart0_Mux();
- 55c:	ebffff3f 	bl	260 <Uart0_Mux>
+8000055c:	ebffff3f 	bl	80000260 <Uart0_Mux>
 
 	//Init clock and muxing of pins
 	Init_UART0_Clk();
- 560:	ebfffedc 	bl	d8 <Init_UART0_Clk>
+80000560:	ebfffedc 	bl	800000d8 <Init_UART0_Clk>
 
 	//Uart soft reset
 	Uart0_Reset(baudrate);
- 564:	e51b0008 	ldr	r0, [fp, #-8]
- 568:	ebffff80 	bl	370 <Uart0_Reset>
+80000564:	e51b0008 	ldr	r0, [fp, #-8]
+80000568:	ebffff80 	bl	80000370 <Uart0_Reset>
 }
- 56c:	e24bd004 	sub	sp, fp, #4
- 570:	e8bd8800 	pop	{fp, pc}
+8000056c:	e24bd004 	sub	sp, fp, #4
+80000570:	e8bd8800 	pop	{fp, pc}
 
-00000574 <UART_putC>:
+80000574 <UART_putC>:
 
 void UART_putC( char c)
 {
- 574:	e92d4800 	push	{fp, lr}
- 578:	e28db004 	add	fp, sp, #4
- 57c:	e24dd008 	sub	sp, sp, #8
- 580:	e1a03000 	mov	r3, r0
- 584:	e54b3005 	strb	r3, [fp, #-5]
+80000574:	e92d4800 	push	{fp, lr}
+80000578:	e28db004 	add	fp, sp, #4
+8000057c:	e24dd008 	sub	sp, sp, #8
+80000580:	e1a03000 	mov	r3, r0
+80000584:	e54b3005 	strb	r3, [fp, #-5]
 
 	if (c == '\n')
- 588:	e55b3005 	ldrb	r3, [fp, #-5]
- 58c:	e353000a 	cmp	r3, #10
- 590:	1a000001 	bne	59c <UART_putC+0x28>
+80000588:	e55b3005 	ldrb	r3, [fp, #-5]
+8000058c:	e353000a 	cmp	r3, #10
+80000590:	1a000001 	bne	8000059c <UART_putC+0x28>
 		UART_putC('\r');
- 594:	e3a0000d 	mov	r0, #13
- 598:	ebfffff5 	bl	574 <UART_putC>
+80000594:	e3a0000d 	mov	r0, #13
+80000598:	ebfffff5 	bl	80000574 <UART_putC>
 
 	while((GET8(UART0+0x14)&0x20)!=0x20)	//wait until txfifo is empty
- 59c:	e1a00000 	nop			; (mov r0, r0)
- 5a0:	e3093014 	movw	r3, #36884	; 0x9014
- 5a4:	e34434e0 	movt	r3, #17632	; 0x44e0
- 5a8:	e5d33000 	ldrb	r3, [r3]
- 5ac:	e6ef3073 	uxtb	r3, r3
- 5b0:	e2033020 	and	r3, r3, #32
- 5b4:	e3530000 	cmp	r3, #0
- 5b8:	0afffff8 	beq	5a0 <UART_putC+0x2c>
+8000059c:	e1a00000 	nop			; (mov r0, r0)
+800005a0:	e3093014 	movw	r3, #36884	; 0x9014
+800005a4:	e34434e0 	movt	r3, #17632	; 0x44e0
+800005a8:	e5d33000 	ldrb	r3, [r3]
+800005ac:	e6ef3073 	uxtb	r3, r3
+800005b0:	e2033020 	and	r3, r3, #32
+800005b4:	e3530000 	cmp	r3, #0
+800005b8:	0afffff8 	beq	800005a0 <UART_putC+0x2c>
 		;
 
 
 	PUT8(UART0 +0,c);
- 5bc:	e3a03a09 	mov	r3, #36864	; 0x9000
- 5c0:	e34434e0 	movt	r3, #17632	; 0x44e0
- 5c4:	e55b2005 	ldrb	r2, [fp, #-5]
- 5c8:	e5c32000 	strb	r2, [r3]
+800005bc:	e3a03a09 	mov	r3, #36864	; 0x9000
+800005c0:	e34434e0 	movt	r3, #17632	; 0x44e0
+800005c4:	e55b2005 	ldrb	r2, [fp, #-5]
+800005c8:	e5c32000 	strb	r2, [r3]
 }
- 5cc:	e24bd004 	sub	sp, fp, #4
- 5d0:	e8bd8800 	pop	{fp, pc}
+800005cc:	e24bd004 	sub	sp, fp, #4
+800005d0:	e8bd8800 	pop	{fp, pc}
 
-000005d4 <UART_getC>:
+800005d4 <UART_getC>:
 char UART_getC()
 {
- 5d4:	e52db004 	push	{fp}		; (str fp, [sp, #-4]!)
- 5d8:	e28db000 	add	fp, sp, #0
+800005d4:	e52db004 	push	{fp}		; (str fp, [sp, #-4]!)
+800005d8:	e28db000 	add	fp, sp, #0
 	while((GET8(UART0+0x14)&0x1)==0);     //wait for a character to be in the rx fifo
- 5dc:	e1a00000 	nop			; (mov r0, r0)
- 5e0:	e3093014 	movw	r3, #36884	; 0x9014
- 5e4:	e34434e0 	movt	r3, #17632	; 0x44e0
- 5e8:	e5d33000 	ldrb	r3, [r3]
- 5ec:	e6ef3073 	uxtb	r3, r3
- 5f0:	e2033001 	and	r3, r3, #1
- 5f4:	e3530000 	cmp	r3, #0
- 5f8:	0afffff8 	beq	5e0 <UART_getC+0xc>
+800005dc:	e1a00000 	nop			; (mov r0, r0)
+800005e0:	e3093014 	movw	r3, #36884	; 0x9014
+800005e4:	e34434e0 	movt	r3, #17632	; 0x44e0
+800005e8:	e5d33000 	ldrb	r3, [r3]
+800005ec:	e6ef3073 	uxtb	r3, r3
+800005f0:	e2033001 	and	r3, r3, #1
+800005f4:	e3530000 	cmp	r3, #0
+800005f8:	0afffff8 	beq	800005e0 <UART_getC+0xc>
 	return GET8(UART0+0x0);
- 5fc:	e3a03a09 	mov	r3, #36864	; 0x9000
- 600:	e34434e0 	movt	r3, #17632	; 0x44e0
- 604:	e5d33000 	ldrb	r3, [r3]
- 608:	e6ef3073 	uxtb	r3, r3
+800005fc:	e3a03a09 	mov	r3, #36864	; 0x9000
+80000600:	e34434e0 	movt	r3, #17632	; 0x44e0
+80000604:	e5d33000 	ldrb	r3, [r3]
+80000608:	e6ef3073 	uxtb	r3, r3
 }
- 60c:	e1a00003 	mov	r0, r3
- 610:	e28bd000 	add	sp, fp, #0
- 614:	e8bd0800 	ldmfd	sp!, {fp}
- 618:	e12fff1e 	bx	lr
+8000060c:	e1a00003 	mov	r0, r3
+80000610:	e28bd000 	add	sp, fp, #0
+80000614:	e8bd0800 	ldmfd	sp!, {fp}
+80000618:	e12fff1e 	bx	lr
 
-0000061c <UART_putString>:
+8000061c <UART_putString>:
 
 int UART_putString(char *str, unsigned int length)
-{ 
- 61c:	e92d4800 	push	{fp, lr}
- 620:	e28db004 	add	fp, sp, #4
- 624:	e24dd010 	sub	sp, sp, #16
- 628:	e50b0010 	str	r0, [fp, #-16]
- 62c:	e50b1014 	str	r1, [fp, #-20]
-	int i = 0;
- 630:	e3a03000 	mov	r3, #0
- 634:	e50b3008 	str	r3, [fp, #-8]
-	while( i < length)
- 638:	ea000008 	b	660 <UART_putString+0x44>
-	{   
-		UART_putC(str[i]);
- 63c:	e51b3008 	ldr	r3, [fp, #-8]
- 640:	e51b2010 	ldr	r2, [fp, #-16]
- 644:	e0823003 	add	r3, r2, r3
- 648:	e5d33000 	ldrb	r3, [r3]
- 64c:	e1a00003 	mov	r0, r3
- 650:	ebffffc7 	bl	574 <UART_putC>
-		i++;
- 654:	e51b3008 	ldr	r3, [fp, #-8]
- 658:	e2833001 	add	r3, r3, #1
- 65c:	e50b3008 	str	r3, [fp, #-8]
+{
+8000061c:	e92d4800 	push	{fp, lr}
+80000620:	e28db004 	add	fp, sp, #4
+80000624:	e24dd010 	sub	sp, sp, #16
+80000628:	e50b0010 	str	r0, [fp, #-16]
+8000062c:	e50b1014 	str	r1, [fp, #-20]
+   for(int i = 0; i < length; i++)
+80000630:	e3a03000 	mov	r3, #0
+80000634:	e50b3008 	str	r3, [fp, #-8]
+80000638:	ea000008 	b	80000660 <UART_putString+0x44>
+   {
+      UART_putC(str[i]);
+8000063c:	e51b3008 	ldr	r3, [fp, #-8]
+80000640:	e51b2010 	ldr	r2, [fp, #-16]
+80000644:	e0823003 	add	r3, r2, r3
+80000648:	e5d33000 	ldrb	r3, [r3]
+8000064c:	e1a00003 	mov	r0, r3
+80000650:	ebffffc7 	bl	80000574 <UART_putC>
+	return GET8(UART0+0x0);
 }
 
 int UART_putString(char *str, unsigned int length)
-{ 
-	int i = 0;
-	while( i < length)
- 660:	e51b2008 	ldr	r2, [fp, #-8]
- 664:	e51b3014 	ldr	r3, [fp, #-20]
- 668:	e1520003 	cmp	r2, r3
- 66c:	3afffff2 	bcc	63c <UART_putString+0x20>
-	{   
-		UART_putC(str[i]);
-		i++;
-	}   
-	return length;
- 670:	e51b3014 	ldr	r3, [fp, #-20]
+{
+   for(int i = 0; i < length; i++)
+80000654:	e51b3008 	ldr	r3, [fp, #-8]
+80000658:	e2833001 	add	r3, r3, #1
+8000065c:	e50b3008 	str	r3, [fp, #-8]
+80000660:	e51b2008 	ldr	r2, [fp, #-8]
+80000664:	e51b3014 	ldr	r3, [fp, #-20]
+80000668:	e1520003 	cmp	r2, r3
+8000066c:	3afffff2 	bcc	8000063c <UART_putString+0x20>
+   {
+      UART_putC(str[i]);
+   }
+   return length;
+80000670:	e51b3014 	ldr	r3, [fp, #-20]
 }
- 674:	e1a00003 	mov	r0, r3
- 678:	e24bd004 	sub	sp, fp, #4
- 67c:	e8bd8800 	pop	{fp, pc}
+80000674:	e1a00003 	mov	r0, r3
+80000678:	e24bd004 	sub	sp, fp, #4
+8000067c:	e8bd8800 	pop	{fp, pc}
 
-00000680 <UART_getString>:
+80000680 <UART_getString>:
 
 int UART_getString(char *buf, unsigned int length)
 {
- 680:	e92d4810 	push	{r4, fp, lr}
- 684:	e28db008 	add	fp, sp, #8
- 688:	e24dd014 	sub	sp, sp, #20
- 68c:	e50b0018 	str	r0, [fp, #-24]
- 690:	e50b101c 	str	r1, [fp, #-28]
-	for(int i = 0; i < length; i ++)
- 694:	e3a03000 	mov	r3, #0
- 698:	e50b3010 	str	r3, [fp, #-16]
- 69c:	ea000008 	b	6c4 <UART_getString+0x44>
-	{
-		buf[i] = UART_getC();
- 6a0:	e51b3010 	ldr	r3, [fp, #-16]
- 6a4:	e51b2018 	ldr	r2, [fp, #-24]
- 6a8:	e0824003 	add	r4, r2, r3
- 6ac:	ebffffc8 	bl	5d4 <UART_getC>
- 6b0:	e1a03000 	mov	r3, r0
- 6b4:	e5c43000 	strb	r3, [r4]
-	return length;
+80000680:	e92d4810 	push	{r4, fp, lr}
+80000684:	e28db008 	add	fp, sp, #8
+80000688:	e24dd014 	sub	sp, sp, #20
+8000068c:	e50b0018 	str	r0, [fp, #-24]
+80000690:	e50b101c 	str	r1, [fp, #-28]
+   for(int i = 0; i < length; i ++)
+80000694:	e3a03000 	mov	r3, #0
+80000698:	e50b3010 	str	r3, [fp, #-16]
+8000069c:	ea000008 	b	800006c4 <UART_getString+0x44>
+   {
+      buf[i] = UART_getC();
+800006a0:	e51b3010 	ldr	r3, [fp, #-16]
+800006a4:	e51b2018 	ldr	r2, [fp, #-24]
+800006a8:	e0824003 	add	r4, r2, r3
+800006ac:	ebffffc8 	bl	800005d4 <UART_getC>
+800006b0:	e1a03000 	mov	r3, r0
+800006b4:	e5c43000 	strb	r3, [r4]
+   return length;
 }
 
 int UART_getString(char *buf, unsigned int length)
 {
-	for(int i = 0; i < length; i ++)
- 6b8:	e51b3010 	ldr	r3, [fp, #-16]
- 6bc:	e2833001 	add	r3, r3, #1
- 6c0:	e50b3010 	str	r3, [fp, #-16]
- 6c4:	e51b2010 	ldr	r2, [fp, #-16]
- 6c8:	e51b301c 	ldr	r3, [fp, #-28]
- 6cc:	e1520003 	cmp	r2, r3
- 6d0:	3afffff2 	bcc	6a0 <UART_getString+0x20>
-	{
-		buf[i] = UART_getC();
-	}
-	return length;
- 6d4:	e51b301c 	ldr	r3, [fp, #-28]
+   for(int i = 0; i < length; i ++)
+800006b8:	e51b3010 	ldr	r3, [fp, #-16]
+800006bc:	e2833001 	add	r3, r3, #1
+800006c0:	e50b3010 	str	r3, [fp, #-16]
+800006c4:	e51b2010 	ldr	r2, [fp, #-16]
+800006c8:	e51b301c 	ldr	r3, [fp, #-28]
+800006cc:	e1520003 	cmp	r2, r3
+800006d0:	3afffff2 	bcc	800006a0 <UART_getString+0x20>
+   {
+      buf[i] = UART_getC();
+   }
+   return length;
+800006d4:	e51b301c 	ldr	r3, [fp, #-28]
 }
- 6d8:	e1a00003 	mov	r0, r3
- 6dc:	e24bd008 	sub	sp, fp, #8
- 6e0:	e8bd8810 	pop	{r4, fp, pc}
- 6e4:	e320f000 	nop	{0}
+800006d8:	e1a00003 	mov	r0, r3
+800006dc:	e24bd008 	sub	sp, fp, #8
+800006e0:	e8bd8810 	pop	{r4, fp, pc}
+800006e4:	e320f000 	nop	{0}
 
 Disassembly of section .rodata:
 
-000006e8 <.LC0>:
- 6e8:	54524155 	ldrbpl	r4, [r2], #-341	; 0x155
- 6ec:	6e492030 	mcrvs	0, 2, r2, cr9, cr0, {1}
- 6f0:	61697469 	cmnvs	r9, r9, ror #8
- 6f4:	657a696c 	ldrbvs	r6, [sl, #-2412]!	; 0x96c
- 6f8:	2e2e2e64 	cdpcs	14, 2, cr2, cr14, cr4, {3}
- 6fc:	0000000a 	andeq	r0, r0, sl
+800006e8 <.LC0>:
+800006e8:	74726155 	ldrbtvc	r6, [r2], #-341	; 0x155
+800006ec:	696e6920 	stmdbvs	lr!, {r5, r8, fp, sp, lr}^
+800006f0:	6f642074 	svcvs	0x00642074
+800006f4:	000a656e 	andeq	r6, sl, lr, ror #10
 
 Disassembly of section .ARM.attributes:
 
@@ -727,11 +722,11 @@ Disassembly of section .ARM.attributes:
   14:	2d786574 	cfldr64cs	mvdx6, [r8, #-464]!	; 0xfffffe30
   18:	06003841 	streq	r3, [r0], -r1, asr #16
   1c:	0841070a 	stmdaeq	r1, {r1, r3, r8, r9, sl}^
-  20:	0a020901 	beq	8242c <.LC0+0x81d44>
+  20:	0a020901 	beq	8242c <_start-0x7ff7dbd4>
   24:	12010c03 	andne	r0, r1, #768	; 0x300
   28:	15011404 	strne	r1, [r1, #-1028]	; 0x404
   2c:	18031701 	stmdane	r3, {r0, r8, r9, sl, ip}
-  30:	1b021a01 	blne	8683c <.LC0+0x86154>
+  30:	1b021a01 	blne	8683c <_start-0x7ff797c4>
   34:	22011c03 	andcs	r1, r1, #768	; 0x300
   38:	Address 0x0000000000000038 is out of bounds.
 
@@ -739,7 +734,7 @@ Disassembly of section .ARM.attributes:
 Disassembly of section .comment:
 
 00000000 <.comment>:
-   0:	3a434347 	bcc	10d0d24 <.LC0+0x10d063c>
+   0:	3a434347 	bcc	10d0d24 <_start-0x7ef2f2dc>
    4:	62552820 	subsvs	r2, r5, #32, 16	; 0x200000
    8:	75746e75 	ldrbvc	r6, [r4, #-3701]!	; 0xe75
    c:	6e694c2f 	cdpvs	12, 6, cr4, cr9, cr15, {1}
@@ -762,8 +757,8 @@ Disassembly of section .debug_info:
       10:	00092201 	andeq	r2, r9, r1, lsl #4
       14:	00030600 	andeq	r0, r3, r0, lsl #12
       18:	00006c00 	andeq	r6, r0, r0, lsl #24
-      1c:	0001ac00 	andeq	sl, r1, r0, lsl #24
-      20:	00000000 	andeq	r0, r0, r0
+      1c:	0001ac80 	andeq	sl, r1, r0, lsl #25
+      20:	00000080 	andeq	r0, r0, r0, lsl #1
       24:	062f0200 	strteq	r0, [pc], -r0, lsl #4
       28:	04020000 	streq	r0, [r2], #-0
       2c:	00000030 	andeq	r0, r0, r0, lsr r0
@@ -782,332 +777,214 @@ Disassembly of section .debug_info:
       60:	8f060000 	svchi	0x00060000
       64:	80000005 	andhi	r0, r0, r5
       68:	04a78080 	strteq	r8, [r7], #128	; 0x80
-#include "clock.h"
-
-void CM_SetClk(CLK_MODULE_t module, CM_PER_REG reg, unsigned int value)
-{
       6c:	00061306 	andeq	r1, r6, r6, lsl #6
       70:	80888000 	addhi	r8, r8, r0
       74:	110604a7 	smlatbne	r6, r7, r4, r0
       78:	80000007 	andhi	r0, r0, r7
       7c:	04a7808a 	strteq	r8, [r7], #138	; 0x8a
       80:	00082306 	andeq	r2, r8, r6, lsl #6
-
-	PUT32(module+reg, value);
       84:	808c8000 	addhi	r8, ip, r0
       88:	190604a7 	stmdbne	r6, {r0, r1, r2, r5, r7, sl}
       8c:	80000008 	andhi	r0, r0, r8
       90:	04a7808e 	strteq	r8, [r7], #142	; 0x8e
       94:	0001e706 	andeq	lr, r1, r6, lsl #14
-}
       98:	80908000 	addshi	r8, r0, r0
       9c:	870604a7 	strhi	r0, [r6, -r7, lsr #9]
       a0:	80000008 	andhi	r0, r0, r8
-
-unsigned int CM_GetClk(CLK_MODULE_t module, CM_PER_REG reg)
-{
       a4:	04a78092 	strteq	r8, [r7], #146	; 0x92
       a8:	0005eb06 	andeq	lr, r5, r6, lsl #22
       ac:	80948000 	addshi	r8, r4, r0
       b0:	020004a7 	andeq	r0, r0, #-1493172224	; 0xa7000000
       b4:	00000ab0 			; <UNDEFINED> instruction: 0x00000ab0
-	return GET32(module+reg);
       b8:	005a1403 	subseq	r1, sl, r3, lsl #8
       bc:	04050000 	streq	r0, [r5], #-0
       c0:	03ce1c03 	biceq	r1, lr, #768	; 0x300
       c4:	2e060000 	cdpcs	0, 0, cr0, cr6, cr0, {0}
-}
       c8:	00000007 	andeq	r0, r0, r7
       cc:	00053506 	andeq	r3, r5, r6, lsl #10
       d0:	94060400 	strls	r0, [r6], #-1024	; 0x400
       d4:	08000000 	stmdaeq	r0, {}	; <UNPREDICTABLE>
-
-void Init_UART0_Clk()
-{
       d8:	00000006 	andeq	r0, r0, r6
       dc:	48060c00 	stmdami	r6, {sl, fp}
       e0:	14000004 	strne	r0, [r0], #-4
-
-	unsigned int temp;
-	 // software-forced wake-up transition on the "always on clock domain", TRM Table 8-92
-	temp = CM_GetClk(CM_WKUP, CM_WKUP_CLKSTCTRL);		//This register enables the domain power state transition. It controls the SW supervised clock domain state transition between ON-ACTIVE and ON-INACTIVE states. It also hold one status bit per clock input of the domain
       e4:	0007dd06 	andeq	sp, r7, r6, lsl #26
       e8:	b1061800 	tstlt	r6, r0, lsl #16
       ec:	1c000005 	stcne	0, cr0, [r0], {5}
       f0:	00007f06 	andeq	r7, r0, r6, lsl #30
       f4:	d6062400 	strle	r2, [r6], -r0, lsl #8
-	temp &= ~(0x3);
       f8:	28000006 	stmdacs	r0, {r1, r2}
       fc:	0007c606 	andeq	ip, r7, r6, lsl #12
      100:	66062c00 	strvs	r2, [r6], -r0, lsl #24
-	temp |= (0x2);
      104:	30000009 	andcc	r0, r0, r9
      108:	00001406 	andeq	r1, r0, r6, lsl #8
      10c:	df063400 	svcle	0x00063400
-	CM_SetClk(CM_WKUP, CM_WKUP_CLKSTCTRL, temp);		//0x2=SW_WKUP
      110:	38000000 	stmdacc	r0, {}	; <UNPREDICTABLE>
      114:	0001ee06 	andeq	lr, r1, r6, lsl #28
-     118:	ea063c00 	b	18f120 <.LC0+0x18ea38>
+     118:	ea063c00 	b	18f120 <_start-0x7fe70ee0>
      11c:	c0000006 	andgt	r0, r0, r6
      120:	029b0600 	addseq	r0, fp, #0, 12
-
-	// software-forced wake up transition on the L4 high speed domain
-	temp = CM_GetClk(CM_PER, CM_PER_L4HS_CLKSTCTRL);	//This register enables the domain power state transition. It controls the SW supervised clock domain state transition between ON-ACTIVE and ON-INACTIVE states. It also hold one status bit per clock input of the domain
      124:	00c40000 	sbceq	r0, r4, r0
      128:	00021606 	andeq	r1, r2, r6, lsl #12
      12c:	0600c800 	streq	ip, [r0], -r0, lsl #16
      130:	0000002a 	andeq	r0, r0, sl, lsr #32
-     134:	ca0600cc 	bgt	18046c <.LC0+0x17fd84>
-	temp &= ~(0x3);
+     134:	ca0600cc 	bgt	18046c <_start-0x7fe7fb94>
      138:	d0000003 	andle	r0, r0, r3
      13c:	05210600 	streq	r0, [r1, #-1536]!	; 0x600
      140:	00e00000 	rsceq	r0, r0, r0
-	temp |= (0x2);
      144:	0001d306 	andeq	sp, r1, r6, lsl #6
      148:	0600e400 	streq	lr, [r0], -r0, lsl #8
      14c:	00000069 	andeq	r0, r0, r9, rrx
-	CM_SetClk(CM_PER, CM_PER_L4HS_CLKSTCTRL, temp);		//0x2=SW_WKUP
-     150:	db0600e8 	blle	1804f8 <.LC0+0x17fe10>
+     150:	db0600e8 	blle	1804f8 <_start-0x7fe7fb08>
      154:	ec000009 	stc	0, cr0, [r0], {9}
-     158:	0a840600 	beq	fe101960 <.LC0+0xfe101278>
+     158:	0a840600 	beq	fe101960 <.LC0+0x7e101278>
      15c:	00f00000 	rscseq	r0, r0, r0
      160:	0002af06 	andeq	sl, r2, r6, lsl #30
-
-	// Module is explicitly enabled,    TRM Table 8-137
-	temp = CM_GetClk(CM_WKUP, CM_WKUP_UART0_CLKCTRL);		//This register enables the domain power state transition. It controls the SW supervised clock domain state transition between ON-ACTIVE and ON-INACTIVE states. It also hold one status bit per clock input of the domain
      164:	0600f400 	streq	pc, [r0], -r0, lsl #8
      168:	00000054 	andeq	r0, r0, r4, asr r0
-     16c:	7b0600f8 	blvc	180554 <.LC0+0x17fe6c>
+     16c:	7b0600f8 	blvc	180554 <_start-0x7fe7faac>
      170:	fc000004 	stc2	0, cr0, [r0], {4}
      174:	02560600 	subseq	r0, r6, #0, 12
-	temp &= ~(0x3);
      178:	01800000 	orreq	r0, r0, r0
      17c:	0002c406 	andeq	ip, r2, r6, lsl #8
      180:	06018400 	streq	r8, [r1], -r0, lsl #8
-	temp |= (0x2);
      184:	00000371 	andeq	r0, r0, r1, ror r3
      188:	83060188 	movwhi	r0, #24968	; 0x6188
      18c:	ac000006 	stcge	0, cr0, [r0], {6}
-	CM_SetClk(CM_WKUP, CM_WKUP_UART0_CLKCTRL, temp);		//0x2=SW_WKUP
      190:	06c10601 	strbeq	r0, [r1], r1, lsl #12
      194:	01b00000 	movseq	r0, r0
      198:	00071906 	andeq	r1, r7, r6, lsl #18
      19c:	0601b400 	streq	fp, [r1], -r0, lsl #8
      1a0:	000008a7 	andeq	r0, r0, r7, lsr #17
-*/
-	
-
-   
-
-}
      1a4:	be0601bc 	mcrlt	1, 0, r0, cr6, cr12, {5}
      1a8:	c0000001 	andgt	r0, r0, r1
-#include "control_module.h"
-
-void CM_setCtrlModule(CONTROL_MODULE_REG_t module, unsigned int value)
-{
      1ac:	03f00601 	mvnseq	r0, #1048576	; 0x100000
      1b0:	01c40000 	biceq	r0, r4, r0
      1b4:	000a5506 	andeq	r5, sl, r6, lsl #10
      1b8:	0601cc00 	streq	ip, [r1], -r0, lsl #24
      1bc:	000008f8 	strdeq	r0, [r0], -r8
-
-	PUT32(CONTROL_MODULE_REGISTER_BASE + module, value);
      1c0:	050601d0 	streq	r0, [r6, #-464]	; 0x1d0
      1c4:	d4000004 	strle	r0, [r0], #-4
      1c8:	04de0601 	ldrbeq	r0, [lr], #1537	; 0x601
      1cc:	01d80000 	bicseq	r0, r8, r0
      1d0:	000a6c06 	andeq	r6, sl, r6, lsl #24
-}
      1d4:	0601dc00 	streq	sp, [r1], -r0, lsl #24
      1d8:	000003de 	ldrdeq	r0, [r0], -lr
      1dc:	3e0601e0 	adfccdz	f0, f6, f0
-
-unsigned int CM_getCtrlModule(CONTROL_MODULE_REG_t module)
-{
      1e0:	e4000002 	str	r0, [r0], #-2
      1e4:	064b0601 	strbeq	r0, [fp], -r1, lsl #12
      1e8:	01e80000 	mvneq	r0, r0
      1ec:	0003b406 	andeq	fp, r3, r6, lsl #8
-	return GET32(CONTROL_MODULE_REGISTER_BASE + module);
      1f0:	0601ec00 	streq	lr, [r1], -r0, lsl #24
      1f4:	0000041c 	andeq	r0, r0, ip, lsl r4
      1f8:	6c0601f0 	stfvss	f0, [r6], {240}	; 0xf0
      1fc:	f4000002 	vst4.8	{d0-d3}, [r0], r2
-}
      200:	02da0601 	sbcseq	r0, sl, #1048576	; 0x100000
      204:	01f80000 	mvnseq	r0, r0
      208:	00074406 	andeq	r4, r7, r6, lsl #8
      20c:	0601fc00 	streq	pc, [r1], -r0, lsl #24
-
-void PAD_setMode(CONTROL_MODULE_REG_t module, unsigned int mode)
-{
      210:	000007b1 			; <UNDEFINED> instruction: 0x000007b1
      214:	ee060280 	cdp	2, 0, cr0, cr6, cr0, {4}
      218:	8c000002 	stchi	0, cr0, [r0], {2}
      21c:	05d30602 	ldrbeq	r0, [r3, #1538]	; 0x602
      220:	02900000 	addseq	r0, r0, #0
-	unsigned int temp = CM_getCtrlModule(0);
      224:	00003e06 	andeq	r3, r0, r6, lsl #28
      228:	06029c00 	streq	r9, [r2], -r0, lsl #24
      22c:	000008cf 	andeq	r0, r0, pc, asr #17
-	temp &= ~(0b111);    // turn down MUXMODE
-     230:	7a0602a0 	bvc	180cb8 <.LC0+0x1805d0>
+     230:	7a0602a0 	bvc	180cb8 <_start-0x7fe7f348>
      234:	ac000009 	stcge	0, cr0, [r0], {9}
      238:	04ac0602 	strteq	r0, [ip], #1538	; 0x602
-	temp |= mode;        // set new MUXMODE
      23c:	02b00000 	adcseq	r0, r0, #0
      240:	0009c106 	andeq	ip, r9, r6, lsl #2
      244:	0602c000 	streq	ip, [r2], -r0
      248:	0000082a 	andeq	r0, r0, sl, lsr #16
-	CM_setCtrlModule(module, temp);
-     24c:	ab0602c4 	blge	180d64 <.LC0+0x18067c>
+     24c:	ab0602c4 	blge	180d64 <_start-0x7fe7f29c>
      250:	c8000009 	stmdagt	r0, {r0, r3}
      254:	017c0602 	cmneq	ip, r2, lsl #12
-
-
-}
      258:	02cc0000 	sbceq	r0, ip, #0
      25c:	00059606 	andeq	r9, r5, r6, lsl #12
-
-
-
-
-void Uart0_Mux()
-{
      260:	0602d000 	streq	sp, [r2], -r0
      264:	0000092a 	andeq	r0, r0, sl, lsr #18
-
-	CM_setCtrlModule(CM_conf_uart0_rxd, (1 << 4) | (1 << 5));		//Rx muxing
      268:	03870600 	orreq	r0, r7, #0, 12
      26c:	06040000 	streq	r0, [r4], -r0
      270:	00000432 	andeq	r0, r0, r2, lsr r4
-	CM_setCtrlModule(CM_conf_uart0_txd,0);					//tx muxing
-     274:	0a990608 	beq	fe641a9c <.LC0+0xfe6413b4>
+     274:	0a990608 	beq	fe641a9c <.LC0+0x7e6413b4>
      278:	060c0000 	streq	r0, [ip], -r0
      27c:	0000094f 	andeq	r0, r0, pc, asr #18
-/*
-	PAD_setMode(CM_conf_uart0_txd, 0);
-	PAD_setMode(CM_conf_uart0_rxd, 0);
-*/
-}
      280:	085b0610 	ldmdaeq	fp, {r4, r9, sl}^
-#define CM_PER_BASE 		 0x44e00000
-#define CM_PER_GPIO1		 0xac
-
-
-void _main(void)
-{
      284:	06140000 	ldreq	r0, [r4], -r0
      288:	0000076e 	andeq	r0, r0, lr, ror #14
      28c:	08e30618 	stmiaeq	r3!, {r3, r4, r9, sl}^
-
-
-	volatile unsigned int ra;
-	char a = 'a';
      290:	061c0000 	ldreq	r0, [ip], -r0
      294:	000007f1 	strdeq	r0, [r0], -r1
-
-	PUT32(CM_PER_BASE+CM_PER_GPIO1, 1<<18 | 2);
      298:	04910620 	ldreq	r0, [r1], #1568	; 0x620
      29c:	06240000 	strteq	r0, [r4], -r0
      2a0:	00000280 	andeq	r0, r0, r0, lsl #5
      2a4:	090f0628 	stmdbeq	pc, {r3, r5, r9, sl}	; <UNPREDICTABLE>
      2a8:	062c0000 	strteq	r0, [ip], -r0
-	ra = GET32(GPIO1_BASE+GPIO_OE);
      2ac:	00000759 	andeq	r0, r0, r9, asr r7
      2b0:	011f0630 	tsteq	pc, r0, lsr r6	; <UNPREDICTABLE>
      2b4:	06340000 	ldrteq	r0, [r4], -r0
      2b8:	00000840 	andeq	r0, r0, r0, asr #16
-	ra &= ~(1<<21);
      2bc:	00aa0638 	adceq	r0, sl, r8, lsr r6
      2c0:	063c0000 	ldrteq	r0, [ip], -r0
      2c4:	00000782 	andeq	r0, r0, r2, lsl #15
-	PUT32(GPIO1_BASE+GPIO_OE, ra);
      2c8:	f00600c0 			; <UNDEFINED> instruction: 0xf00600c0
      2cc:	c4000009 	strgt	r0, [r0], #-9
      2d0:	08730600 	ldmdaeq	r3!, {r9, sl}^
      2d4:	00c80000 	sbceq	r0, r8, r0
-
-	PUT32(GPIO1_BASE+GPIO_SETDATAOUT, 1<<21);
      2d8:	0000f406 	andeq	pc, r0, r6, lsl #8
      2dc:	0600cc00 	streq	ip, [r0], -r0, lsl #24
      2e0:	00000a39 	andeq	r0, r0, r9, lsr sl
-     2e4:	7b0600d0 	blvc	18062c <.LC0+0x17ff44>
-
-	UART_init(115200,STOP1,PARITY_NONE,FLOW_OFF);
+     2e4:	7b0600d0 	blvc	18062c <_start-0x7fe7f9d4>
      2e8:	d4000005 	strle	r0, [r0], #-5
      2ec:	01950600 	orrseq	r0, r5, r0, lsl #12
      2f0:	00d80000 	sbcseq	r0, r8, r0
      2f4:	00061b06 	andeq	r1, r6, r6, lsl #22
      2f8:	0600dc00 	streq	sp, [r0], -r0, lsl #24
      2fc:	0000045f 	andeq	r0, r0, pc, asr r4
-
-	UART_putString("UART0 Initialized...\n",21);
      300:	950600e0 	strls	r0, [r6, #-224]	; 0xe0
      304:	e4000007 	str	r0, [r0], #-7
      308:	02020600 	andeq	r0, r2, #0, 12
      30c:	00e80000 	rsceq	r0, r8, r0
-
-}
      310:	00013206 	andeq	r3, r1, r6, lsl #4
      314:	0600ec00 	streq	lr, [r0], -r0, lsl #24
-#include "uart_console_header.h"
-#include "clock.h"
-#include "control_module.h"
-
-void GPIO_init()
-{
      318:	00000638 	andeq	r0, r0, r8, lsr r6
-     31c:	5b0600f0 	blpl	1806e4 <.LC0+0x17fffc>
+     31c:	5b0600f0 	blpl	1806e4 <_start-0x7fe7f91c>
      320:	f4000001 	vst4.8	{d0-d3}, [r0], r1
-	unsigned int setting = (1<<18) | (0x2<<0);
-     324:	0a060600 	beq	181b2c <.LC0+0x181444>
+     324:	0a060600 	beq	181b2c <_start-0x7fe7e4d4>
      328:	00f80000 	rscseq	r0, r8, r0
      32c:	00069806 	andeq	r9, r6, r6, lsl #16
-	CM_SetClk(CM_PER, CM_PER_GPIO1_CLKCTRL, setting);
      330:	0600fc00 	streq	pc, [r0], -r0, lsl #24
      334:	0000022a 	andeq	r0, r0, sl, lsr #4
      338:	47060180 	strmi	r0, [r6, -r0, lsl #3]
      33c:	84000001 	strhi	r0, [r0], #-1
      340:	06fd0601 	ldrbteq	r0, [sp], r1, lsl #12
-	while((CM_GetClk(CM_PER, CM_PER_GPIO1_CLKCTRL) & (0x3<<16)) != 0);
      344:	01880000 	orreq	r0, r8, r0
      348:	00066f06 	andeq	r6, r6, r6, lsl #30
      34c:	06018c00 	streq	r8, [r1], -r0, lsl #24
      350:	00000352 	andeq	r0, r0, r2, asr r3
-     354:	4a060190 	bmi	18099c <.LC0+0x1802b4>
+     354:	4a060190 	bmi	18099c <_start-0x7fe7f664>
      358:	94000005 	strls	r0, [r0], #-5
      35c:	08040601 	stmdaeq	r4, {r0, r9, sl}
      360:	01980000 	orrseq	r0, r8, r0
      364:	00050b06 	andeq	r0, r5, r6, lsl #22
-
-}
      368:	06019c00 	streq	r9, [r1], -r0, lsl #24
      36c:	00000ad2 	ldrdeq	r0, [r0], -r2
-
-
-void Uart0_Reset(unsigned int baudrate) 
-{
-     370:	bb0601a0 	bllt	1809f8 <.LC0+0x180310>
+     370:	bb0601a0 	bllt	1809f8 <_start-0x7fe7f608>
      374:	a4000008 	strge	r0, [r0], #-8
      378:	01ab0601 			; <UNDEFINED> instruction: 0x01ab0601
      37c:	01a80000 			; <UNDEFINED> instruction: 0x01a80000
-	unsigned int temp = GET32(UART0+SYSC);
      380:	00093c06 	andeq	r3, r9, r6, lsl #24
      384:	0601ac00 	streq	sl, [r1], -r0, lsl #24
      388:	0000033a 	andeq	r0, r0, sl, lsr r3
      38c:	f50601b0 			; <UNDEFINED> instruction: 0xf50601b0
-	temp |= 0x2;
      390:	b4000004 	strlt	r0, [r0], #-4
-     394:	0abd0601 	beq	fef41ba0 <.LC0+0xfef414b8>
+     394:	0abd0601 	beq	fef41ba0 <.LC0+0x7ef414b8>
      398:	01b80000 			; <UNDEFINED> instruction: 0x01b80000
-	PUT32(UART0+SYSC, temp);				//Uart soft reset
      39c:	000a2106 	andeq	r2, sl, r6, lsl #2
      3a0:	0601bc00 	streq	fp, [r1], -r0, lsl #24
      3a4:	000004c1 	andeq	r0, r0, r1, asr #9
      3a8:	940601c0 	strls	r0, [r6], #-448	; 0x1c0
-	while(((GET32(UART0+SYSS)) & 0x1) == 0);		//Wait till reset is complete
      3ac:	c4000009 	strgt	r0, [r0], #-9
      3b0:	055e0601 	ldrbeq	r0, [lr, #-1537]	; 0x601
      3b4:	01c80000 	biceq	r0, r8, r0
@@ -1115,25 +992,19 @@ void Uart0_Reset(unsigned int baudrate)
      3bc:	0601cc00 	streq	ip, [r1], -r0, lsl #24
      3c0:	0000039f 	muleq	r0, pc, r3	; <UNPREDICTABLE>
      3c4:	ff0601d4 			; <UNDEFINED> instruction: 0xff0601d4
-
-	temp = GET8(UART0+SYSC);
      3c8:	d8000005 	stmdale	r0, {r0, r2}
      3cc:	c5020001 	strgt	r0, [r2, #-1]
      3d0:	03000000 	movweq	r0, #0
      3d4:	0000be93 	muleq	r0, r3, lr
      3d8:	67010700 	strvs	r0, [r1, -r0, lsl #14]
-	temp |= (0x1 << 0x3);
      3dc:	01000003 	tsteq	r0, r3
      3e0:	006c0103 	rsbeq	r0, ip, r3, lsl #2
-     3e4:	00a40000 	adceq	r0, r4, r0
-	PUT8(UART0+SYSC, temp);				//No idle
-     3e8:	00000000 	andeq	r0, r0, r0
+     3e4:	00a48000 	adceq	r8, r4, r0
+     3e8:	00008000 	andeq	r8, r0, r0
      3ec:	1e010000 	cdpne	0, 0, cr0, cr1, cr0, {0}
      3f0:	08000004 	stmdaeq	r0, {r2}
      3f4:	00001760 	andeq	r1, r0, r0, ror #14
      3f8:	00b30301 	adcseq	r0, r3, r1, lsl #6
-
-	while(((GET32(UART0+LSR) & 0x40) !=0x40));    		// wait for txfifo to be empty
      3fc:	91020000 	mrsls	r0, (UNDEF: 2)
      400:	65720974 	ldrbvs	r0, [r2, #-2420]!	; 0x974
      404:	03010067 	movweq	r0, #4199	; 0x1067
@@ -1141,103 +1012,80 @@ void Uart0_Reset(unsigned int baudrate)
      40c:	08709102 	ldmdaeq	r0!, {r1, r8, ip, pc}^
      410:	00000176 	andeq	r0, r0, r6, ror r1
      414:	00300301 	eorseq	r0, r0, r1, lsl #6
-	float div = 48000000.0/(16.0*(float)baudrate);
      418:	91020000 	mrsls	r0, (UNDEF: 2)
      41c:	010a006c 	tsteq	sl, ip, rrx
      420:	000005f5 	strdeq	r0, [r0], -r5
      424:	30010901 	andcc	r0, r1, r1, lsl #18
      428:	a4000000 	strge	r0, [r0], #-0
-     42c:	d8000000 	stmdale	r0, {}	; <UNPREDICTABLE>
-     430:	2c000000 	stccs	0, cr0, [r0], {-0}
+     42c:	d8800000 	stmle	r0, {}	; <UNPREDICTABLE>
+     430:	2c800000 	stccs	0, cr0, [r0], {0}
      434:	01000000 	mrseq	r0, (UNDEF: 0)
      438:	00000459 	andeq	r0, r0, r9, asr r4
-	unsigned int intdiv = (unsigned int) div; 
      43c:	00176008 	andseq	r6, r7, r8
      440:	b3090100 	movwlt	r0, #37120	; 0x9100
      444:	02000000 	andeq	r0, r0, #0
-	/* UART Interrupt Enable Register */
-	PUT8(UART0+IER, 0);					//Disable uart interrupts
      448:	72097491 	andvc	r7, r9, #-1862270976	; 0x91000000
      44c:	01006765 	tsteq	r0, r5, ror #14
      450:	0003ce09 	andeq	ip, r3, r9, lsl #28
      454:	70910200 	addsvc	r0, r1, r0, lsl #4
-	PUT8(UART0+MDR1,0x7);        // Disable modeselect (default) TRM table 19-50
      458:	d0010b00 	andle	r0, r1, r0, lsl #22
      45c:	01000000 	mrseq	r0, (UNDEF: 0)
      460:	0000d80e 	andeq	sp, r0, lr, lsl #16
-     464:	0001ac00 	andeq	sl, r1, r0, lsl #24
-	PUT8(UART0+LCR,~(0x7C));    // divisor latch enable, access DLL DHL, set uart as 8bit
-     468:	00005800 	andeq	r5, r0, r0, lsl #16
+     464:	0001ac80 	andeq	sl, r1, r0, lsl #25
+     468:	00005880 	andeq	r5, r0, r0, lsl #17
      46c:	100c0100 	andne	r0, ip, r0, lsl #2
      470:	01000001 	tsteq	r0, r1
      474:	00003011 	andeq	r3, r0, r1, lsl r0
-	PUT8(UART0+RHR,0);          // DLL = 0
      478:	74910200 	ldrvc	r0, [r1], #512	; 0x200
      47c:	07150000 	ldreq	r0, [r5, -r0]
      480:	00020000 	andeq	r0, r2, r0
      484:	000000c6 	andeq	r0, r0, r6, asr #1
-	PUT8(UART0+IER,0);          // DHL = 0
      488:	06630104 	strbteq	r0, [r3], -r4, lsl #2
      48c:	85010000 	strhi	r0, [r1, #-0]
      490:	0600000b 	streq	r0, [r0], -fp
      494:	ac000003 	stcge	0, cr0, [r0], {3}
-	PUT8(UART0+LCR,0x3);        // set uart as 8bit
-     498:	84000001 	strhi	r0, [r0], #-1
-     49c:	60000002 	andvs	r0, r0, r2
+     498:	84800001 	strhi	r0, [r0], #1
+     49c:	60800002 	addvs	r0, r0, r2
      4a0:	02000000 	andeq	r0, r0, #0
      4a4:	0000062f 	andeq	r0, r0, pc, lsr #12
-	PUT8(UART0+MCR,0x3);        // force /rts & /drt to active (low) (?!)
      4a8:	00300402 	eorseq	r0, r0, r2, lsl #8
      4ac:	04030000 	streq	r0, [r3], #-0
      4b0:	0006b407 	andeq	fp, r6, r7, lsl #8
      4b4:	07020300 	streq	r0, [r2, -r0, lsl #6]
-	PUT8(UART0+FCR,0x7);        // clear rx&tx FIFOs, and enables them (each 64 bytes deep)
      4b8:	000006ae 	andeq	r0, r0, lr, lsr #13
      4bc:	c5080103 	strgt	r0, [r8, #-259]	; 0x103
      4c0:	04000005 	streq	r0, [r0], #-5
      4c4:	6e690504 	cdpvs	5, 6, cr0, cr9, cr4, {0}
-	PUT8(UART0+LCR,~(0x7C));    // divisor latch enable, access DLL DHL, set uart as 8bit
      4c8:	02030074 	andeq	r0, r3, #116	; 0x74
      4cc:	00011505 	andeq	r1, r1, r5, lsl #10
      4d0:	08010300 	stmdaeq	r1, {r8, r9}
      4d4:	000005ce 	andeq	r0, r0, lr, asr #11
-	PUT8(UART0+RHR,intdiv&0xFF);          // DLL = 0
      4d8:	09030405 	stmdbeq	r3, {r0, r2, sl}
      4dc:	0000064f 	andeq	r0, r0, pc, asr #12
      4e0:	00175506 	andseq	r5, r7, r6, lsl #10
      4e4:	2c060000 	stccs	0, cr0, [r6], {-0}
      4e8:	04000013 	streq	r0, [r0], #-19
-	PUT8(UART0+IER,(intdiv>>8)&0x3F);          // DHL = 0
      4ec:	00189906 	andseq	r9, r8, r6, lsl #18
      4f0:	43061000 	movwmi	r1, #24576	; 0x6000
      4f4:	c000001a 	andgt	r0, r0, sl, lsl r0
-     4f8:	1abe0600 	bne	fef81d00 <.LC0+0xfef81618>
+     4f8:	1abe0600 	bne	fef81d00 <.LC0+0x7ef81618>
      4fc:	02900000 	addseq	r0, r0, #0
      500:	00115506 	andseq	r5, r1, r6, lsl #10
      504:	06089c00 	streq	r9, [r8], -r0, lsl #24
      508:	00001a8b 	andeq	r1, r0, fp, lsl #21
-
-
-	PUT8(UART0+LCR,0x3);        // set uart as 8 bit
      50c:	6e0608a8 	cdpvs	8, 0, cr0, cr6, cr8, {5}
      510:	ac00000f 	stcge	0, cr0, [r0], {15}
      514:	16f00608 	ldrbtne	r0, [r0], r8, lsl #12
      518:	08c40000 	stmiaeq	r4, {}^	; <UNPREDICTABLE>
-	PUT8(UART0+MDR1,0);          // uart 16x oversampling
      51c:	000d1e06 	andeq	r1, sp, r6, lsl #28
      520:	0608c800 	streq	ip, [r8], -r0, lsl #16
      524:	000011df 	ldrdeq	r1, [r0], -pc	; <UNPREDICTABLE>
      528:	a50608cc 	strge	r0, [r6, #-2252]	; 0x8cc
-
-}
      52c:	d8000019 	stmdale	r0, {r0, r3, r4}
      530:	14f70608 	ldrbtne	r0, [r7], #1544	; 0x608
      534:	08e80000 	stmiaeq	r8!, {}^	; <UNPREDICTABLE>
      538:	00106806 	andseq	r6, r0, r6, lsl #16
      53c:	0608f000 	streq	pc, [r8], -r0
-
-void UART_init(unsigned int baudrate, STOP_BIT_t stopBit, PARITY_BIT_t parity, FLOW_t flowControl) 
-{
      540:	00000f25 	andeq	r0, r0, r5, lsr #30
      544:	6c060a8c 	stcvs	10, cr0, [r6], {140}	; 0x8c
      548:	80000017 	andhi	r0, r0, r7, lsl r0
@@ -1245,42 +1093,22 @@ void UART_init(unsigned int baudrate, STOP_BIT_t stopBit, PARITY_BIT_t parity, F
      550:	0c840000 	stceq	0, cr0, [r4], {0}
      554:	000f3b06 	andeq	r3, pc, r6, lsl #22
      558:	060c8800 	streq	r8, [ip], -r0, lsl #16
-
-	//	GPIO_init();
-
-	//UART mux config
-	Uart0_Mux();
      55c:	00001779 	andeq	r1, r0, r9, ror r7
-
-	//Init clock and muxing of pins
-	Init_UART0_Clk();
      560:	61060c8c 	smlabbvs	r6, ip, ip, r0
-
-	//Uart soft reset
-	Uart0_Reset(baudrate);
      564:	90000019 	andls	r0, r0, r9, lsl r0
      568:	1216060c 	andsne	r0, r6, #12, 12	; 0xc00000
-}
      56c:	0c940000 	ldceq	0, cr0, [r4], {0}
      570:	0018f206 	andseq	pc, r8, r6, lsl #4
-
-void UART_putC( char c)
-{
      574:	060ca000 	streq	sl, [ip], -r0
      578:	0000178c 	andeq	r1, r0, ip, lsl #15
      57c:	ff060ca4 			; <UNDEFINED> instruction: 0xff060ca4
      580:	a8000018 	stmdage	r0, {r3, r4}
      584:	1798060c 	ldrne	r0, [r8, ip, lsl #12]
-
-	if (c == '\n')
      588:	0cac0000 	stceq	0, cr0, [ip]
      58c:	00130a06 	andseq	r0, r3, r6, lsl #20
      590:	060cb000 	streq	fp, [ip], -r0
-		UART_putC('\r');
      594:	00001ab0 			; <UNDEFINED> instruction: 0x00001ab0
-     598:	aa060cb4 	bge	183870 <.LC0+0x183188>
-
-	while((GET8(UART0+0x14)&0x20)!=0x20)	//wait until txfifo is empty
+     598:	aa060cb4 	bge	183870 <_start-0x7fe7c790>
      59c:	b8000011 	stmdalt	r0, {r0, r4}
      5a0:	1249060c 	subne	r0, r9, #12, 12	; 0xc00000
      5a4:	0cbc0000 	ldceq	0, cr0, [ip]
@@ -1289,22 +1117,14 @@ void UART_putC( char c)
      5b0:	0000192c 	andeq	r1, r0, ip, lsr #18
      5b4:	cf060cc8 	svcgt	0x00060cc8
      5b8:	d0000016 	andle	r0, r0, r6, lsl r0
-		;
-
-
-	PUT8(UART0 +0,c);
-     5bc:	0bc2060c 	bleq	ff081df4 <.LC0+0xff08170c>
+     5bc:	0bc2060c 	bleq	ff081df4 <.LC0+0x7f08170c>
      5c0:	0ce40000 	stcleq	0, cr0, [r4]
      5c4:	000d7a06 	andeq	r7, sp, r6, lsl #20
      5c8:	060cf000 	streq	pc, [ip], -r0
-}
      5cc:	0000140f 	andeq	r1, r0, pc, lsl #8
      5d0:	14060cf4 	strne	r0, [r6], #-3316	; 0xcf4
-char UART_getC()
-{
      5d4:	90000010 	andls	r0, r0, r0, lsl r0
      5d8:	1029060d 	eorne	r0, r9, sp, lsl #12
-	while((GET8(UART0+0x14)&0x1)==0);     //wait for a character to be in the rx fifo
      5dc:	0d940000 	ldceq	0, cr0, [r4]
      5e0:	00103e06 	andseq	r3, r0, r6, lsl #28
      5e4:	060d9800 	streq	r9, [sp], -r0, lsl #16
@@ -1313,107 +1133,68 @@ char UART_getC()
      5f0:	a000000e 	andge	r0, r0, lr
      5f4:	1295060d 	addsne	r0, r5, #13631488	; 0xd00000
      5f8:	0da40000 	stceq	0, cr0, [r4]
-	return GET8(UART0+0x0);
      5fc:	0012f506 	andseq	pc, r2, r6, lsl #10
      600:	060da800 	streq	sl, [sp], -r0, lsl #16
      604:	0000116b 	andeq	r1, r0, fp, ror #2
-     608:	6b060ef0 	blvs	1841d0 <.LC0+0x183ae8>
-}
+     608:	6b060ef0 	blvs	1841d0 <_start-0x7fe7be30>
      60c:	f4000013 	vst4.8	{d0-d3}, [r0 :64], r3
      610:	17b7060e 	ldrne	r0, [r7, lr, lsl #12]!
      614:	0ef80000 	cdpeq	0, 15, cr0, cr8, cr0, {0}
      618:	00155106 	andseq	r5, r5, r6, lsl #2
-
-int UART_putString(char *str, unsigned int length)
-{ 
      61c:	060efc00 	streq	pc, [lr], -r0, lsl #24
      620:	000011cb 	andeq	r1, r0, fp, asr #3
      624:	e7060fb8 			; <UNDEFINED> instruction: 0xe7060fb8
      628:	bc000013 	stclt	0, cr0, [r0], {19}
      62c:	0dde060f 	ldcleq	6, cr0, [lr, #60]	; 0x3c
-	int i = 0;
      630:	0fd00000 	svceq	0x00d00000
      634:	00190c06 	andseq	r0, r9, r6, lsl #24
-	while( i < length)
      638:	060ff400 	streq	pc, [pc], -r0, lsl #8
-	{   
-		UART_putC(str[i]);
      63c:	00000be1 	andeq	r0, r0, r1, ror #23
      640:	37060ffc 			; <UNDEFINED> instruction: 0x37060ffc
      644:	8000000c 	andhi	r0, r0, ip
      648:	0c480610 	mcrreq	6, 1, r0, r8, cr0
      64c:	10840000 	addne	r0, r4, r0
      650:	000c5906 	andeq	r5, ip, r6, lsl #18
-		i++;
      654:	06108800 	ldreq	r8, [r0], -r0, lsl #16
      658:	00000c6a 	andeq	r0, r0, sl, ror #24
-     65c:	7b06108c 	blvc	184894 <.LC0+0x1841ac>
-}
-
-int UART_putString(char *str, unsigned int length)
-{ 
-	int i = 0;
-	while( i < length)
+     65c:	7b06108c 	blvc	184894 <_start-0x7fe7b76c>
      660:	9000000c 	andls	r0, r0, ip
      664:	0c8c0610 	stceq	6, cr0, [ip], {16}
      668:	10940000 	addsne	r0, r4, r0
      66c:	000c9d06 	andeq	r9, ip, r6, lsl #26
-	{   
-		UART_putC(str[i]);
-		i++;
-	}   
-	return length;
      670:	06109800 	ldreq	r9, [r0], -r0, lsl #16
-}
      674:	00000cae 	andeq	r0, r0, lr, lsr #25
      678:	bf06109c 	svclt	0x0006109c
      67c:	a000000c 	andge	r0, r0, ip
-
-int UART_getString(char *buf, unsigned int length)
-{
      680:	0cd00610 	ldcleq	6, cr0, [r0], {16}
      684:	10a40000 	adcne	r0, r4, r0
      688:	001a1f06 	andseq	r1, sl, r6, lsl #30
      68c:	0610a800 	ldreq	sl, [r0], -r0, lsl #16
      690:	00001a31 	andeq	r1, r0, r1, lsr sl
-	for(int i = 0; i < length; i ++)
      694:	e20610ac 	and	r1, r6, #172	; 0xac
      698:	b0000019 	andlt	r0, r0, r9, lsl r0
-     69c:	1a550610 	bne	1541ee4 <.LC0+0x15417fc>
-	{
-		buf[i] = UART_getC();
+     69c:	1a550610 	bne	1541ee4 <_start-0x7eabe11c>
      6a0:	10b40000 	adcsne	r0, r4, r0
      6a4:	001a6706 	andseq	r6, sl, r6, lsl #14
      6a8:	0610b800 	ldreq	fp, [r0], -r0, lsl #16
      6ac:	00001a79 	andeq	r1, r0, r9, ror sl
      6b0:	e50610bc 	str	r1, [r6, #-188]	; 0xbc
      6b4:	c000000a 	andgt	r0, r0, sl
-	return length;
-}
-
-int UART_getString(char *buf, unsigned int length)
-{
-	for(int i = 0; i < length; i ++)
-     6b8:	0af50610 	beq	ffd41f00 <.LC0+0xffd41818>
+     6b8:	0af50610 	beq	ffd41f00 <.LC0+0x7fd41818>
      6bc:	10c40000 	sbcne	r0, r4, r0
      6c0:	000b0506 	andeq	r0, fp, r6, lsl #10
      6c4:	0610c800 	ldreq	ip, [r0], -r0, lsl #16
      6c8:	00000b15 	andeq	r0, r0, r5, lsl fp
      6cc:	250610cc 	strcs	r1, [r6, #-204]	; 0xcc
      6d0:	d000000b 	andle	r0, r0, fp
-	{
-		buf[i] = UART_getC();
-	}
-	return length;
-     6d4:	0b350610 	bleq	d41f1c <.LC0+0xd41834>
-}
+     6d4:	0b350610 	bleq	d41f1c <_start-0x7f2be0e4>
      6d8:	10d40000 	sbcsne	r0, r4, r0
      6dc:	000b4506 	andeq	r4, fp, r6, lsl #10
      6e0:	0610d800 	ldreq	sp, [r0], -r0, lsl #16
      6e4:	00000b55 	andeq	r0, r0, r5, asr fp
      6e8:	650610dc 	strvs	r1, [r6, #-220]	; 0xdc
      6ec:	e000000b 	and	r0, r0, fp
-     6f0:	0b750610 	bleq	1d41f38 <.LC0+0x1d41850>
+     6f0:	0b750610 	bleq	1d41f38 <_start-0x7e2be0c8>
      6f4:	10e40000 	rscne	r0, r4, r0
      6f8:	00112b06 	andseq	r2, r1, r6, lsl #22
      6fc:	0610e800 	ldreq	lr, [r0], -r0, lsl #16
@@ -1432,7 +1213,7 @@ int UART_getString(char *buf, unsigned int length)
      730:	000c1206 	andeq	r1, ip, r6, lsl #4
      734:	06118800 	ldreq	r8, [r1], -r0, lsl #16
      738:	000015e4 	andeq	r1, r0, r4, ror #11
-     73c:	fa06118c 	blx	184d74 <.LC0+0x18468c>
+     73c:	fa06118c 	blx	184d74 <_start-0x7fe7b28c>
      740:	9000000e 	andls	r0, r0, lr
      744:	161a0611 			; <UNDEFINED> instruction: 0x161a0611
      748:	11940000 	orrsne	r0, r4, r0
@@ -1467,7 +1248,7 @@ int UART_getString(char *buf, unsigned int length)
      7bc:	0017a406 	andseq	sl, r7, r6, lsl #8
      7c0:	0611d800 	ldreq	sp, [r1], -r0, lsl #16
      7c4:	00000d88 	andeq	r0, r0, r8, lsl #27
-     7c8:	db0611dc 	blle	184f40 <.LC0+0x184858>
+     7c8:	db0611dc 	blle	184f40 <_start-0x7fe7b0c0>
      7cc:	e000001a 	and	r0, r0, sl, lsl r0
      7d0:	14e50611 	strbtne	r0, [r5], #1553	; 0x611
      7d4:	11e40000 	mvnne	r0, r0
@@ -1502,7 +1283,7 @@ int UART_getString(char *buf, unsigned int length)
      848:	00162f06 	andseq	r2, r6, r6, lsl #30
      84c:	0612a800 	ldreq	sl, [r2], -r0, lsl #16
      850:	00000f5a 	andeq	r0, r0, sl, asr pc
-     854:	fb0612ac 	blx	18530e <.LC0+0x184c26>
+     854:	fb0612ac 	blx	18530e <_start-0x7fe7acf2>
      858:	b0000013 	andlt	r0, r0, r3, lsl r0
      85c:	196c0612 	stmdbne	ip!, {r1, r4, r9, sl}^
      860:	12b40000 	adcsne	r0, r4, #0
@@ -1530,21 +1311,21 @@ int UART_getString(char *buf, unsigned int length)
      8b8:	0018df06 	andseq	sp, r8, r6, lsl #30
      8bc:	0612e800 	ldreq	lr, [r2], -r0, lsl #16
      8c0:	00000ece 	andeq	r0, r0, lr, asr #29
-     8c4:	6b0612ec 	blvs	18547c <.LC0+0x184d94>
+     8c4:	6b0612ec 	blvs	18547c <_start-0x7fe7ab84>
      8c8:	f0000014 			; <UNDEFINED> instruction: 0xf0000014
      8cc:	15b70612 	ldrne	r0, [r7, #1554]!	; 0x612
      8d0:	12f40000 	rscsne	r0, r4, #0
      8d4:	001a9d06 	andseq	r9, sl, r6, lsl #26
      8d8:	0612f800 	ldreq	pc, [r2], -r0, lsl #16
      8dc:	000010a1 	andeq	r1, r0, r1, lsr #1
-     8e0:	7b0612fc 	blvc	1854d8 <.LC0+0x184df0>
+     8e0:	7b0612fc 	blvc	1854d8 <_start-0x7fe7ab28>
      8e4:	80000015 	andhi	r0, r0, r5, lsl r0
      8e8:	117e0613 	cmnne	lr, r3, lsl r6
      8ec:	13840000 	orrne	r0, r4, #0
      8f0:	001b0906 	andseq	r0, fp, r6, lsl #18
      8f4:	06138800 	ldreq	r8, [r3], -r0, lsl #16
      8f8:	0000191b 	andeq	r1, r0, fp, lsl r9
-     8fc:	0a06138c 	beq	185734 <.LC0+0x18504c>
+     8fc:	0a06138c 	beq	185734 <_start-0x7fe7a8cc>
      900:	9000001a 	andls	r0, r0, sl, lsl r0
      904:	12030613 	andne	r0, r3, #19922944	; 0x1300000
      908:	13940000 	orrsne	r0, r4, #0
@@ -1579,7 +1360,7 @@ int UART_getString(char *buf, unsigned int length)
      97c:	000f8c06 	andeq	r8, pc, r6, lsl #24
      980:	0613e800 	ldreq	lr, [r3], -r0, lsl #16
      984:	00001233 	andeq	r1, r0, r3, lsr r2
-     988:	8b0613f8 	blhi	185970 <.LC0+0x185288>
+     988:	8b0613f8 	blhi	185970 <_start-0x7fe7a690>
      98c:	fc000010 	stc2	0, cr0, [r0], {16}
      990:	12570613 	subsne	r0, r7, #19922944	; 0x1300000
      994:	14800000 	strne	r0, [r0], #0
@@ -1614,14 +1395,14 @@ int UART_getString(char *buf, unsigned int length)
      a08:	000da806 	andeq	sl, sp, r6, lsl #16
      a0c:	061fb400 	ldreq	fp, [pc], -r0, lsl #8
      a10:	000013cc 	andeq	r1, r0, ip, asr #7
-     a14:	1a061fb8 	bne	1888fc <.LC0+0x188214>
+     a14:	1a061fb8 	bne	1888fc <_start-0x7fe77704>
      a18:	bc00001b 	stclt	0, cr0, [r0], {27}
      a1c:	182e061f 	stmdane	lr!, {r0, r1, r2, r3, r4, r9, sl}
      a20:	1fc00000 	svcne	0x00c00000
      a24:	0013b106 	andseq	fp, r3, r6, lsl #2
      a28:	061fc400 	ldreq	ip, [pc], -r0, lsl #8
      a2c:	000015c9 	andeq	r1, r0, r9, asr #11
-     a30:	8a061fc8 	bhi	188958 <.LC0+0x188270>
+     a30:	8a061fc8 	bhi	188958 <_start-0x7fe776a8>
      a34:	cc000019 	stcgt	0, cr0, [r0], {25}
      a38:	0dea061f 	stcleq	6, cr0, [sl, #124]!	; 0x7c
      a3c:	1fd00000 	svcne	0x00d00000
@@ -1663,11 +1444,11 @@ int UART_getString(char *buf, unsigned int length)
      acc:	0f990200 	svceq	0x00990200
      ad0:	e3030000 	movw	r0, #12288	; 0x3000
      ad4:	0000005a 	andeq	r0, r0, sl, asr r0
-     ad8:	0bd00107 	bleq	ff400efc <.LC0+0xff400814>
+     ad8:	0bd00107 	bleq	ff400efc <.LC0+0x7f400814>
      adc:	03010000 	movweq	r0, #4096	; 0x1000
      ae0:	0001ac01 	andeq	sl, r1, r1, lsl #24
-     ae4:	0001e000 	andeq	lr, r1, r0
-     ae8:	00008400 	andeq	r8, r0, r0, lsl #8
+     ae4:	0001e080 	andeq	lr, r1, r0, lsl #1
+     ae8:	00008480 	andeq	r8, r0, r0, lsl #9
      aec:	06910100 	ldreq	r0, [r1], r0, lsl #2
      af0:	60080000 	andvs	r0, r8, r0
      af4:	01000017 	tsteq	r0, r7, lsl r0
@@ -1680,8 +1461,8 @@ int UART_getString(char *buf, unsigned int length)
      b10:	0010e201 	andseq	lr, r0, r1, lsl #4
      b14:	01090100 	mrseq	r0, (UNDEF: 25)
      b18:	00000030 	andeq	r0, r0, r0, lsr r0
-     b1c:	000001e0 	andeq	r0, r0, r0, ror #3
-     b20:	00000210 	andeq	r0, r0, r0, lsl r2
+     b1c:	800001e0 	andhi	r0, r0, r0, ror #3
+     b20:	80000210 	andhi	r0, r0, r0, lsl r2
      b24:	000000b0 	strheq	r0, [r0], -r0	; <UNPREDICTABLE>
      b28:	0006be01 	andeq	fp, r6, r1, lsl #28
      b2c:	17600800 	strbne	r0, [r0, -r0, lsl #16]!
@@ -1691,8 +1472,8 @@ int UART_getString(char *buf, unsigned int length)
      b3c:	0e13010a 	mufeqs	f0, f3, #2.0
      b40:	0e010000 	cdpeq	0, 0, cr0, cr1, cr0, {0}
      b44:	00021001 	andeq	r1, r2, r1
-     b48:	00026000 	andeq	r6, r2, r0
-     b4c:	0000dc00 	andeq	sp, r0, r0, lsl #24
+     b48:	00026080 	andeq	r6, r2, r0, lsl #1
+     b4c:	0000dc80 	andeq	sp, r0, r0, lsl #25
      b50:	07030100 	streq	r0, [r3, -r0, lsl #2]
      b54:	60080000 	andvs	r0, r8, r0
      b58:	01000017 	tsteq	r0, r7, lsl r0
@@ -1708,17 +1489,17 @@ int UART_getString(char *buf, unsigned int length)
      b80:	14010c00 	strne	r0, [r1], #-3072	; 0xc00
      b84:	0100000d 	tsteq	r0, sp
      b88:	0002601d 	andeq	r6, r2, sp, lsl r0
-     b8c:	00028400 	andeq	r8, r2, r0, lsl #8
-     b90:	00010800 	andeq	r0, r1, r0, lsl #16
-     b94:	db000100 	blle	f9c <.LC0+0x8b4>
+     b8c:	00028480 	andeq	r8, r2, r0, lsl #9
+     b90:	00010880 	andeq	r0, r1, r0, lsl #17
+     b94:	db000100 	blle	f9c <_start-0x7ffff064>
      b98:	02000000 	andeq	r0, r0, #0
      b9c:	00019700 	andeq	r9, r1, r0, lsl #14
      ba0:	63010400 	movwvs	r0, #5120	; 0x1400
      ba4:	01000006 	tsteq	r0, r6
      ba8:	00001b3b 	andeq	r1, r0, fp, lsr fp
      bac:	00000306 	andeq	r0, r0, r6, lsl #6
-     bb0:	00000284 	andeq	r0, r0, r4, lsl #5
-     bb4:	00000318 	andeq	r0, r0, r8, lsl r3
+     bb0:	80000284 	andhi	r0, r0, r4, lsl #5
+     bb4:	80000318 	andhi	r0, r0, r8, lsl r3
      bb8:	000000cc 	andeq	r0, r0, ip, asr #1
      bbc:	00062f02 	andeq	r2, r6, r2, lsl #30
      bc0:	30040300 	andcc	r0, r4, r0, lsl #6
@@ -1735,7 +1516,7 @@ int UART_getString(char *buf, unsigned int length)
      bec:	0005ce08 	andeq	ip, r5, r8, lsl #28
      bf0:	02040500 	andeq	r0, r4, #0, 10
      bf4:	00006f0a 	andeq	r6, r0, sl, lsl #30
-     bf8:	1b4e0600 	blne	1382400 <.LC0+0x1381d18>
+     bf8:	1b4e0600 	blne	1382400 <_start-0x7ec7dc00>
      bfc:	06000000 	streq	r0, [r0], -r0
      c00:	00001b63 	andeq	r1, r0, r3, ror #22
      c04:	04050001 	streq	r0, [r5], #-1
@@ -1743,20 +1524,20 @@ int UART_getString(char *buf, unsigned int length)
      c0c:	7e060000 	cdpvc	0, 0, cr0, cr6, cr0, {0}
      c10:	0000001b 	andeq	r0, r0, fp, lsl r0
      c14:	001b4206 	andseq	r4, fp, r6, lsl #4
-     c18:	6b060100 	blvs	181020 <.LC0+0x180938>
+     c18:	6b060100 	blvs	181020 <_start-0x7fe7efe0>
      c1c:	0200001b 	andeq	r0, r0, #27
      c20:	02040500 	andeq	r0, r4, #0, 10
      c24:	0000a520 	andeq	sl, r0, r0, lsr #10
-     c28:	1b570600 	blne	15c2430 <.LC0+0x15c1d48>
+     c28:	1b570600 	blne	15c2430 <_start-0x7ea3dbd0>
      c2c:	06000000 	streq	r0, [r0], -r0
      c30:	00001b76 	andeq	r1, r0, r6, ror fp
-     c34:	1b5d0601 	blne	1742440 <.LC0+0x1741d58>
+     c34:	1b5d0601 	blne	1742440 <_start-0x7e8bdbc0>
      c38:	00020000 	andeq	r0, r2, r0
-     c3c:	1b350107 	blne	d41060 <.LC0+0xd40978>
+     c3c:	1b350107 	blne	d41060 <_start-0x7f2befa0>
      c40:	0e010000 	cdpeq	0, 0, cr0, cr1, cr0, {0}
      c44:	00028401 	andeq	r8, r2, r1, lsl #8
-     c48:	00031800 	andeq	r1, r3, r0, lsl #16
-     c4c:	00013400 	andeq	r3, r1, r0, lsl #8
+     c48:	00031880 	andeq	r1, r3, r0, lsl #17
+     c4c:	00013480 	andeq	r3, r1, r0, lsl #9
      c50:	00d90100 	sbcseq	r0, r9, r0, lsl #2
      c54:	72080000 	andvc	r0, r8, #0
      c58:	12010061 	andne	r0, r1, #97	; 0x61
@@ -1766,15 +1547,15 @@ int UART_getString(char *buf, unsigned int length)
      c68:	00000053 	andeq	r0, r0, r3, asr r0
      c6c:	00739102 	rsbseq	r9, r3, r2, lsl #2
      c70:	00003009 	andeq	r3, r0, r9
-     c74:	06e80000 	strbteq	r0, [r8], r0
+     c74:	06f20000 	ldrbteq	r0, [r2], r0
      c78:	00020000 	andeq	r0, r2, r0
      c7c:	00000214 	andeq	r0, r0, r4, lsl r2
      c80:	06630104 	strbteq	r0, [r3], -r4, lsl #2
      c84:	b9010000 	stmdblt	r1, {}	; <UNPREDICTABLE>
      c88:	0600001b 			; <UNDEFINED> instruction: 0x0600001b
      c8c:	18000003 	stmdane	r0, {r0, r1}
-     c90:	e4000003 	str	r0, [r0], #-3
-     c94:	2f000006 	svccs	0x00000006
+     c90:	e4800003 	str	r0, [r0], #3
+     c94:	2f800006 	svccs	0x00800006
      c98:	02000001 	andeq	r0, r0, #1
      c9c:	0000062f 	andeq	r0, r0, pc, lsr #12
      ca0:	00300402 	eorseq	r0, r0, r2, lsl #8
@@ -1828,7 +1609,7 @@ int UART_getString(char *buf, unsigned int length)
      d60:	1cd10734 	ldclne	7, cr0, [r1], {52}	; 0x34
      d64:	06340000 	ldrteq	r0, [r4], -r0
      d68:	00524c42 	subseq	r4, r2, r2, asr #24
-     d6c:	1ba30738 	blne	fe8c2a54 <.LC0+0xfe8c236c>
+     d6c:	1ba30738 	blne	fe8c2a54 <.LC0+0x7e8c236c>
      d70:	063c0000 	ldrteq	r0, [ip], -r0
      d74:	00524353 	subseq	r4, r2, r3, asr r3
      d78:	530600c0 	movwpl	r0, #24768	; 0x60c0
@@ -1858,7 +1639,7 @@ int UART_getString(char *buf, unsigned int length)
      dd8:	01840000 	orreq	r0, r4, r0
      ddc:	04040500 	streq	r0, [r4], #-1280	; 0x500
      de0:	00017c0a 	andeq	r7, r1, sl, lsl #24
-     de4:	1b4e0700 	blne	13829ec <.LC0+0x1382304>
+     de4:	1b4e0700 	blne	13829ec <_start-0x7ec7d614>
      de8:	07000000 	streq	r0, [r0, -r0]
      dec:	00001b63 	andeq	r1, r0, r3, ror #22
      df0:	b5020001 	strlt	r0, [r2, #-1]
@@ -1866,10 +1647,10 @@ int UART_getString(char *buf, unsigned int length)
      df8:	0001670d 	andeq	r6, r1, sp, lsl #14
      dfc:	04040500 	streq	r0, [r4], #-1280	; 0x500
      e00:	0001a213 	andeq	sl, r1, r3, lsl r2
-     e04:	1b7e0700 	blne	1f82a0c <.LC0+0x1f82324>
+     e04:	1b7e0700 	blne	1f82a0c <_start-0x7e07d5f4>
      e08:	07000000 	streq	r0, [r0, -r0]
      e0c:	00001b42 	andeq	r1, r0, r2, asr #22
-     e10:	1b6b0701 	blne	1ac2a1c <.LC0+0x1ac2334>
+     e10:	1b6b0701 	blne	1ac2a1c <_start-0x7e53d5e4>
      e14:	00020000 	andeq	r0, r2, r0
      e18:	001cc402 	andseq	ip, ip, r2, lsl #8
      e1c:	87170400 	ldrhi	r0, [r7, -r0, lsl #8]
@@ -1877,7 +1658,7 @@ int UART_getString(char *buf, unsigned int length)
      e24:	c8200404 	stmdagt	r0!, {r2, sl}
      e28:	07000001 	streq	r0, [r0, -r1]
      e2c:	00001b57 	andeq	r1, r0, r7, asr fp
-     e30:	1b760700 	blne	1d82a38 <.LC0+0x1d82350>
+     e30:	1b760700 	blne	1d82a38 <_start-0x7e27d5c8>
      e34:	07010000 	streq	r0, [r1, -r0]
      e38:	00001b5d 	andeq	r1, r0, sp, asr fp
      e3c:	78020002 	stmdavc	r2, {r1}
@@ -1885,13 +1666,13 @@ int UART_getString(char *buf, unsigned int length)
      e44:	0001ad24 	andeq	sl, r1, r4, lsr #26
      e48:	05040500 	streq	r0, [r4, #-1280]	; 0x500
      e4c:	00022c0b 	andeq	r2, r2, fp, lsl #24
-     e50:	058f0700 	streq	r0, [pc, #1792]	; 1558 <.LC0+0xe70>
+     e50:	058f0700 	streq	r0, [pc, #1792]	; 1558 <_start-0x7fffeaa8>
      e54:	80800000 	addhi	r0, r0, r0
      e58:	0704a780 	streq	sl, [r4, -r0, lsl #15]
      e5c:	00000613 	andeq	r0, r0, r3, lsl r6
      e60:	a7808880 	strge	r8, [r0, r0, lsl #17]
      e64:	07110704 	ldreq	r0, [r1, -r4, lsl #14]
-     e68:	8a800000 	bhi	fe000e70 <.LC0+0xfe000788>
+     e68:	8a800000 	bhi	fe000e70 <.LC0+0x7e000788>
      e6c:	0704a780 	streq	sl, [r4, -r0, lsl #15]
      e70:	00000823 	andeq	r0, r0, r3, lsr #16
      e74:	a7808c80 	strge	r8, [r0, r0, lsl #25]
@@ -1928,28 +1709,28 @@ int UART_getString(char *buf, unsigned int length)
      ef0:	df073400 	svcle	0x00073400
      ef4:	38000000 	stmdacc	r0, {}	; <UNPREDICTABLE>
      ef8:	0001ee07 	andeq	lr, r1, r7, lsl #28
-     efc:	ea073c00 	b	1cff04 <.LC0+0x1cf81c>
+     efc:	ea073c00 	b	1cff04 <_start-0x7fe300fc>
      f00:	c0000006 	andgt	r0, r0, r6
      f04:	029b0700 	addseq	r0, fp, #0, 14
      f08:	00c40000 	sbceq	r0, r4, r0
      f0c:	00021607 	andeq	r1, r2, r7, lsl #12
      f10:	0700c800 	streq	ip, [r0, -r0, lsl #16]
      f14:	0000002a 	andeq	r0, r0, sl, lsr #32
-     f18:	ca0700cc 	bgt	1c1250 <.LC0+0x1c0b68>
+     f18:	ca0700cc 	bgt	1c1250 <_start-0x7fe3edb0>
      f1c:	d0000003 	andle	r0, r0, r3
      f20:	05210700 	streq	r0, [r1, #-1792]!	; 0x700
      f24:	00e00000 	rsceq	r0, r0, r0
      f28:	0001d307 	andeq	sp, r1, r7, lsl #6
      f2c:	0700e400 	streq	lr, [r0, -r0, lsl #8]
      f30:	00000069 	andeq	r0, r0, r9, rrx
-     f34:	db0700e8 	blle	1c12dc <.LC0+0x1c0bf4>
+     f34:	db0700e8 	blle	1c12dc <_start-0x7fe3ed24>
      f38:	ec000009 	stc	0, cr0, [r0], {9}
-     f3c:	0a840700 	beq	fe102b44 <.LC0+0xfe10245c>
+     f3c:	0a840700 	beq	fe102b44 <.LC0+0x7e10245c>
      f40:	00f00000 	rscseq	r0, r0, r0
      f44:	0002af07 	andeq	sl, r2, r7, lsl #30
      f48:	0700f400 	streq	pc, [r0, -r0, lsl #8]
      f4c:	00000054 	andeq	r0, r0, r4, asr r0
-     f50:	7b0700f8 	blvc	1c1338 <.LC0+0x1c0c50>
+     f50:	7b0700f8 	blvc	1c1338 <_start-0x7fe3ecc8>
      f54:	fc000004 	stc2	0, cr0, [r0], {4}
      f58:	02560700 	subseq	r0, r6, #0, 14
      f5c:	01800000 	orreq	r0, r0, r0
@@ -1998,14 +1779,14 @@ int UART_getString(char *buf, unsigned int length)
     1008:	00003e07 	andeq	r3, r0, r7, lsl #28
     100c:	07029c00 	streq	r9, [r2, -r0, lsl #24]
     1010:	000008cf 	andeq	r0, r0, pc, asr #17
-    1014:	7a0702a0 	bvc	1c1a9c <.LC0+0x1c13b4>
+    1014:	7a0702a0 	bvc	1c1a9c <_start-0x7fe3e564>
     1018:	ac000009 	stcge	0, cr0, [r0], {9}
     101c:	04ac0702 	strteq	r0, [ip], #1794	; 0x702
     1020:	02b00000 	adcseq	r0, r0, #0
     1024:	0009c107 	andeq	ip, r9, r7, lsl #2
     1028:	0702c000 	streq	ip, [r2, -r0]
     102c:	0000082a 	andeq	r0, r0, sl, lsr #16
-    1030:	ab0702c4 	blge	1c1b48 <.LC0+0x1c1460>
+    1030:	ab0702c4 	blge	1c1b48 <_start-0x7fe3e4b8>
     1034:	c8000009 	stmdagt	r0, {r0, r3}
     1038:	017c0702 	cmneq	ip, r2, lsl #14
     103c:	02cc0000 	sbceq	r0, ip, #0
@@ -2015,7 +1796,7 @@ int UART_getString(char *buf, unsigned int length)
     104c:	03870700 	orreq	r0, r7, #0, 14
     1050:	07040000 	streq	r0, [r4, -r0]
     1054:	00000432 	andeq	r0, r0, r2, lsr r4
-    1058:	0a990708 	beq	fe642c80 <.LC0+0xfe642598>
+    1058:	0a990708 	beq	fe642c80 <.LC0+0x7e642598>
     105c:	070c0000 	streq	r0, [ip, -r0]
     1060:	0000094f 	andeq	r0, r0, pc, asr #18
     1064:	085b0710 	ldmdaeq	fp, {r4, r8, r9, sl}^
@@ -2043,7 +1824,7 @@ int UART_getString(char *buf, unsigned int length)
     10bc:	0000f407 	andeq	pc, r0, r7, lsl #8
     10c0:	0700cc00 	streq	ip, [r0, -r0, lsl #24]
     10c4:	00000a39 	andeq	r0, r0, r9, lsr sl
-    10c8:	7b0700d0 	blvc	1c1410 <.LC0+0x1c0d28>
+    10c8:	7b0700d0 	blvc	1c1410 <_start-0x7fe3ebf0>
     10cc:	d4000005 	strle	r0, [r0], #-5
     10d0:	01950700 	orrseq	r0, r5, r0, lsl #14
     10d4:	00d80000 	sbcseq	r0, r8, r0
@@ -2057,9 +1838,9 @@ int UART_getString(char *buf, unsigned int length)
     10f4:	00013207 	andeq	r3, r1, r7, lsl #4
     10f8:	0700ec00 	streq	lr, [r0, -r0, lsl #24]
     10fc:	00000638 	andeq	r0, r0, r8, lsr r6
-    1100:	5b0700f0 	blpl	1c14c8 <.LC0+0x1c0de0>
+    1100:	5b0700f0 	blpl	1c14c8 <_start-0x7fe3eb38>
     1104:	f4000001 	vst4.8	{d0-d3}, [r0], r1
-    1108:	0a060700 	beq	182d10 <.LC0+0x182628>
+    1108:	0a060700 	beq	182d10 <_start-0x7fe7d2f0>
     110c:	00f80000 	rscseq	r0, r8, r0
     1110:	00069807 	andeq	r9, r6, r7, lsl #16
     1114:	0700fc00 	streq	pc, [r0, -r0, lsl #24]
@@ -2071,14 +1852,14 @@ int UART_getString(char *buf, unsigned int length)
     112c:	00066f07 	andeq	r6, r6, r7, lsl #30
     1130:	07018c00 	streq	r8, [r1, -r0, lsl #24]
     1134:	00000352 	andeq	r0, r0, r2, asr r3
-    1138:	4a070190 	bmi	1c1780 <.LC0+0x1c1098>
+    1138:	4a070190 	bmi	1c1780 <_start-0x7fe3e880>
     113c:	94000005 	strls	r0, [r0], #-5
     1140:	08040701 	stmdaeq	r4, {r0, r8, r9, sl}
     1144:	01980000 	orrseq	r0, r8, r0
     1148:	00050b07 	andeq	r0, r5, r7, lsl #22
     114c:	07019c00 	streq	r9, [r1, -r0, lsl #24]
     1150:	00000ad2 	ldrdeq	r0, [r0], -r2
-    1154:	bb0701a0 	bllt	1c17dc <.LC0+0x1c10f4>
+    1154:	bb0701a0 	bllt	1c17dc <_start-0x7fe3e824>
     1158:	a4000008 	strge	r0, [r0], #-8
     115c:	01ab0701 			; <UNDEFINED> instruction: 0x01ab0701
     1160:	01a80000 			; <UNDEFINED> instruction: 0x01a80000
@@ -2087,7 +1868,7 @@ int UART_getString(char *buf, unsigned int length)
     116c:	0000033a 	andeq	r0, r0, sl, lsr r3
     1170:	f50701b0 			; <UNDEFINED> instruction: 0xf50701b0
     1174:	b4000004 	strlt	r0, [r0], #-4
-    1178:	0abd0701 	beq	fef42d84 <.LC0+0xfef4269c>
+    1178:	0abd0701 	beq	fef42d84 <.LC0+0x7ef4269c>
     117c:	01b80000 			; <UNDEFINED> instruction: 0x01b80000
     1180:	000a2107 	andeq	r2, sl, r7, lsl #2
     1184:	0701bc00 	streq	fp, [r1, -r0, lsl #24]
@@ -2104,8 +1885,8 @@ int UART_getString(char *buf, unsigned int length)
     11b0:	01080001 	tsteq	r8, r1
     11b4:	00001baf 	andeq	r1, r0, pc, lsr #23
     11b8:	03180601 	tsteq	r8, #1048576	; 0x100000
-    11bc:	03700000 	cmneq	r0, #0
-    11c0:	01600000 	cmneq	r0, r0
+    11bc:	03708000 	cmneq	r0, #0
+    11c0:	01608000 	cmneq	r0, r0
     11c4:	64010000 	strvs	r0, [r1], #-0
     11c8:	09000005 	stmdbeq	r0, {r0, r2}
     11cc:	00001bd2 	ldrdeq	r1, [r0], -r2
@@ -2114,8 +1895,8 @@ int UART_getString(char *buf, unsigned int length)
     11d8:	010a0074 	tsteq	sl, r4, ror r0
     11dc:	00001be0 	andeq	r1, r0, r0, ror #23
     11e0:	70010f01 	andvc	r0, r1, r1, lsl #30
-    11e4:	40000003 	andmi	r0, r0, r3
-    11e8:	8c000005 	stchi	0, cr0, [r0], {5}
+    11e4:	40800003 	addmi	r0, r0, r3
+    11e8:	8c800005 	stchi	0, cr0, [r0], {5}
     11ec:	01000001 	tsteq	r0, r1
     11f0:	000005b7 			; <UNDEFINED> instruction: 0x000005b7
     11f4:	001b8f0b 	andseq	r8, fp, fp, lsl #30
@@ -2137,8 +1918,8 @@ int UART_getString(char *buf, unsigned int length)
     1234:	1c8a010d 	stfnes	f0, [sl], {13}
     1238:	30010000 	andcc	r0, r1, r0
     123c:	00054001 	andeq	r4, r5, r1
-    1240:	00057400 	andeq	r7, r5, r0, lsl #8
-    1244:	0001b800 	andeq	fp, r1, r0, lsl #16
+    1240:	00057480 	andeq	r7, r5, r0, lsl #9
+    1244:	0001b880 	andeq	fp, r1, r0, lsl #17
     1248:	06110100 	ldreq	r0, [r1], -r0, lsl #2
     124c:	8f0b0000 	svchi	0x000b0000
     1250:	0100001b 	tsteq	r0, fp, lsl r0
@@ -2157,8 +1938,8 @@ int UART_getString(char *buf, unsigned int length)
     1284:	0d006891 	stceq	8, cr6, [r0, #-580]	; 0xfffffdbc
     1288:	001bc801 	andseq	ip, fp, r1, lsl #16
     128c:	013f0100 	teqeq	pc, r0, lsl #2
-    1290:	00000574 	andeq	r0, r0, r4, ror r5
-    1294:	000005d4 	ldrdeq	r0, [r0], -r4
+    1290:	80000574 	andhi	r0, r0, r4, ror r5
+    1294:	800005d4 	ldrdhi	r0, [r0], -r4
     1298:	000001e4 	andeq	r0, r0, r4, ror #3
     129c:	00063801 	andeq	r3, r6, r1, lsl #16
     12a0:	00630e00 	rsbeq	r0, r3, r0, lsl #28
@@ -2168,48 +1949,50 @@ int UART_getString(char *buf, unsigned int length)
     12b0:	00001c67 	andeq	r1, r0, r7, ror #24
     12b4:	005e4b01 	subseq	r4, lr, r1, lsl #22
     12b8:	05d40000 	ldrbeq	r0, [r4]
-    12bc:	061c0000 	ldreq	r0, [ip], -r0
-    12c0:	02100000 	andseq	r0, r0, #0
+    12bc:	061c8000 	ldreq	r8, [ip], -r0
+    12c0:	02108000 	andseq	r8, r0, #0
     12c4:	10010000 	andne	r0, r1, r0
     12c8:	001c5801 	andseq	r5, ip, r1, lsl #16
     12cc:	01510100 	cmpeq	r1, r0, lsl #2
     12d0:	00000050 	andeq	r0, r0, r0, asr r0
-    12d4:	0000061c 	andeq	r0, r0, ip, lsl r6
-    12d8:	00000680 	andeq	r0, r0, r0, lsl #13
+    12d4:	8000061c 	andhi	r0, r0, ip, lsl r6
+    12d8:	80000680 	andhi	r0, r0, r0, lsl #13
     12dc:	0000023c 	andeq	r0, r0, ip, lsr r2
-    12e0:	00069801 	andeq	r9, r6, r1, lsl #16
+    12e0:	0006a201 	andeq	sl, r6, r1, lsl #4
     12e4:	74730e00 	ldrbtvc	r0, [r3], #-3584	; 0xe00
     12e8:	51010072 	tstpl	r1, r2, ror r0
-    12ec:	00000698 	muleq	r0, r8, r6
-    12f0:	0b6c9102 	bleq	1b25700 <.LC0+0x1b25018>
+    12ec:	000006a2 	andeq	r0, r0, r2, lsr #13
+    12f0:	0b6c9102 	bleq	1b25700 <_start-0x7e4da900>
     12f4:	00001c83 	andeq	r1, r0, r3, lsl #25
     12f8:	00305101 	eorseq	r5, r0, r1, lsl #2
     12fc:	91020000 	mrsls	r0, (UNDEF: 2)
-    1300:	00690c68 	rsbeq	r0, r9, r8, ror #24
-    1304:	00505301 	subseq	r5, r0, r1, lsl #6
-    1308:	91020000 	mrsls	r0, (UNDEF: 2)
-    130c:	04110074 	ldreq	r0, [r1], #-116	; 0x74
-    1310:	0000005e 	andeq	r0, r0, lr, asr r0
-    1314:	1bec0112 	blne	ffb01764 <.LC0+0xffb0107c>
-    1318:	5c010000 	stcpl	0, cr0, [r1], {-0}
-    131c:	00005001 	andeq	r5, r0, r1
-    1320:	00068000 	andeq	r8, r6, r0
-    1324:	0006e400 	andeq	lr, r6, r0, lsl #8
-    1328:	00026800 	andeq	r6, r2, r0, lsl #16
-    132c:	620e0100 	andvs	r0, lr, #0, 2
-    1330:	01006675 	tsteq	r0, r5, ror r6
-    1334:	0006985c 	andeq	r9, r6, ip, asr r8
-    1338:	64910200 	ldrvs	r0, [r1], #512	; 0x200
-    133c:	001c830b 	andseq	r8, ip, fp, lsl #6
-    1340:	305c0100 	subscc	r0, ip, r0, lsl #2
-    1344:	02000000 	andeq	r0, r0, #0
-    1348:	94136091 	ldrls	r6, [r3], #-145	; 0x91
-    134c:	d4000006 	strle	r0, [r0], #-6
-    1350:	0c000006 	stceq	0, cr0, [r0], {6}
-    1354:	5e010069 	cdppl	0, 0, cr0, cr1, cr9, {3}
-    1358:	00000050 	andeq	r0, r0, r0, asr r0
-    135c:	006c9102 	rsbeq	r9, ip, r2, lsl #2
-	...
+    1300:	06301168 	ldrteq	r1, [r0], -r8, ror #2
+    1304:	06708000 	ldrbteq	r8, [r0], -r0
+    1308:	690c8000 	stmdbvs	ip, {pc}
+    130c:	50530100 	subspl	r0, r3, r0, lsl #2
+    1310:	02000000 	andeq	r0, r0, #0
+    1314:	00007491 	muleq	r0, r1, r4
+    1318:	005e0412 	subseq	r0, lr, r2, lsl r4
+    131c:	01130000 	tsteq	r3, r0
+    1320:	00001bec 	andeq	r1, r0, ip, ror #23
+    1324:	50015a01 	andpl	r5, r1, r1, lsl #20
+    1328:	80000000 	andhi	r0, r0, r0
+    132c:	e4800006 	str	r0, [r0], #6
+    1330:	68800006 	stmvs	r0, {r1, r2}
+    1334:	01000002 	tsteq	r0, r2
+    1338:	6675620e 	ldrbtvs	r6, [r5], -lr, lsl #4
+    133c:	a25a0100 	subsge	r0, sl, #0, 2
+    1340:	02000006 	andeq	r0, r0, #6
+    1344:	830b6491 	movwhi	r6, #46225	; 0xb491
+    1348:	0100001c 	tsteq	r0, ip, lsl r0
+    134c:	0000305a 	andeq	r3, r0, sl, asr r0
+    1350:	60910200 	addsvs	r0, r1, r0, lsl #4
+    1354:	00069411 	andeq	r9, r6, r1, lsl r4
+    1358:	0006d480 	andeq	sp, r6, r0, lsl #9
+    135c:	00690c80 	rsbeq	r0, r9, r0, lsl #25
+    1360:	00505c01 	subseq	r5, r0, r1, lsl #24
+    1364:	91020000 	mrsls	r0, (UNDEF: 2)
+    1368:	0000006c 	andeq	r0, r0, ip, rrx
 
 Disassembly of section .debug_abbrev:
 
@@ -2220,320 +2003,212 @@ Disassembly of section .debug_abbrev:
    c:	10011201 	andne	r1, r1, r1, lsl #4
   10:	02000006 	andeq	r0, r0, #6
   14:	0e030016 	mcreq	0, 0, r0, cr3, cr6, {0}
-  18:	0b3b0b3a 	bleq	ec2d08 <.LC0+0xec2620>
+  18:	0b3b0b3a 	bleq	ec2d08 <_start-0x7f13d2f8>
   1c:	00001349 	andeq	r1, r0, r9, asr #6
-  20:	0b002403 	bleq	9034 <.LC0+0x894c>
+  20:	0b002403 	bleq	9034 <_start-0x7fff6fcc>
   24:	030b3e0b 	movweq	r3, #48651	; 0xbe0b
   28:	0400000e 	streq	r0, [r0], #-14
-  2c:	0b0b0024 	bleq	2c00c4 <.LC0+0x2bf9dc>
+  2c:	0b0b0024 	bleq	2c00c4 <_start-0x7fd3ff3c>
   30:	08030b3e 	stmdaeq	r3, {r1, r2, r3, r4, r5, r8, r9, fp}
   34:	04050000 	streq	r0, [r5], #-0
-  38:	3a0b0b01 	bcc	2c2c44 <.LC0+0x2c255c>
+  38:	3a0b0b01 	bcc	2c2c44 <_start-0x7fd3d3bc>
   3c:	010b3b0b 	tsteq	fp, fp, lsl #22
   40:	06000013 			; <UNDEFINED> instruction: 0x06000013
   44:	0e030028 	cdpeq	0, 0, cr0, cr3, cr8, {1}
   48:	00000d1c 	andeq	r0, r0, ip, lsl sp
   4c:	3f012e07 	svccc	0x00012e07
-  50:	3a0e030c 	bcc	380c88 <.LC0+0x3805a0>
+  50:	3a0e030c 	bcc	380c88 <_start-0x7fc7f378>
   54:	270b3b0b 	strcs	r3, [fp, -fp, lsl #22]
   58:	1201110c 	andne	r1, r1, #12, 2
   5c:	97064001 	strls	r4, [r6, -r1]
   60:	13010c42 	movwne	r0, #7234	; 0x1c42
   64:	05080000 	streq	r0, [r8, #-0]
-  68:	3a0e0300 	bcc	380c70 <.LC0+0x380588>
-#include "clock.h"
-
-void CM_SetClk(CLK_MODULE_t module, CM_PER_REG reg, unsigned int value)
-{
+  68:	3a0e0300 	bcc	380c70 <_start-0x7fc7f390>
   6c:	490b3b0b 	stmdbmi	fp, {r0, r1, r3, r8, r9, fp, ip, sp}
   70:	000a0213 	andeq	r0, sl, r3, lsl r2
   74:	00050900 	andeq	r0, r5, r0, lsl #18
-  78:	0b3a0803 	bleq	e8208c <.LC0+0xe819a4>
+  78:	0b3a0803 	bleq	e8208c <_start-0x7f17df74>
   7c:	13490b3b 	movtne	r0, #39739	; 0x9b3b
   80:	00000a02 	andeq	r0, r0, r2, lsl #20
-
-	PUT32(module+reg, value);
   84:	3f012e0a 	svccc	0x00012e0a
-  88:	3a0e030c 	bcc	380cc0 <.LC0+0x3805d8>
+  88:	3a0e030c 	bcc	380cc0 <_start-0x7fc7f340>
   8c:	270b3b0b 	strcs	r3, [fp, -fp, lsl #22]
   90:	1113490c 	tstne	r3, ip, lsl #18
   94:	40011201 	andmi	r1, r1, r1, lsl #4
-}
   98:	0c429706 	mcrreq	7, 0, r9, r2, cr6
   9c:	00001301 	andeq	r1, r0, r1, lsl #6
   a0:	3f012e0b 	svccc	0x00012e0b
-
-unsigned int CM_GetClk(CLK_MODULE_t module, CM_PER_REG reg)
-{
-  a4:	3a0e030c 	bcc	380cdc <.LC0+0x3805f4>
+  a4:	3a0e030c 	bcc	380cdc <_start-0x7fc7f324>
   a8:	110b3b0b 	tstne	fp, fp, lsl #22
   ac:	40011201 	andmi	r1, r1, r1, lsl #4
   b0:	0c429606 	mcrreq	6, 0, r9, r2, cr6
   b4:	340c0000 	strcc	r0, [ip], #-0
-	return GET32(module+reg);
-  b8:	3a0e0300 	bcc	380cc0 <.LC0+0x3805d8>
+  b8:	3a0e0300 	bcc	380cc0 <_start-0x7fc7f340>
   bc:	490b3b0b 	stmdbmi	fp, {r0, r1, r3, r8, r9, fp, ip, sp}
   c0:	000a0213 	andeq	r0, sl, r3, lsl r2
   c4:	11010000 	mrsne	r0, (UNDEF: 1)
-}
   c8:	130e2501 	movwne	r2, #58625	; 0xe501
-  cc:	1b0e030b 	blne	380d00 <.LC0+0x380618>
+  cc:	1b0e030b 	blne	380d00 <_start-0x7fc7f300>
   d0:	1201110e 	andne	r1, r1, #-2147483645	; 0x80000003
   d4:	00061001 	andeq	r1, r6, r1
-
-void Init_UART0_Clk()
-{
   d8:	00160200 	andseq	r0, r6, r0, lsl #4
-  dc:	0b3a0e03 	bleq	e838f0 <.LC0+0xe83208>
+  dc:	0b3a0e03 	bleq	e838f0 <_start-0x7f17c710>
   e0:	13490b3b 	movtne	r0, #39739	; 0x9b3b
-
-	unsigned int temp;
-	 // software-forced wake-up transition on the "always on clock domain", TRM Table 8-92
-	temp = CM_GetClk(CM_WKUP, CM_WKUP_CLKSTCTRL);		//This register enables the domain power state transition. It controls the SW supervised clock domain state transition between ON-ACTIVE and ON-INACTIVE states. It also hold one status bit per clock input of the domain
   e4:	24030000 	strcs	r0, [r3], #-0
   e8:	3e0b0b00 	vmlacc.f64	d0, d11, d0
   ec:	000e030b 	andeq	r0, lr, fp, lsl #6
   f0:	00240400 	eoreq	r0, r4, r0, lsl #8
-  f4:	0b3e0b0b 	bleq	f82d28 <.LC0+0xf82640>
-	temp &= ~(0x3);
+  f4:	0b3e0b0b 	bleq	f82d28 <_start-0x7f07d2d8>
   f8:	00000803 	andeq	r0, r0, r3, lsl #16
-  fc:	0b010405 	bleq	41118 <.LC0+0x40a30>
- 100:	3b0b3a0b 	blcc	2ce934 <.LC0+0x2ce24c>
-	temp |= (0x2);
+  fc:	0b010405 	bleq	41118 <_start-0x7ffbeee8>
+ 100:	3b0b3a0b 	blcc	2ce934 <_start-0x7fd316cc>
  104:	0013010b 	andseq	r0, r3, fp, lsl #2
  108:	00280600 	eoreq	r0, r8, r0, lsl #12
  10c:	0d1c0e03 	ldceq	14, cr0, [ip, #-12]
-	CM_SetClk(CM_WKUP, CM_WKUP_CLKSTCTRL, temp);		//0x2=SW_WKUP
  110:	2e070000 	cdpcs	0, 0, cr0, cr7, cr0, {0}
  114:	030c3f01 	movweq	r3, #52993	; 0xcf01
- 118:	3b0b3a0e 	blcc	2ce958 <.LC0+0x2ce270>
+ 118:	3b0b3a0e 	blcc	2ce958 <_start-0x7fd316a8>
  11c:	110c270b 	tstne	ip, fp, lsl #14
  120:	40011201 	andmi	r1, r1, r1, lsl #4
-
-	// software-forced wake up transition on the L4 high speed domain
-	temp = CM_GetClk(CM_PER, CM_PER_L4HS_CLKSTCTRL);	//This register enables the domain power state transition. It controls the SW supervised clock domain state transition between ON-ACTIVE and ON-INACTIVE states. It also hold one status bit per clock input of the domain
  124:	0c429706 	mcrreq	7, 0, r9, r2, cr6
  128:	00001301 	andeq	r1, r0, r1, lsl #6
  12c:	03000508 	movweq	r0, #1288	; 0x508
- 130:	3b0b3a0e 	blcc	2ce970 <.LC0+0x2ce288>
+ 130:	3b0b3a0e 	blcc	2ce970 <_start-0x7fd31690>
  134:	0213490b 	andseq	r4, r3, #180224	; 0x2c000
-	temp &= ~(0x3);
  138:	0900000a 	stmdbeq	r0, {r1, r3}
- 13c:	0c3f012e 	ldfeqs	f0, [pc], #-184	; 8c <CM_SetClk+0x20>
- 140:	0b3a0e03 	bleq	e83954 <.LC0+0xe8326c>
-	temp |= (0x2);
+ 13c:	0c3f012e 	ldfeqs	f0, [pc], #-184	; 8c <_start-0x7fffff74>
+ 140:	0b3a0e03 	bleq	e83954 <_start-0x7f17c6ac>
  144:	0c270b3b 	stceq	11, cr0, [r7], #-236	; 0xffffff14
  148:	01111349 	tsteq	r1, r9, asr #6
  14c:	06400112 			; <UNDEFINED> instruction: 0x06400112
-	CM_SetClk(CM_PER, CM_PER_L4HS_CLKSTCTRL, temp);		//0x2=SW_WKUP
  150:	010c4297 			; <UNDEFINED> instruction: 0x010c4297
- 154:	0a000013 	beq	1a8 <Init_UART0_Clk+0xd0>
- 158:	0c3f012e 	ldfeqs	f0, [pc], #-184	; a8 <CM_GetClk+0x4>
- 15c:	0b3a0e03 	bleq	e83970 <.LC0+0xe83288>
+ 154:	0a000013 	beq	1a8 <_start-0x7ffffe58>
+ 158:	0c3f012e 	ldfeqs	f0, [pc], #-184	; a8 <_start-0x7fffff58>
+ 15c:	0b3a0e03 	bleq	e83970 <_start-0x7f17c690>
  160:	0c270b3b 	stceq	11, cr0, [r7], #-236	; 0xffffff14
-
-	// Module is explicitly enabled,    TRM Table 8-137
-	temp = CM_GetClk(CM_WKUP, CM_WKUP_UART0_CLKCTRL);		//This register enables the domain power state transition. It controls the SW supervised clock domain state transition between ON-ACTIVE and ON-INACTIVE states. It also hold one status bit per clock input of the domain
  164:	01120111 	tsteq	r2, r1, lsl r1
  168:	42960640 	addsmi	r0, r6, #64, 12	; 0x4000000
  16c:	0013010c 	andseq	r0, r3, ip, lsl #2
  170:	00340b00 	eorseq	r0, r4, r0, lsl #22
- 174:	0b3a0e03 	bleq	e83988 <.LC0+0xe832a0>
-	temp &= ~(0x3);
+ 174:	0b3a0e03 	bleq	e83988 <_start-0x7f17c678>
  178:	13490b3b 	movtne	r0, #39739	; 0x9b3b
  17c:	00000a02 	andeq	r0, r0, r2, lsl #20
  180:	3f002e0c 	svccc	0x00002e0c
-	temp |= (0x2);
- 184:	3a0e030c 	bcc	380dbc <.LC0+0x3806d4>
+ 184:	3a0e030c 	bcc	380dbc <_start-0x7fc7f244>
  188:	110b3b0b 	tstne	fp, fp, lsl #22
  18c:	40011201 	andmi	r1, r1, r1, lsl #4
-	CM_SetClk(CM_WKUP, CM_WKUP_UART0_CLKCTRL, temp);		//0x2=SW_WKUP
  190:	0c429606 	mcrreq	6, 0, r9, r2, cr6
  194:	01000000 	mrseq	r0, (UNDEF: 0)
  198:	0e250111 	mcreq	1, 1, r0, cr5, cr1, {0}
  19c:	0e030b13 	vmoveq.32	d3[0], r0
  1a0:	01110e1b 	tsteq	r1, fp, lsl lr
-*/
-	
-
-   
-
-}
  1a4:	06100112 			; <UNDEFINED> instruction: 0x06100112
  1a8:	16020000 	strne	r0, [r2], -r0
-#include "control_module.h"
-
-void CM_setCtrlModule(CONTROL_MODULE_REG_t module, unsigned int value)
-{
- 1ac:	3a0e0300 	bcc	380db4 <.LC0+0x3806cc>
+ 1ac:	3a0e0300 	bcc	380db4 <_start-0x7fc7f24c>
  1b0:	490b3b0b 	stmdbmi	fp, {r0, r1, r3, r8, r9, fp, ip, sp}
  1b4:	03000013 	movweq	r0, #19
- 1b8:	0b0b0024 	bleq	2c0250 <.LC0+0x2bfb68>
+ 1b8:	0b0b0024 	bleq	2c0250 <_start-0x7fd3fdb0>
  1bc:	0e030b3e 	vmoveq.16	d3[0], r0
-
-	PUT32(CONTROL_MODULE_REGISTER_BASE + module, value);
  1c0:	24040000 	strcs	r0, [r4], #-0
  1c4:	3e0b0b00 	vmlacc.f64	d0, d11, d0
  1c8:	0008030b 	andeq	r0, r8, fp, lsl #6
  1cc:	01040500 	tsteq	r4, r0, lsl #10
- 1d0:	0b3a0b0b 	bleq	e82e04 <.LC0+0xe8271c>
-}
+ 1d0:	0b3a0b0b 	bleq	e82e04 <_start-0x7f17d1fc>
  1d4:	13010b3b 	movwne	r0, #6971	; 0x1b3b
  1d8:	28060000 	stmdacs	r6, {}	; <UNPREDICTABLE>
  1dc:	1c0e0300 	stcne	3, cr0, [lr], {-0}
-
-unsigned int CM_getCtrlModule(CONTROL_MODULE_REG_t module)
-{
  1e0:	0700000d 	streq	r0, [r0, -sp]
- 1e4:	0c3f012e 	ldfeqs	f0, [pc], #-184	; 134 <Init_UART0_Clk+0x5c>
- 1e8:	0b3a0e03 	bleq	e839fc <.LC0+0xe83314>
+ 1e4:	0c3f012e 	ldfeqs	f0, [pc], #-184	; 134 <_start-0x7ffffecc>
+ 1e8:	0b3a0e03 	bleq	e839fc <_start-0x7f17c604>
  1ec:	0c270b3b 	stceq	11, cr0, [r7], #-236	; 0xffffff14
-	return GET32(CONTROL_MODULE_REGISTER_BASE + module);
  1f0:	01120111 	tsteq	r2, r1, lsl r1
  1f4:	42960640 	addsmi	r0, r6, #64, 12	; 0x4000000
  1f8:	0013010c 	andseq	r0, r3, ip, lsl #2
  1fc:	00340800 	eorseq	r0, r4, r0, lsl #16
-}
- 200:	0b3a0803 	bleq	e82214 <.LC0+0xe81b2c>
+ 200:	0b3a0803 	bleq	e82214 <_start-0x7f17ddec>
  204:	13490b3b 	movtne	r0, #39739	; 0x9b3b
  208:	00000a02 	andeq	r0, r0, r2, lsl #20
  20c:	49003509 	stmdbmi	r0, {r0, r3, r8, sl, ip, sp}
-
-void PAD_setMode(CONTROL_MODULE_REG_t module, unsigned int mode)
-{
  210:	00000013 	andeq	r0, r0, r3, lsl r0
  214:	25011101 	strcs	r1, [r1, #-257]	; 0x101
  218:	030b130e 	movweq	r1, #45838	; 0xb30e
  21c:	110e1b0e 	tstne	lr, lr, lsl #22
  220:	10011201 	andne	r1, r1, r1, lsl #4
-	unsigned int temp = CM_getCtrlModule(0);
  224:	02000006 	andeq	r0, r0, #6
  228:	0e030016 	mcreq	0, 0, r0, cr3, cr6, {0}
- 22c:	0b3b0b3a 	bleq	ec2f1c <.LC0+0xec2834>
-	temp &= ~(0b111);    // turn down MUXMODE
+ 22c:	0b3b0b3a 	bleq	ec2f1c <_start-0x7f13d0e4>
  230:	00001349 	andeq	r1, r0, r9, asr #6
- 234:	0b002403 	bleq	9248 <.LC0+0x8b60>
+ 234:	0b002403 	bleq	9248 <_start-0x7fff6db8>
  238:	030b3e0b 	movweq	r3, #48651	; 0xbe0b
-	temp |= mode;        // set new MUXMODE
  23c:	0400000e 	streq	r0, [r0], #-14
- 240:	0b0b0024 	bleq	2c02d8 <.LC0+0x2bfbf0>
+ 240:	0b0b0024 	bleq	2c02d8 <_start-0x7fd3fd28>
  244:	08030b3e 	stmdaeq	r3, {r1, r2, r3, r4, r5, r8, r9, fp}
  248:	04050000 	streq	r0, [r5], #-0
-	CM_setCtrlModule(module, temp);
- 24c:	3a0b0b01 	bcc	2c2e58 <.LC0+0x2c2770>
+ 24c:	3a0b0b01 	bcc	2c2e58 <_start-0x7fd3d1a8>
  250:	010b3b0b 	tsteq	fp, fp, lsl #22
  254:	06000013 			; <UNDEFINED> instruction: 0x06000013
-
-
-}
  258:	08030028 	stmdaeq	r3, {r3, r5}
  25c:	00000d1c 	andeq	r0, r0, ip, lsl sp
-
-
-
-
-void Uart0_Mux()
-{
  260:	03002807 	movweq	r2, #2055	; 0x807
  264:	000d1c0e 	andeq	r1, sp, lr, lsl #24
-
-	CM_setCtrlModule(CM_conf_uart0_rxd, (1 << 4) | (1 << 5));		//Rx muxing
  268:	012e0800 	teqeq	lr, r0, lsl #16
  26c:	0e030c3f 	mcreq	12, 0, r0, cr3, cr15, {1}
- 270:	0b3b0b3a 	bleq	ec2f60 <.LC0+0xec2878>
-	CM_setCtrlModule(CM_conf_uart0_txd,0);					//tx muxing
+ 270:	0b3b0b3a 	bleq	ec2f60 <_start-0x7f13d0a0>
  274:	01120111 	tsteq	r2, r1, lsl r1
  278:	42960640 	addsmi	r0, r6, #64, 12	; 0x4000000
  27c:	0013010c 	andseq	r0, r3, ip, lsl #2
-/*
-	PAD_setMode(CM_conf_uart0_txd, 0);
-	PAD_setMode(CM_conf_uart0_rxd, 0);
-*/
-}
  280:	00340900 	eorseq	r0, r4, r0, lsl #18
-#define CM_PER_BASE 		 0x44e00000
-#define CM_PER_GPIO1		 0xac
-
-
-void _main(void)
-{
- 284:	0b3a0e03 	bleq	e83a98 <.LC0+0xe833b0>
+ 284:	0b3a0e03 	bleq	e83a98 <_start-0x7f17c568>
  288:	13490b3b 	movtne	r0, #39739	; 0x9b3b
  28c:	00000a02 	andeq	r0, r0, r2, lsl #20
-
-
-	volatile unsigned int ra;
-	char a = 'a';
  290:	3f012e0a 	svccc	0x00012e0a
- 294:	3a0e030c 	bcc	380ecc <.LC0+0x3807e4>
-
-	PUT32(CM_PER_BASE+CM_PER_GPIO1, 1<<18 | 2);
+ 294:	3a0e030c 	bcc	380ecc <_start-0x7fc7f134>
  298:	270b3b0b 	strcs	r3, [fp, -fp, lsl #22]
  29c:	1201110c 	andne	r1, r1, #12, 2
  2a0:	97064001 	strls	r4, [r6, -r1]
  2a4:	13010c42 	movwne	r0, #7234	; 0x1c42
  2a8:	050b0000 	streq	r0, [fp, #-0]
-	ra = GET32(GPIO1_BASE+GPIO_OE);
- 2ac:	3a0e0300 	bcc	380eb4 <.LC0+0x3807cc>
+ 2ac:	3a0e0300 	bcc	380eb4 <_start-0x7fc7f14c>
  2b0:	490b3b0b 	stmdbmi	fp, {r0, r1, r3, r8, r9, fp, ip, sp}
  2b4:	000a0213 	andeq	r0, sl, r3, lsl r2
  2b8:	00340c00 	eorseq	r0, r4, r0, lsl #24
-	ra &= ~(1<<21);
- 2bc:	0b3a0803 	bleq	e822d0 <.LC0+0xe81be8>
+ 2bc:	0b3a0803 	bleq	e822d0 <_start-0x7f17dd30>
  2c0:	13490b3b 	movtne	r0, #39739	; 0x9b3b
  2c4:	00000a02 	andeq	r0, r0, r2, lsl #20
-	PUT32(GPIO1_BASE+GPIO_OE, ra);
  2c8:	3f012e0d 	svccc	0x00012e0d
- 2cc:	3a0e030c 	bcc	380f04 <.LC0+0x38081c>
+ 2cc:	3a0e030c 	bcc	380f04 <_start-0x7fc7f0fc>
  2d0:	270b3b0b 	strcs	r3, [fp, -fp, lsl #22]
  2d4:	1201110c 	andne	r1, r1, #12, 2
-
-	PUT32(GPIO1_BASE+GPIO_SETDATAOUT, 1<<21);
  2d8:	96064001 	strls	r4, [r6], -r1
  2dc:	13010c42 	movwne	r0, #7234	; 0x1c42
  2e0:	050e0000 	streq	r0, [lr, #-0]
- 2e4:	3a080300 	bcc	200eec <.LC0+0x200804>
-
-	UART_init(115200,STOP1,PARITY_NONE,FLOW_OFF);
+ 2e4:	3a080300 	bcc	200eec <_start-0x7fdff114>
  2e8:	490b3b0b 	stmdbmi	fp, {r0, r1, r3, r8, r9, fp, ip, sp}
  2ec:	000a0213 	andeq	r0, sl, r3, lsl r2
  2f0:	002e0f00 	eoreq	r0, lr, r0, lsl #30
  2f4:	0e030c3f 	mcreq	12, 0, r0, cr3, cr15, {1}
- 2f8:	0b3b0b3a 	bleq	ec2fe8 <.LC0+0xec2900>
+ 2f8:	0b3b0b3a 	bleq	ec2fe8 <_start-0x7f13d018>
  2fc:	01111349 	tsteq	r1, r9, asr #6
-
-	UART_putString("UART0 Initialized...\n",21);
  300:	06400112 			; <UNDEFINED> instruction: 0x06400112
  304:	000c4297 	muleq	ip, r7, r2
  308:	012e1000 	teqeq	lr, r0
  30c:	0e030c3f 	mcreq	12, 0, r0, cr3, cr15, {1}
-
-}
- 310:	0b3b0b3a 	bleq	ec3000 <.LC0+0xec2918>
+ 310:	0b3b0b3a 	bleq	ec3000 <_start-0x7f13d000>
  314:	13490c27 	movtne	r0, #39975	; 0x9c27
-#include "uart_console_header.h"
-#include "clock.h"
-#include "control_module.h"
-
-void GPIO_init()
-{
  318:	01120111 	tsteq	r2, r1, lsl r1
  31c:	42960640 	addsmi	r0, r6, #64, 12	; 0x4000000
  320:	0013010c 	andseq	r0, r3, ip, lsl #2
-	unsigned int setting = (1<<18) | (0x2<<0);
- 324:	000f1100 	andeq	r1, pc, r0, lsl #2
- 328:	13490b0b 	movtne	r0, #39691	; 0x9b0b
- 32c:	2e120000 	cdpcs	0, 1, cr0, cr2, cr0, {0}
-	CM_SetClk(CM_PER, CM_PER_GPIO1_CLKCTRL, setting);
- 330:	030c3f01 	movweq	r3, #52993	; 0xcf01
- 334:	3b0b3a0e 	blcc	2ceb74 <.LC0+0x2ce48c>
- 338:	490c270b 	stmdbmi	ip, {r0, r1, r3, r8, r9, sl, sp}
- 33c:	12011113 	andne	r1, r1, #-1073741820	; 0xc0000004
- 340:	96064001 	strls	r4, [r6], -r1
-	while((CM_GetClk(CM_PER, CM_PER_GPIO1_CLKCTRL) & (0x3<<16)) != 0);
- 344:	00000c42 	andeq	r0, r0, r2, asr #24
- 348:	11010b13 	tstne	r1, r3, lsl fp
- 34c:	00011201 	andeq	r1, r1, r1, lsl #4
+ 324:	010b1100 	mrseq	r1, (UNDEF: 27)
+ 328:	01120111 	tsteq	r2, r1, lsl r1
+ 32c:	0f120000 	svceq	0x00120000
+ 330:	490b0b00 	stmdbmi	fp, {r8, r9, fp}
+ 334:	13000013 	movwne	r0, #19
+ 338:	0c3f012e 	ldfeqs	f0, [pc], #-184	; 288 <_start-0x7ffffd78>
+ 33c:	0b3a0e03 	bleq	e83b50 <_start-0x7f17c4b0>
+ 340:	0c270b3b 	stceq	11, cr0, [r7], #-236	; 0xffffff14
+ 344:	01111349 	tsteq	r1, r9, asr #6
+ 348:	06400112 			; <UNDEFINED> instruction: 0x06400112
+ 34c:	000c4296 	muleq	ip, r6, r2
 	...
 
 Disassembly of section .debug_loc:
@@ -2564,205 +2239,125 @@ Disassembly of section .debug_loc:
   60:	007d0002 	rsbseq	r0, sp, r2
   64:	00000070 	andeq	r0, r0, r0, ror r0
   68:	00000074 	andeq	r0, r0, r4, ror r0
-#include "clock.h"
-
-void CM_SetClk(CLK_MODULE_t module, CM_PER_REG reg, unsigned int value)
-{
   6c:	087d0002 	ldmdaeq	sp!, {r1}^
   70:	00000074 	andeq	r0, r0, r4, ror r0
   74:	00000140 	andeq	r0, r0, r0, asr #2
   78:	047b0002 	ldrbteq	r0, [fp], #-2
 	...
-
-	PUT32(module+reg, value);
   88:	00000004 	andeq	r0, r0, r4
   8c:	007d0002 	rsbseq	r0, sp, r2
   90:	00000004 	andeq	r0, r0, r4
   94:	00000008 	andeq	r0, r0, r8
-}
   98:	047d0002 	ldrbteq	r0, [sp], #-2
   9c:	00000008 	andeq	r0, r0, r8
   a0:	00000034 	andeq	r0, r0, r4, lsr r0
-
-unsigned int CM_GetClk(CLK_MODULE_t module, CM_PER_REG reg)
-{
   a4:	047b0002 	ldrbteq	r0, [fp], #-2
 	...
   b0:	00000034 	andeq	r0, r0, r4, lsr r0
   b4:	00000038 	andeq	r0, r0, r8, lsr r0
-	return GET32(module+reg);
   b8:	007d0002 	rsbseq	r0, sp, r2
   bc:	00000038 	andeq	r0, r0, r8, lsr r0
   c0:	0000003c 	andeq	r0, r0, ip, lsr r0
   c4:	047d0002 	ldrbteq	r0, [sp], #-2
-}
   c8:	0000003c 	andeq	r0, r0, ip, lsr r0
   cc:	00000064 	andeq	r0, r0, r4, rrx
   d0:	047b0002 	ldrbteq	r0, [fp], #-2
 	...
-
-void Init_UART0_Clk()
-{
   dc:	00000064 	andeq	r0, r0, r4, rrx
   e0:	00000068 	andeq	r0, r0, r8, rrx
-
-	unsigned int temp;
-	 // software-forced wake-up transition on the "always on clock domain", TRM Table 8-92
-	temp = CM_GetClk(CM_WKUP, CM_WKUP_CLKSTCTRL);		//This register enables the domain power state transition. It controls the SW supervised clock domain state transition between ON-ACTIVE and ON-INACTIVE states. It also hold one status bit per clock input of the domain
   e4:	007d0002 	rsbseq	r0, sp, r2
   e8:	00000068 	andeq	r0, r0, r8, rrx
   ec:	0000006c 	andeq	r0, r0, ip, rrx
   f0:	087d0002 	ldmdaeq	sp!, {r1}^
   f4:	0000006c 	andeq	r0, r0, ip, rrx
-	temp &= ~(0x3);
   f8:	000000b4 	strheq	r0, [r0], -r4
   fc:	047b0002 	ldrbteq	r0, [fp], #-2
 	...
-	temp |= (0x2);
  108:	000000b4 	strheq	r0, [r0], -r4
  10c:	000000b8 	strheq	r0, [r0], -r8
-	CM_SetClk(CM_WKUP, CM_WKUP_CLKSTCTRL, temp);		//0x2=SW_WKUP
  110:	007d0002 	rsbseq	r0, sp, r2
  114:	000000b8 	strheq	r0, [r0], -r8
  118:	000000bc 	strheq	r0, [r0], -ip
  11c:	087d0002 	ldmdaeq	sp!, {r1}^
  120:	000000bc 	strheq	r0, [r0], -ip
-
-	// software-forced wake up transition on the L4 high speed domain
-	temp = CM_GetClk(CM_PER, CM_PER_L4HS_CLKSTCTRL);	//This register enables the domain power state transition. It controls the SW supervised clock domain state transition between ON-ACTIVE and ON-INACTIVE states. It also hold one status bit per clock input of the domain
  124:	000000d8 	ldrdeq	r0, [r0], -r8
  128:	047b0002 	ldrbteq	r0, [fp], #-2
 	...
-	temp &= ~(0x3);
  138:	00000004 	andeq	r0, r0, r4
  13c:	007d0002 	rsbseq	r0, sp, r2
  140:	00000004 	andeq	r0, r0, r4
-	temp |= (0x2);
  144:	00000008 	andeq	r0, r0, r8
  148:	087d0002 	ldmdaeq	sp!, {r1}^
  14c:	00000008 	andeq	r0, r0, r8
-	CM_SetClk(CM_PER, CM_PER_L4HS_CLKSTCTRL, temp);		//0x2=SW_WKUP
  150:	00000094 	muleq	r0, r4, r0
  154:	047b0002 	ldrbteq	r0, [fp], #-2
 	...
-
-	// Module is explicitly enabled,    TRM Table 8-137
-	temp = CM_GetClk(CM_WKUP, CM_WKUP_UART0_CLKCTRL);		//This register enables the domain power state transition. It controls the SW supervised clock domain state transition between ON-ACTIVE and ON-INACTIVE states. It also hold one status bit per clock input of the domain
  164:	00000004 	andeq	r0, r0, r4
  168:	007d0002 	rsbseq	r0, sp, r2
  16c:	00000004 	andeq	r0, r0, r4
  170:	00000008 	andeq	r0, r0, r8
  174:	087d0002 	ldmdaeq	sp!, {r1}^
-	temp &= ~(0x3);
  178:	00000008 	andeq	r0, r0, r8
  17c:	00000058 	andeq	r0, r0, r8, asr r0
  180:	047b0002 	ldrbteq	r0, [fp], #-2
 	...
-	temp |= (0x2);
  18c:	00000058 	andeq	r0, r0, r8, asr r0
-	CM_SetClk(CM_WKUP, CM_WKUP_UART0_CLKCTRL, temp);		//0x2=SW_WKUP
  190:	0000005c 	andeq	r0, r0, ip, asr r0
  194:	007d0002 	rsbseq	r0, sp, r2
  198:	0000005c 	andeq	r0, r0, ip, asr r0
  19c:	00000060 	andeq	r0, r0, r0, rrx
  1a0:	047d0002 	ldrbteq	r0, [sp], #-2
-*/
-	
-
-   
-
-}
  1a4:	00000060 	andeq	r0, r0, r0, rrx
  1a8:	00000228 	andeq	r0, r0, r8, lsr #4
-#include "control_module.h"
-
-void CM_setCtrlModule(CONTROL_MODULE_REG_t module, unsigned int value)
-{
  1ac:	047b0002 	ldrbteq	r0, [fp], #-2
 	...
  1b8:	00000228 	andeq	r0, r0, r8, lsr #4
  1bc:	0000022c 	andeq	r0, r0, ip, lsr #4
-
-	PUT32(CONTROL_MODULE_REGISTER_BASE + module, value);
  1c0:	007d0002 	rsbseq	r0, sp, r2
  1c4:	0000022c 	andeq	r0, r0, ip, lsr #4
  1c8:	00000230 	andeq	r0, r0, r0, lsr r2
  1cc:	087d0002 	ldmdaeq	sp!, {r1}^
  1d0:	00000230 	andeq	r0, r0, r0, lsr r2
-}
  1d4:	0000025c 	andeq	r0, r0, ip, asr r2
  1d8:	047b0002 	ldrbteq	r0, [fp], #-2
 	...
-
-unsigned int CM_getCtrlModule(CONTROL_MODULE_REG_t module)
-{
  1e4:	0000025c 	andeq	r0, r0, ip, asr r2
  1e8:	00000260 	andeq	r0, r0, r0, ror #4
  1ec:	007d0002 	rsbseq	r0, sp, r2
-	return GET32(CONTROL_MODULE_REGISTER_BASE + module);
  1f0:	00000260 	andeq	r0, r0, r0, ror #4
  1f4:	00000264 	andeq	r0, r0, r4, ror #4
  1f8:	087d0002 	ldmdaeq	sp!, {r1}^
  1fc:	00000264 	andeq	r0, r0, r4, ror #4
-}
  200:	000002bc 			; <UNDEFINED> instruction: 0x000002bc
  204:	047b0002 	ldrbteq	r0, [fp], #-2
 	...
-
-void PAD_setMode(CONTROL_MODULE_REG_t module, unsigned int mode)
-{
  210:	000002bc 			; <UNDEFINED> instruction: 0x000002bc
  214:	000002c0 	andeq	r0, r0, r0, asr #5
  218:	007d0002 	rsbseq	r0, sp, r2
  21c:	000002c0 	andeq	r0, r0, r0, asr #5
  220:	000002c4 	andeq	r0, r0, r4, asr #5
-	unsigned int temp = CM_getCtrlModule(0);
  224:	047d0002 	ldrbteq	r0, [sp], #-2
  228:	000002c4 	andeq	r0, r0, r4, asr #5
  22c:	00000304 	andeq	r0, r0, r4, lsl #6
-	temp &= ~(0b111);    // turn down MUXMODE
  230:	047b0002 	ldrbteq	r0, [fp], #-2
 	...
-	temp |= mode;        // set new MUXMODE
  23c:	00000304 	andeq	r0, r0, r4, lsl #6
  240:	00000308 	andeq	r0, r0, r8, lsl #6
  244:	007d0002 	rsbseq	r0, sp, r2
  248:	00000308 	andeq	r0, r0, r8, lsl #6
-	CM_setCtrlModule(module, temp);
  24c:	0000030c 	andeq	r0, r0, ip, lsl #6
  250:	087d0002 	ldmdaeq	sp!, {r1}^
  254:	0000030c 	andeq	r0, r0, ip, lsl #6
-
-
-}
  258:	00000368 	andeq	r0, r0, r8, ror #6
  25c:	047b0002 	ldrbteq	r0, [fp], #-2
 	...
-
-
-void Uart0_Mux()
-{
-
-	CM_setCtrlModule(CM_conf_uart0_rxd, (1 << 4) | (1 << 5));		//Rx muxing
  268:	00000368 	andeq	r0, r0, r8, ror #6
  26c:	0000036c 	andeq	r0, r0, ip, ror #6
  270:	007d0002 	rsbseq	r0, sp, r2
-	CM_setCtrlModule(CM_conf_uart0_txd,0);					//tx muxing
  274:	0000036c 	andeq	r0, r0, ip, ror #6
  278:	00000370 	andeq	r0, r0, r0, ror r3
  27c:	0c7d0002 	ldcleq	0, cr0, [sp], #-8
-/*
-	PAD_setMode(CM_conf_uart0_txd, 0);
-	PAD_setMode(CM_conf_uart0_rxd, 0);
-*/
-}
  280:	00000370 	andeq	r0, r0, r0, ror r3
-#define CM_PER_BASE 		 0x44e00000
-#define CM_PER_GPIO1		 0xac
-
-
-void _main(void)
-{
  284:	000003cc 	andeq	r0, r0, ip, asr #7
  288:	047b0002 	ldrbteq	r0, [fp], #-2
 	...
@@ -2774,32 +2369,28 @@ Disassembly of section .debug_aranges:
    4:	00000002 	andeq	r0, r0, r2
    8:	00040000 	andeq	r0, r4, r0
    c:	00000000 	andeq	r0, r0, r0
-  10:	0000006c 	andeq	r0, r0, ip, rrx
+  10:	8000006c 	andhi	r0, r0, ip, rrx
   14:	00000140 	andeq	r0, r0, r0, asr #2
 	...
   20:	0000001c 	andeq	r0, r0, ip, lsl r0
   24:	047e0002 	ldrbteq	r0, [lr], #-2
   28:	00040000 	andeq	r0, r4, r0
   2c:	00000000 	andeq	r0, r0, r0
-  30:	000001ac 	andeq	r0, r0, ip, lsr #3
+  30:	800001ac 	andhi	r0, r0, ip, lsr #3
   34:	000000d8 	ldrdeq	r0, [r0], -r8
 	...
   40:	0000001c 	andeq	r0, r0, ip, lsl r0
-  44:	0b970002 	bleq	fe5c0054 <.LC0+0xfe5bf96c>
+  44:	0b970002 	bleq	fe5c0054 <.LC0+0x7e5bf96c>
   48:	00040000 	andeq	r0, r4, r0
   4c:	00000000 	andeq	r0, r0, r0
-  50:	00000284 	andeq	r0, r0, r4, lsl #5
+  50:	80000284 	andhi	r0, r0, r4, lsl #5
   54:	00000094 	muleq	r0, r4, r0
 	...
   60:	0000001c 	andeq	r0, r0, ip, lsl r0
   64:	0c760002 	ldcleq	0, cr0, [r6], #-8
   68:	00040000 	andeq	r0, r4, r0
-#include "clock.h"
-
-void CM_SetClk(CLK_MODULE_t module, CM_PER_REG reg, unsigned int value)
-{
   6c:	00000000 	andeq	r0, r0, r0
-  70:	00000318 	andeq	r0, r0, r8, lsl r3
+  70:	80000318 	andhi	r0, r0, r8, lsl r3
   74:	000003cc 	andeq	r0, r0, ip, asr #7
 	...
 
@@ -2823,7 +2414,7 @@ Disassembly of section .debug_line:
   38:	00000068 	andeq	r0, r0, r8, rrx
   3c:	05000000 	streq	r0, [r0, #-0]
   40:	00006c02 	andeq	r6, r0, r2, lsl #24
-  44:	9fbc1500 	svcls	0x00bc1500
+  44:	9fbc1580 	svcls	0x00bc1580
   48:	85839f69 	strhi	r9, [r3, #3945]	; 0xf69
   4c:	67679f6a 	strbvs	r9, [r7, -sl, ror #30]!
   50:	67679fa1 	strbvs	r9, [r7, -r1, lsr #31]!
@@ -2839,158 +2430,109 @@ Disassembly of section .debug_line:
   78:	00010000 	andeq	r0, r1, r0
   7c:	746e6f63 	strbtvc	r6, [lr], #-3939	; 0xf63
   80:	5f6c6f72 	svcpl	0x006c6f72
-
-	PUT32(module+reg, value);
   84:	75646f6d 	strbvc	r6, [r4, #-3949]!	; 0xf6d
   88:	632e656c 	teqvs	lr, #108, 10	; 0x1b000000
   8c:	00000000 	andeq	r0, r0, r0
   90:	65707974 	ldrbvs	r7, [r0, #-2420]!	; 0x974
   94:	00682e73 	rsbeq	r2, r8, r3, ror lr
-}
   98:	63000000 	movwvs	r0, #0
   9c:	72746e6f 	rsbsvc	r6, r4, #1776	; 0x6f0
-  a0:	6d5f6c6f 	ldclvs	12, cr6, [pc, #-444]	; fffffeec <.LC0+0xfffff804>
-
-unsigned int CM_GetClk(CLK_MODULE_t module, CM_PER_REG reg)
-{
+  a0:	6d5f6c6f 	ldclvs	12, cr6, [pc, #-444]	; fffffeec <.LC0+0x7ffff804>
   a4:	6c75646f 	cfldrdvs	mvd6, [r5], #-444	; 0xfffffe44
   a8:	00682e65 	rsbeq	r2, r8, r5, ror #28
   ac:	00000000 	andeq	r0, r0, r0
   b0:	ac020500 	cfstr32ge	mvfx0, [r2], {-0}
-  b4:	15000001 	strne	r0, [r0, #-1]
-	return GET32(module+reg);
+  b4:	15800001 	strne	r0, [r0, #1]
   b8:	83699fa0 	cmnhi	r9, #160, 30	; 0x280
   bc:	679f8583 	ldrvs	r8, [pc, r3, lsl #11]
   c0:	52698367 	rsbpl	r8, r9, #-1677721599	; 0x9c000001
   c4:	026b674c 	rsbeq	r6, fp, #76, 14	; 0x1300000
-}
   c8:	01010002 	tsteq	r1, r2
   cc:	0000005f 	andeq	r0, r0, pc, asr r0
   d0:	00410002 	subeq	r0, r1, r2
   d4:	01020000 	mrseq	r0, (UNDEF: 2)
-
-void Init_UART0_Clk()
-{
   d8:	000d0efb 	strdeq	r0, [sp], -fp
   dc:	01010101 	tsteq	r1, r1, lsl #2
   e0:	01000000 	mrseq	r0, (UNDEF: 0)
-
-	unsigned int temp;
-	 // software-forced wake-up transition on the "always on clock domain", TRM Table 8-92
-	temp = CM_GetClk(CM_WKUP, CM_WKUP_CLKSTCTRL);		//This register enables the domain power state transition. It controls the SW supervised clock domain state transition between ON-ACTIVE and ON-INACTIVE states. It also hold one status bit per clock input of the domain
   e4:	00010000 	andeq	r0, r1, r0
   e8:	6e69616d 	powvsez	f6, f1, #5.0
   ec:	0000632e 	andeq	r6, r0, lr, lsr #6
   f0:	61750000 	cmnvs	r5, r0
   f4:	635f7472 	cmpvs	pc, #1912602624	; 0x72000000
-	temp &= ~(0x3);
   f8:	6f736e6f 	svcvs	0x00736e6f
   fc:	685f656c 	ldmdavs	pc, {r2, r3, r5, r6, r8, sl, sp, lr}^	; <UNPREDICTABLE>
  100:	65646165 	strbvs	r6, [r4, #-357]!	; 0x165
-	temp |= (0x2);
  104:	00682e72 	rsbeq	r2, r8, r2, ror lr
  108:	74000000 	strvc	r0, [r0], #-0
  10c:	73657079 	cmnvc	r5, #121	; 0x79
-	CM_SetClk(CM_WKUP, CM_WKUP_CLKSTCTRL, temp);		//0x2=SW_WKUP
  110:	0000682e 	andeq	r6, r0, lr, lsr #16
  114:	00000000 	andeq	r0, r0, r0
  118:	02840205 	addeq	r0, r4, #1342177280	; 0x50000000
- 11c:	0e030000 	cdpeq	0, 0, cr0, cr3, cr0, {0}
+ 11c:	0e038000 	cdpeq	0, 0, cr8, cr3, cr0, {0}
  120:	9f4c6a01 	svcls	0x004c6a01
-
-	// software-forced wake up transition on the L4 high speed domain
-	temp = CM_GetClk(CM_PER, CM_PER_L4HS_CLKSTCTRL);	//This register enables the domain power state transition. It controls the SW supervised clock domain state transition between ON-ACTIVE and ON-INACTIVE states. It also hold one status bit per clock input of the domain
  124:	84846783 	strhi	r6, [r4], #1923	; 0x783
- 128:	040284bc 	streq	r8, [r2], #-1212	; 0x4bc
- 12c:	e2010100 	and	r0, r1, #0, 2
+ 128:	040285bb 	streq	r8, [r2], #-1467	; 0x5bb
+ 12c:	eb010100 	bl	40534 <_start-0x7ffbfacc>
  130:	02000000 	andeq	r0, r0, #0
  134:	00005e00 	andeq	r5, r0, r0, lsl #28
-	temp &= ~(0x3);
- 138:	fb010200 	blx	40942 <.LC0+0x4025a>
+ 138:	fb010200 	blx	40942 <_start-0x7ffbf6be>
  13c:	01000d0e 	tsteq	r0, lr, lsl #26
  140:	00010101 	andeq	r0, r1, r1, lsl #2
-	temp |= (0x2);
  144:	00010000 	andeq	r0, r1, r0
  148:	75000100 	strvc	r0, [r0, #-256]	; 0x100
  14c:	5f747261 	svcpl	0x00747261
-	CM_SetClk(CM_PER, CM_PER_L4HS_CLKSTCTRL, temp);		//0x2=SW_WKUP
  150:	736e6f63 	cmnvc	lr, #396	; 0x18c
  154:	2e656c6f 	cdpcs	12, 6, cr6, cr5, cr15, {3}
  158:	00000063 	andeq	r0, r0, r3, rrx
  15c:	70797400 	rsbsvc	r7, r9, r0, lsl #8
  160:	682e7365 	stmdavs	lr!, {r0, r2, r5, r6, r8, r9, ip, sp, lr}
-
-	// Module is explicitly enabled,    TRM Table 8-137
-	temp = CM_GetClk(CM_WKUP, CM_WKUP_UART0_CLKCTRL);		//This register enables the domain power state transition. It controls the SW supervised clock domain state transition between ON-ACTIVE and ON-INACTIVE states. It also hold one status bit per clock input of the domain
  164:	00000000 	andeq	r0, r0, r0
  168:	74726175 	ldrbtvc	r6, [r2], #-373	; 0x175
  16c:	0000682e 	andeq	r6, r0, lr, lsr #16
  170:	61750000 	cmnvs	r5, r0
  174:	635f7472 	cmpvs	pc, #1912602624	; 0x72000000
-	temp &= ~(0x3);
  178:	6f736e6f 	svcvs	0x00736e6f
  17c:	685f656c 	ldmdavs	pc, {r2, r3, r5, r6, r8, sl, sp, lr}^	; <UNPREDICTABLE>
  180:	65646165 	strbvs	r6, [r4, #-357]!	; 0x165
-	temp |= (0x2);
  184:	00682e72 	rsbeq	r2, r8, r2, ror lr
  188:	63000000 	movwvs	r0, #0
- 18c:	6b636f6c 	blvs	18dbf44 <.LC0+0x18db85c>
-	CM_SetClk(CM_WKUP, CM_WKUP_UART0_CLKCTRL, temp);		//0x2=SW_WKUP
+ 18c:	6b636f6c 	blvs	18dbf44 <_start-0x7e7240bc>
  190:	0000682e 	andeq	r6, r0, lr, lsr #16
  194:	00000000 	andeq	r0, r0, r0
  198:	03180205 	tsteq	r8, #1342177280	; 0x50000000
- 19c:	67180000 	ldrvs	r0, [r8, -r0]
+ 19c:	67188000 	ldrvs	r8, [r8, -r0]
  1a0:	02009f67 	andeq	r9, r0, #412	; 0x19c
-*/
-	
-
-   
-
-}
  1a4:	2e060104 	adfcss	f0, f6, f4
  1a8:	834ef406 	movthi	pc, #58374	; 0xe406	; <UNPREDICTABLE>
-#include "control_module.h"
-
-void CM_setCtrlModule(CONTROL_MODULE_REG_t module, unsigned int value)
-{
  1ac:	00836783 	addeq	r6, r3, r3, lsl #15
  1b0:	06010402 	streq	r0, [r1], -r2, lsl #8
  1b4:	9fbc062e 	svcls	0x00bc062e
  1b8:	0200a067 	andeq	sl, r0, #103	; 0x67
  1bc:	2e060104 	adfcss	f0, f6, f4
-
-	PUT32(CONTROL_MODULE_REGISTER_BASE + module, value);
  1c0:	2108bb06 	tstcs	r8, r6, lsl #22
  1c4:	83838368 	orrhi	r8, r3, #104, 6	; 0xa0000001
  1c8:	83838383 	orrhi	r8, r3, #201326594	; 0xc000002
  1cc:	f59f8383 			; <UNDEFINED> instruction: 0xf59f8383
- 1d0:	dba18483 	blle	fe8613e4 <.LC0+0xfe860cfc>
-}
+ 1d0:	dba18483 	blle	fe8613e4 <.LC0+0x7e860cfc>
  1d4:	4d4b3131 	stfmie	f3, [fp, #-196]	; 0xffffff3c
  1d8:	004c67a0 	subeq	r6, ip, r0, lsr #15
  1dc:	06010402 	streq	r0, [r1], -r2, lsl #8
-
-unsigned int CM_getCtrlModule(CONTROL_MODULE_REG_t module)
-{
  1e0:	83da062e 	bicshi	r0, sl, #48234496	; 0x2e00000
  1e4:	02004b4c 	andeq	r4, r0, #76, 22	; 0x13000
  1e8:	2e060104 	adfcss	f0, f6, f4
  1ec:	8583d706 	strhi	sp, [r3, #1798]	; 0x706
-	return GET32(CONTROL_MODULE_REGISTER_BASE + module);
- 1f0:	bb304b9f 	bllt	c13074 <.LC0+0xc1298c>
- 1f4:	01040200 	mrseq	r0, R12_usr
- 1f8:	692f8763 	stmdbvs	pc!, {r0, r1, r5, r6, r8, r9, sl, pc}	; <UNPREDICTABLE>
- 1fc:	0402009f 	streq	r0, [r2], #-159	; 0x9f
-}
- 200:	02006802 	andeq	r6, r0, #131072	; 0x20000
- 204:	00b80204 	adcseq	r0, r8, r4, lsl #4
- 208:	06010402 	streq	r0, [r1], -r2, lsl #8
- 20c:	2f860666 	svccs	0x00860666
-
-void PAD_setMode(CONTROL_MODULE_REG_t module, unsigned int mode)
-{
- 210:	01000602 	tsteq	r0, r2, lsl #12
- 214:	Address 0x0000000000000214 is out of bounds.
+ 1f0:	0402009f 	streq	r0, [r2], #-159	; 0x9f
+ 1f4:	02006802 	andeq	r6, r0, #131072	; 0x20000
+ 1f8:	00b80204 	adcseq	r0, r8, r4, lsl #4
+ 1fc:	06010402 	streq	r0, [r1], -r2, lsl #8
+ 200:	2f860666 	svccs	0x00860666
+ 204:	02009f69 	andeq	r9, r0, #420	; 0x1a4
+ 208:	00680204 	rsbeq	r0, r8, r4, lsl #4
+ 20c:	b8020402 	stmdalt	r2, {r1, sl}
+ 210:	01040200 	mrseq	r0, R12_usr
+ 214:	86066606 	strhi	r6, [r6], -r6, lsl #12
+ 218:	0006022f 	andeq	r0, r6, pc, lsr #4
+ 21c:	Address 0x000000000000021c is out of bounds.
 
 
 Disassembly of section .debug_str:
@@ -3002,7 +2544,7 @@ Disassembly of section .debug_str:
        c:	4354534b 	cmpmi	r4, #738197505	; 0x2c000001
       10:	004c5254 	subeq	r5, ip, r4, asr r2
       14:	505f4d43 	subspl	r4, pc, r3, asr #26
-      18:	4d5f5245 	lfmmi	f5, 2, [pc, #-276]	; ffffff0c <.LC0+0xfffff824>
+      18:	4d5f5245 	lfmmi	f5, 2, [pc, #-276]	; ffffff0c <.LC0+0x7ffff824>
       1c:	50534143 	subspl	r4, r3, r3, asr #2
       20:	4c435f30 	mcrrmi	15, 3, r5, r3, cr0
       24:	5254434b 	subspl	r4, r4, #738197505	; 0x2c000001
@@ -3018,432 +2560,300 @@ Disassembly of section .debug_str:
       4c:	4354534b 	cmpmi	r4, #738197505	; 0x2c000001
       50:	004c5254 	subeq	r5, ip, r4, asr r2
       54:	505f4d43 	subspl	r4, pc, r3, asr #26
-      58:	555f5245 	ldrbpl	r5, [pc, #-581]	; fffffe1b <.LC0+0xfffff733>
+      58:	555f5245 	ldrbpl	r5, [pc, #-581]	; fffffe1b <.LC0+0x7ffff733>
       5c:	34545241 	ldrbcc	r5, [r4], #-577	; 0x241
-      60:	4b4c435f 	blmi	1310de4 <.LC0+0x13106fc>
+      60:	4b4c435f 	blmi	1310de4 <_start-0x7ecef21c>
       64:	4c525443 	cfldrdmi	mvd5, [r2], {67}	; 0x43
       68:	5f4d4300 	svcpl	0x004d4300
-#include "clock.h"
-
-void CM_SetClk(CLK_MODULE_t module, CM_PER_REG reg, unsigned int value)
-{
       6c:	5f524550 	svcpl	0x00524550
       70:	5341434d 	movtpl	r4, #4941	; 0x134d
       74:	435f3150 	cmpmi	pc, #80, 2
       78:	54434b4c 	strbpl	r4, [r3], #-2892	; 0xb4c
       7c:	43004c52 	movwmi	r4, #3154	; 0xc52
       80:	45505f4d 	ldrbmi	r5, [r0, #-3917]	; 0xf4d
-
-	PUT32(module+reg, value);
       84:	50545f52 	subspl	r5, r4, r2, asr pc
       88:	5f304354 	svcpl	0x00304354
       8c:	434b4c43 	movtmi	r4, #48195	; 0xbc43
       90:	004c5254 	subeq	r5, ip, r4, asr r2
       94:	505f4d43 	subspl	r4, pc, r3, asr #26
-}
       98:	4c5f5245 	lfmmi	f5, 2, [pc], {69}	; 0x45
       9c:	5f574634 	svcpl	0x00574634
       a0:	534b4c43 	movtpl	r4, #48195	; 0xbc43
-
-unsigned int CM_GetClk(CLK_MODULE_t module, CM_PER_REG reg)
-{
       a4:	52544354 	subspl	r4, r4, #84, 6	; 0x50000001
       a8:	4d43004c 	stclmi	0, cr0, [r3, #-304]	; 0xfffffed0
       ac:	4353535f 	cmpmi	r3, #2080374785	; 0x7c000001
-      b0:	444f4d5f 	strbmi	r4, [pc], #-3423	; b8 <CM_GetClk+0x14>
+      b0:	444f4d5f 	strbmi	r4, [pc], #-3423	; b8 <_start-0x7fffff48>
       b4:	51455246 	cmppl	r5, r6, asr #4
-	return GET32(module+reg);
       b8:	5f564944 	svcpl	0x00564944
       bc:	4c4c5044 	mcrrmi	0, 4, r5, ip, cr4
       c0:	5244445f 	subpl	r4, r4, #1593835520	; 0x5f000000
       c4:	5f4d4300 	svcpl	0x004d4300
-}
       c8:	5f524550 	svcpl	0x00524550
       cc:	00474552 	subeq	r4, r7, r2, asr r5
       d0:	74696e49 	strbtvc	r6, [r9], #-3657	; 0xe49
       d4:	5241555f 	subpl	r5, r1, #398458880	; 0x17c00000
-
-void Init_UART0_Clk()
-{
       d8:	435f3054 	cmpmi	pc, #84	; 0x54
       dc:	43006b6c 	movwmi	r6, #2924	; 0xb6c
       e0:	45505f4d 	ldrbmi	r5, [r0, #-3917]	; 0xf4d
-
-	unsigned int temp;
-	 // software-forced wake-up transition on the "always on clock domain", TRM Table 8-92
-	temp = CM_GetClk(CM_WKUP, CM_WKUP_CLKSTCTRL);		//This register enables the domain power state transition. It controls the SW supervised clock domain state transition between ON-ACTIVE and ON-INACTIVE states. It also hold one status bit per clock input of the domain
       e4:	41555f52 	cmpmi	r5, r2, asr pc
       e8:	5f355452 	svcpl	0x00355452
       ec:	434b4c43 	movtmi	r4, #48195	; 0xbc43
       f0:	004c5254 	subeq	r5, ip, r4, asr r2
       f4:	535f4d43 	cmppl	pc, #4288	; 0x10c0
-	temp &= ~(0x3);
-      f8:	445f4353 	ldrbmi	r4, [pc], #-851	; 100 <Init_UART0_Clk+0x28>
+      f8:	445f4353 	ldrbmi	r4, [pc], #-851	; 100 <_start-0x7fffff00>
       fc:	41544c45 	cmpmi	r4, r5, asr #24
      100:	4554534d 	ldrbmi	r5, [r4, #-845]	; 0x34d
-	temp |= (0x2);
      104:	50445f50 	subpl	r5, r4, r0, asr pc
-     108:	445f4c4c 	ldrbmi	r4, [pc], #-3148	; 110 <Init_UART0_Clk+0x38>
+     108:	445f4c4c 	ldrbmi	r4, [pc], #-3148	; 110 <_start-0x7ffffef0>
      10c:	00505349 	subseq	r5, r0, r9, asr #6
-	CM_SetClk(CM_WKUP, CM_WKUP_CLKSTCTRL, temp);		//0x2=SW_WKUP
      110:	706d6574 	rsbvc	r6, sp, r4, ror r5
      114:	6f687300 	svcvs	0x00687300
      118:	69207472 	stmdbvs	r0!, {r1, r4, r5, r6, sl, ip, sp, lr}
      11c:	4300746e 	movwmi	r7, #1134	; 0x46e
      120:	44495f4d 	strbmi	r5, [r9], #-3917	; 0xf4d
-
-	// software-forced wake up transition on the L4 high speed domain
-	temp = CM_GetClk(CM_PER, CM_PER_L4HS_CLKSTCTRL);	//This register enables the domain power state transition. It controls the SW supervised clock domain state transition between ON-ACTIVE and ON-INACTIVE states. It also hold one status bit per clock input of the domain
      124:	5453454c 	ldrbpl	r4, [r3], #-1356	; 0x54c
      128:	4c50445f 	cfldrdmi	mvd4, [r0], {95}	; 0x5f
      12c:	44445f4c 	strbmi	r5, [r4], #-3916	; 0xf4c
      130:	4d430052 	stclmi	0, cr0, [r3, #-328]	; 0xfffffeb8
      134:	5455415f 	ldrbpl	r4, [r5], #-351	; 0x15f
-	temp &= ~(0x3);
      138:	4c44494f 	mcrrmi	9, 4, r4, r4, cr15
      13c:	50445f45 	subpl	r5, r4, r5, asr #30
      140:	505f4c4c 	subspl	r4, pc, ip, asr #24
-	temp |= (0x2);
      144:	43005245 	movwmi	r5, #581	; 0x245
      148:	49445f4d 	stmdbmi	r4, {r0, r2, r3, r6, r8, r9, sl, fp, ip, lr}^
      14c:	354d5f56 	strbcc	r5, [sp, #-3926]	; 0xf56
-	CM_SetClk(CM_PER, CM_PER_L4HS_CLKSTCTRL, temp);		//0x2=SW_WKUP
      150:	4c50445f 	cfldrdmi	mvd4, [r0], {95}	; 0x5f
      154:	4f435f4c 	svcmi	0x00435f4c
      158:	43004552 	movwmi	r4, #1362	; 0x552
      15c:	53535f4d 	cmppl	r3, #308	; 0x134
      160:	45445f43 	strbmi	r5, [r4, #-3907]	; 0xf43
-
-	// Module is explicitly enabled,    TRM Table 8-137
-	temp = CM_GetClk(CM_WKUP, CM_WKUP_UART0_CLKCTRL);		//This register enables the domain power state transition. It controls the SW supervised clock domain state transition between ON-ACTIVE and ON-INACTIVE states. It also hold one status bit per clock input of the domain
      164:	4d41544c 	cfstrdmi	mvd5, [r1, #-304]	; 0xfffffed0
      168:	50455453 	subpl	r5, r5, r3, asr r4
      16c:	4c50445f 	cfldrdmi	mvd4, [r0], {95}	; 0x5f
      170:	45505f4c 	ldrbmi	r5, [r0, #-3916]	; 0xf4c
      174:	61760052 	cmnvs	r6, r2, asr r0
-	temp &= ~(0x3);
      178:	0065756c 	rsbeq	r7, r5, ip, ror #10
      17c:	505f4d43 	subspl	r4, pc, r3, asr #26
      180:	435f5245 	cmpmi	pc, #1342177284	; 0x50000004
-	temp |= (0x2);
      184:	49444b4c 	stmdbmi	r4, {r2, r3, r6, r8, r9, fp, lr}^
-     188:	4b323356 	blmi	c8cee8 <.LC0+0xc8c800>
-     18c:	4b4c435f 	blmi	1310f10 <.LC0+0x1310828>
-	CM_SetClk(CM_WKUP, CM_WKUP_UART0_CLKCTRL, temp);		//0x2=SW_WKUP
+     188:	4b323356 	blmi	c8cee8 <_start-0x7f373118>
+     18c:	4b4c435f 	blmi	1310f10 <_start-0x7ecef0f0>
      190:	4c525443 	cfldrdmi	mvd5, [r2], {67}	; 0x43
      194:	5f4d4300 	svcpl	0x004d4300
      198:	4f545541 	svcmi	0x00545541
      19c:	454c4449 	strbmi	r4, [ip, #-1097]	; 0x449
      1a0:	4c50445f 	cfldrdmi	mvd4, [r0], {95}	; 0x5f
-*/
-	
-
-   
-
-}
      1a4:	4f435f4c 	svcmi	0x00435f4c
      1a8:	43004552 	movwmi	r4, #1362	; 0x552
-#include "control_module.h"
-
-void CM_setCtrlModule(CONTROL_MODULE_REG_t module, unsigned int value)
-{
      1ac:	49445f4d 	stmdbmi	r4, {r0, r2, r3, r6, r8, r9, sl, fp, ip, lr}^
      1b0:	324d5f56 	subcc	r5, sp, #344	; 0x158
      1b4:	4c50445f 	cfldrdmi	mvd4, [r0], {95}	; 0x5f
      1b8:	504d5f4c 	subpl	r5, sp, ip, asr #30
      1bc:	4d430055 	stclmi	0, cr0, [r3, #-340]	; 0xfffffeac
-
-	PUT32(CONTROL_MODULE_REGISTER_BASE + module, value);
      1c0:	5245505f 	subpl	r5, r5, #95	; 0x5f
      1c4:	4143445f 	cmpmi	r3, pc, asr r4
      1c8:	435f304e 	cmpmi	pc, #78	; 0x4e
      1cc:	54434b4c 	strbpl	r4, [r3], #-2892	; 0xb4c
      1d0:	43004c52 	movwmi	r4, #3154	; 0xc52
-}
      1d4:	45505f4d 	ldrbmi	r5, [r0, #-3917]	; 0xf4d
      1d8:	344c5f52 	strbcc	r5, [ip], #-3922	; 0xf52
      1dc:	435f5746 	cmpmi	pc, #18350080	; 0x1180000
-
-unsigned int CM_getCtrlModule(CONTROL_MODULE_REG_t module)
-{
      1e0:	54434b4c 	strbpl	r4, [r3], #-2892	; 0xb4c
      1e4:	43004c52 	movwmi	r4, #3154	; 0xc52
      1e8:	54525f4d 	ldrbpl	r5, [r2], #-3917	; 0xf4d
      1ec:	4d430043 	stclmi	0, cr0, [r3, #-268]	; 0xfffffef4
-	return GET32(CONTROL_MODULE_REGISTER_BASE + module);
      1f0:	5245505f 	subpl	r5, r5, #95	; 0x5f
      1f4:	434d4d5f 	movtmi	r4, #56671	; 0xdd5f
      1f8:	4c435f30 	mcrrmi	15, 3, r5, r3, cr0
      1fc:	5254434b 	subspl	r4, r4, #738197505	; 0x2c000001
-}
      200:	4d43004c 	stclmi	0, cr0, [r3, #-304]	; 0xfffffed0
-     204:	4b4c435f 	blmi	1310f88 <.LC0+0x13108a0>
+     204:	4b4c435f 	blmi	1310f88 <_start-0x7ecef078>
      208:	5f4c4553 	svcpl	0x004c4553
      20c:	4c4c5044 	mcrrmi	0, 4, r5, ip, cr4
-
-void PAD_setMode(CONTROL_MODULE_REG_t module, unsigned int mode)
-{
      210:	524f435f 	subpl	r4, pc, #2080374785	; 0x7c000001
      214:	4d430045 	stclmi	0, cr0, [r3, #-276]	; 0xfffffeec
      218:	5245505f 	subpl	r5, r5, #95	; 0x5f
      21c:	4332495f 	teqmi	r2, #1556480	; 0x17c000
      220:	4c435f31 	mcrrmi	15, 3, r5, r3, cr1
-	unsigned int temp = CM_getCtrlModule(0);
      224:	5254434b 	subspl	r4, r4, #738197505	; 0x2c000001
      228:	4d43004c 	stclmi	0, cr0, [r3, #-304]	; 0xfffffed0
      22c:	5649445f 			; <UNDEFINED> instruction: 0x5649445f
-	temp &= ~(0b111);    // turn down MUXMODE
      230:	5f344d5f 	svcpl	0x00344d5f
      234:	4c4c5044 	mcrrmi	0, 4, r5, ip, cr4
      238:	524f435f 	subpl	r4, pc, #2080374785	; 0x7c000001
-	temp |= mode;        // set new MUXMODE
      23c:	4d430045 	stclmi	0, cr0, [r3, #-276]	; 0xfffffeec
      240:	5245505f 	subpl	r5, r5, #95	; 0x5f
      244:	4545495f 	strbmi	r4, [r5, #-2399]	; 0x95f
      248:	30303545 	eorscc	r3, r0, r5, asr #10
-	CM_setCtrlModule(module, temp);
      24c:	4c435f30 	mcrrmi	15, 3, r5, r3, cr0
      250:	5254434b 	subspl	r4, r4, #738197505	; 0x2c000001
      254:	4d43004c 	stclmi	0, cr0, [r3, #-304]	; 0xfffffed0
-
-
-}
      258:	5245505f 	subpl	r5, r5, #95	; 0x5f
      25c:	4d49545f 	cfstrdmi	mvd5, [r9, #-380]	; 0xfffffe84
-
-
-
-
-void Uart0_Mux()
-{
      260:	5f325245 	svcpl	0x00325245
      264:	434b4c43 	movtmi	r4, #48195	; 0xbc43
-
-	CM_setCtrlModule(CM_conf_uart0_rxd, (1 << 4) | (1 << 5));		//Rx muxing
      268:	004c5254 	subeq	r5, ip, r4, asr r2
      26c:	505f4d43 	subspl	r4, pc, r3, asr #26
-     270:	4d5f5245 	lfmmi	f5, 2, [pc, #-276]	; 164 <Init_UART0_Clk+0x8c>
-	CM_setCtrlModule(CM_conf_uart0_txd,0);					//tx muxing
+     270:	4d5f5245 	lfmmi	f5, 2, [pc, #-276]	; 164 <_start-0x7ffffe9c>
      274:	5f31434d 	svcpl	0x0031434d
      278:	434b4c43 	movtmi	r4, #48195	; 0xbc43
      27c:	004c5254 	subeq	r5, ip, r4, asr r2
-/*
-	PAD_setMode(CM_conf_uart0_txd, 0);
-	PAD_setMode(CM_conf_uart0_rxd, 0);
-*/
-}
      280:	535f4d43 	cmppl	pc, #4288	; 0x10c0
-     284:	4d5f4353 	ldclmi	3, cr4, [pc, #-332]	; 140 <Init_UART0_Clk+0x68>
+     284:	4d5f4353 	ldclmi	3, cr4, [pc, #-332]	; 140 <_start-0x7ffffec0>
      288:	5246444f 	subpl	r4, r6, #1325400064	; 0x4f000000
      28c:	49445145 	stmdbmi	r4, {r0, r2, r6, r8, ip, lr}^
-
-
-	volatile unsigned int ra;
-	char a = 'a';
      290:	50445f56 	subpl	r5, r4, r6, asr pc
-     294:	4d5f4c4c 	ldclmi	12, cr4, [pc, #-304]	; 16c <Init_UART0_Clk+0x94>
-
-	PUT32(CM_PER_BASE+CM_PER_GPIO1, 1<<18 | 2);
+     294:	4d5f4c4c 	ldclmi	12, cr4, [pc, #-304]	; 16c <_start-0x7ffffe94>
      298:	43005550 	movwmi	r5, #1360	; 0x550
      29c:	45505f4d 	ldrbmi	r5, [r0, #-3917]	; 0xf4d
      2a0:	32495f52 	subcc	r5, r9, #328	; 0x148
      2a4:	435f3243 	cmpmi	pc, #805306372	; 0x30000004
      2a8:	54434b4c 	strbpl	r4, [r3], #-2892	; 0xb4c
-	ra = GET32(GPIO1_BASE+GPIO_OE);
      2ac:	43004c52 	movwmi	r4, #3154	; 0xc52
      2b0:	45505f4d 	ldrbmi	r5, [r0, #-3917]	; 0xf4d
      2b4:	41555f52 	cmpmi	r5, r2, asr pc
      2b8:	5f335452 	svcpl	0x00335452
-	ra &= ~(1<<21);
      2bc:	434b4c43 	movtmi	r4, #48195	; 0xbc43
      2c0:	004c5254 	subeq	r5, ip, r4, asr r2
      2c4:	505f4d43 	subspl	r4, pc, r3, asr #26
-	PUT32(GPIO1_BASE+GPIO_OE, ra);
-     2c8:	545f5245 	ldrbpl	r5, [pc], #-581	; 2d0 <_main+0x4c>
+     2c8:	545f5245 	ldrbpl	r5, [pc], #-581	; 2d0 <_start-0x7ffffd30>
      2cc:	52454d49 	subpl	r4, r5, #4672	; 0x1240
      2d0:	4c435f33 	mcrrmi	15, 3, r5, r3, cr3
      2d4:	5254434b 	subspl	r4, r4, #738197505	; 0x2c000001
-
-	PUT32(GPIO1_BASE+GPIO_SETDATAOUT, 1<<21);
      2d8:	4d43004c 	stclmi	0, cr0, [r3, #-304]	; 0xfffffed0
      2dc:	5245505f 	subpl	r5, r5, #95	; 0x5f
      2e0:	434d4d5f 	movtmi	r4, #56671	; 0xdd5f
      2e4:	4c435f32 	mcrrmi	15, 3, r5, r3, cr2
-
-	UART_init(115200,STOP1,PARITY_NONE,FLOW_OFF);
      2e8:	5254434b 	subspl	r4, r4, #738197505	; 0x2c000001
      2ec:	4d43004c 	stclmi	0, cr0, [r3, #-304]	; 0xfffffed0
      2f0:	5245505f 	subpl	r5, r5, #95	; 0x5f
      2f4:	4950535f 	ldmdbmi	r0, {r0, r1, r2, r3, r4, r6, r8, r9, ip, lr}^
      2f8:	434f4c4e 	movtmi	r4, #64590	; 0xfc4e
      2fc:	4c435f4b 	mcrrmi	15, 4, r5, r3, cr11
-
-	UART_putString("UART0 Initialized...\n",21);
      300:	5254434b 	subspl	r4, r4, #738197505	; 0x2c000001
      304:	682f004c 	stmdavs	pc!, {r2, r3, r6}	; <UNPREDICTABLE>
      308:	2f656d6f 	svccs	0x00656d6f
      30c:	73616873 	cmnvc	r1, #7536640	; 0x730000
-
-}
-     310:	642f6968 	strtvs	r6, [pc], #-2408	; 318 <GPIO_init>
+     310:	642f6968 	strtvs	r6, [pc], #-2408	; 318 <_start-0x7ffffce8>
      314:	61626261 	cmnvs	r2, r1, ror #4
-#include "uart_console_header.h"
-#include "clock.h"
-#include "control_module.h"
-
-void GPIO_init()
-{
      318:	4242422f 	submi	r4, r2, #-268435454	; 0xf0000002
      31c:	726f575f 	rsbvc	r5, pc, #24903680	; 0x17c0000
      320:	676e696b 	strbvs	r6, [lr, -fp, ror #18]!
-	unsigned int setting = (1<<18) | (0x2<<0);
      324:	6165422f 	cmnvs	r5, pc, lsr #4
      328:	42656c67 	rsbmi	r6, r5, #26368	; 0x6700
      32c:	42656e6f 	rsbmi	r6, r5, #1776	; 0x6f0
-	CM_SetClk(CM_PER, CM_PER_GPIO1_CLKCTRL, setting);
-     330:	6b63616c 	blvs	18d88e8 <.LC0+0x18d8200>
+     330:	6b63616c 	blvs	18d88e8 <_start-0x7e727718>
      334:	5241552f 	subpl	r5, r1, #197132288	; 0xbc00000
      338:	4d430054 	stclmi	0, cr0, [r3, #-336]	; 0xfffffeb0
      33c:	554b575f 	strbpl	r5, [fp, #-1887]	; 0x75f
-     340:	4b575f50 	blmi	15d8088 <.LC0+0x15d79a0>
-	while((CM_GetClk(CM_PER, CM_PER_GPIO1_CLKCTRL) & (0x3<<16)) != 0);
-     344:	4d5f5055 	ldclmi	0, cr5, [pc, #-340]	; 1f8 <CM_getCtrlModule+0x18>
+     340:	4b575f50 	blmi	15d8088 <_start-0x7ea27f78>
+     344:	4d5f5055 	ldclmi	0, cr5, [pc, #-340]	; 1f8 <_start-0x7ffffe08>
      348:	4c435f33 	mcrrmi	15, 3, r5, r3, cr3
      34c:	5254434b 	subspl	r4, r4, #738197505	; 0x2c000001
      350:	4d43004c 	stclmi	0, cr0, [r3, #-304]	; 0xfffffed0
-     354:	4b4c435f 	blmi	13110d8 <.LC0+0x13109f0>
+     354:	4b4c435f 	blmi	13110d8 <_start-0x7eceef28>
      358:	45444f4d 	strbmi	r4, [r4, #-3917]	; 0xf4d
      35c:	4c50445f 	cfldrdmi	mvd4, [r0], {95}	; 0x5f
      360:	4f435f4c 	svcmi	0x00435f4c
      364:	43004552 	movwmi	r4, #1362	; 0x552
-
-}
      368:	65535f4d 	ldrbvs	r5, [r3, #-3917]	; 0xf4d
-     36c:	6b6c4374 	blvs	1b11144 <.LC0+0x1b10a5c>
-
-
-void Uart0_Reset(unsigned int baudrate) 
-{
+     36c:	6b6c4374 	blvs	1b11144 <_start-0x7e4eeebc>
      370:	5f4d4300 	svcpl	0x004d4300
      374:	5f524550 	svcpl	0x00524550
      378:	454d4954 	strbmi	r4, [sp, #-2388]	; 0x954
      37c:	435f3452 	cmpmi	pc, #1375731712	; 0x52000000
-	unsigned int temp = GET32(UART0+SYSC);
      380:	54434b4c 	strbpl	r4, [r3], #-2892	; 0xb4c
      384:	43004c52 	movwmi	r4, #3154	; 0xc52
-     388:	4b575f4d 	blmi	15d80c4 <.LC0+0x15d79dc>
+     388:	4b575f4d 	blmi	15d80c4 <_start-0x7ea27f3c>
      38c:	435f5055 	cmpmi	pc, #85	; 0x55
-	temp |= 0x2;
      390:	52544e4f 	subspl	r4, r4, #1264	; 0x4f0
      394:	435f4c4f 	cmpmi	pc, #20224	; 0x4f00
      398:	54434b4c 	strbpl	r4, [r3], #-2892	; 0xb4c
-	PUT32(UART0+SYSC, temp);				//Uart soft reset
      39c:	43004c52 	movwmi	r4, #3154	; 0xc52
-     3a0:	4b575f4d 	blmi	15d80dc <.LC0+0x15d79f4>
+     3a0:	4b575f4d 	blmi	15d80dc <_start-0x7ea27f24>
      3a4:	575f5055 			; <UNDEFINED> instruction: 0x575f5055
      3a8:	5f315444 	svcpl	0x00315444
-	while(((GET32(UART0+SYSS)) & 0x1) == 0);		//Wait till reset is complete
      3ac:	434b4c43 	movtmi	r4, #48195	; 0xbc43
      3b0:	004c5254 	subeq	r5, ip, r4, asr r2
      3b4:	505f4d43 	subspl	r4, pc, r3, asr #26
-     3b8:	545f5245 	ldrbpl	r5, [pc], #-581	; 3c0 <Uart0_Reset+0x50>
+     3b8:	545f5245 	ldrbpl	r5, [pc], #-581	; 3c0 <_start-0x7ffffc40>
      3bc:	52454d49 	subpl	r4, r5, #4672	; 0x1240
      3c0:	4c435f35 	mcrrmi	15, 3, r5, r3, cr5
      3c4:	5254434b 	subspl	r4, r4, #738197505	; 0x2c000001
-
-	temp = GET8(UART0+SYSC);
      3c8:	4d43004c 	stclmi	0, cr0, [r3, #-304]	; 0xfffffed0
      3cc:	5245505f 	subpl	r5, r5, #95	; 0x5f
      3d0:	4950535f 	ldmdbmi	r0, {r0, r1, r2, r3, r4, r6, r8, r9, ip, lr}^
      3d4:	4c435f31 	mcrrmi	15, 3, r5, r3, cr1
      3d8:	5254434b 	subspl	r4, r4, #738197505	; 0x2c000001
-	temp |= (0x1 << 0x3);
      3dc:	4d43004c 	stclmi	0, cr0, [r3, #-304]	; 0xfffffed0
      3e0:	5245505f 	subpl	r5, r5, #95	; 0x5f
      3e4:	5f334c5f 	svcpl	0x00334c5f
-	PUT8(UART0+SYSC, temp);				//No idle
      3e8:	434b4c43 	movtmi	r4, #48195	; 0xbc43
      3ec:	004c5254 	subeq	r5, ip, r4, asr r2
      3f0:	505f4d43 	subspl	r4, pc, r3, asr #26
-     3f4:	445f5245 	ldrbmi	r5, [pc], #-581	; 3fc <Uart0_Reset+0x8c>
+     3f4:	445f5245 	ldrbmi	r5, [pc], #-581	; 3fc <_start-0x7ffffc04>
      3f8:	314e4143 	cmpcc	lr, r3, asr #2
-
-	while(((GET32(UART0+LSR) & 0x40) !=0x40));    		// wait for txfifo to be empty
-     3fc:	4b4c435f 	blmi	1311180 <.LC0+0x1310a98>
+     3fc:	4b4c435f 	blmi	1311180 <_start-0x7eceee80>
      400:	4c525443 	cfldrdmi	mvd5, [r2], {67}	; 0x43
      404:	5f4d4300 	svcpl	0x004d4300
      408:	5f524550 	svcpl	0x00524550
      40c:	4d575045 	ldclmi	0, cr5, [r7, #-276]	; 0xfffffeec
      410:	5f305353 	svcpl	0x00305353
      414:	434b4c43 	movtmi	r4, #48195	; 0xbc43
-	float div = 48000000.0/(16.0*(float)baudrate);
      418:	004c5254 	subeq	r5, ip, r4, asr r2
      41c:	505f4d43 	subspl	r4, pc, r3, asr #26
-     420:	545f5245 	ldrbpl	r5, [pc], #-581	; 428 <Uart0_Reset+0xb8>
+     420:	545f5245 	ldrbpl	r5, [pc], #-581	; 428 <_start-0x7ffffbd8>
      424:	52454d49 	subpl	r4, r5, #4672	; 0x1240
      428:	4c435f36 	mcrrmi	15, 3, r5, r3, cr6
      42c:	5254434b 	subspl	r4, r4, #738197505	; 0x2c000001
      430:	4d43004c 	stclmi	0, cr0, [r3, #-304]	; 0xfffffed0
      434:	554b575f 	strbpl	r5, [fp, #-1887]	; 0x75f
      438:	50475f50 	subpl	r5, r7, r0, asr pc
-	unsigned int intdiv = (unsigned int) div; 
      43c:	5f304f49 	svcpl	0x00304f49
      440:	434b4c43 	movtmi	r4, #48195	; 0xbc43
      444:	004c5254 	subeq	r5, ip, r4, asr r2
-	/* UART Interrupt Enable Register */
-	PUT8(UART0+IER, 0);					//Disable uart interrupts
      448:	505f4d43 	subspl	r4, pc, r3, asr #26
      44c:	435f5245 	cmpmi	pc, #1342177284	; 0x50000004
      450:	414d4750 	cmpmi	sp, r0, asr r7
      454:	435f3043 	cmpmi	pc, #67	; 0x43
-	PUT8(UART0+MDR1,0x7);        // Disable modeselect (default) TRM table 19-50
      458:	54434b4c 	strbpl	r4, [r3], #-2892	; 0xb4c
      45c:	43004c52 	movwmi	r4, #3154	; 0xc52
      460:	53535f4d 	cmppl	r3, #308	; 0x134
      464:	45445f43 	strbmi	r5, [r4, #-3907]	; 0xf43
-	PUT8(UART0+LCR,~(0x7C));    // divisor latch enable, access DLL DHL, set uart as 8bit
      468:	4d41544c 	cfstrdmi	mvd5, [r1, #-304]	; 0xfffffed0
      46c:	50455453 	subpl	r5, r5, r3, asr r4
      470:	4c50445f 	cfldrdmi	mvd4, [r0], {95}	; 0x5f
      474:	4f435f4c 	svcmi	0x00435f4c
-	PUT8(UART0+RHR,0);          // DLL = 0
      478:	43004552 	movwmi	r4, #1362	; 0x552
      47c:	45505f4d 	ldrbmi	r5, [r0, #-3917]	; 0xf4d
      480:	49545f52 	ldmdbmi	r4, {r1, r4, r6, r8, r9, sl, fp, ip, lr}^
      484:	3752454d 	ldrbcc	r4, [r2, -sp, asr #10]
-	PUT8(UART0+IER,0);          // DHL = 0
-     488:	4b4c435f 	blmi	131120c <.LC0+0x1310b24>
+     488:	4b4c435f 	blmi	131120c <_start-0x7eceedf4>
      48c:	4c525443 	cfldrdmi	mvd5, [r2], {67}	; 0x43
      490:	5f4d4300 	svcpl	0x004d4300
      494:	5f435353 	svcpl	0x00435353
-	PUT8(UART0+LCR,0x3);        // set uart as 8bit
      498:	544c4544 	strbpl	r4, [ip], #-1348	; 0x544
      49c:	54534d41 	ldrbpl	r4, [r3], #-3393	; 0xd41
-     4a0:	445f5045 	ldrbmi	r5, [pc], #-69	; 4a8 <Uart0_Reset+0x138>
+     4a0:	445f5045 	ldrbmi	r5, [pc], #-69	; 4a8 <_start-0x7ffffb58>
      4a4:	5f4c4c50 	svcpl	0x004c4c50
-	PUT8(UART0+MCR,0x3);        // force /rts & /drt to active (low) (?!)
      4a8:	0055504d 	subseq	r5, r5, sp, asr #32
      4ac:	505f4d43 	subspl	r4, pc, r3, asr #26
      4b0:	4f5f5245 	svcmi	0x005f5245
      4b4:	50575043 	subspl	r5, r7, r3, asr #32
-	PUT8(UART0+FCR,0x7);        // clear rx&tx FIFOs, and enables them (each 64 bytes deep)
-     4b8:	4b4c435f 	blmi	131123c <.LC0+0x1310b54>
+     4b8:	4b4c435f 	blmi	131123c <_start-0x7eceedc4>
      4bc:	4c525443 	cfldrdmi	mvd5, [r2], {67}	; 0x43
      4c0:	5f4d4300 	svcpl	0x004d4300
      4c4:	50554b57 	subspl	r4, r5, r7, asr fp
-	PUT8(UART0+LCR,~(0x7C));    // divisor latch enable, access DLL DHL, set uart as 8bit
      4c8:	414d535f 	cmpmi	sp, pc, asr r3
      4cc:	45525452 	ldrbmi	r5, [r2, #-1106]	; 0x452
      4d0:	58454c46 	stmdapl	r5, {r1, r2, r6, sl, fp, lr}^
      4d4:	4c435f30 	mcrrmi	15, 3, r5, r3, cr0
-	PUT8(UART0+RHR,intdiv&0xFF);          // DLL = 0
      4d8:	5254434b 	subspl	r4, r4, #738197505	; 0x2c000001
      4dc:	4d43004c 	stclmi	0, cr0, [r3, #-304]	; 0xfffffed0
      4e0:	5245505f 	subpl	r5, r5, #95	; 0x5f
      4e4:	5750455f 			; <UNDEFINED> instruction: 0x5750455f
      4e8:	3253534d 	subscc	r5, r3, #872415233	; 0x34000001
-	PUT8(UART0+IER,(intdiv>>8)&0x3F);          // DHL = 0
-     4ec:	4b4c435f 	blmi	1311270 <.LC0+0x1310b88>
+     4ec:	4b4c435f 	blmi	1311270 <_start-0x7eceed90>
      4f0:	4c525443 	cfldrdmi	mvd5, [r2], {67}	; 0x43
      4f4:	5f4d4300 	svcpl	0x004d4300
      4f8:	50554b57 	subspl	r4, r5, r7, asr fp
@@ -3451,72 +2861,43 @@ void Uart0_Reset(unsigned int baudrate)
      500:	435f3054 	cmpmi	pc, #84	; 0x54
      504:	54434b4c 	strbpl	r4, [r3], #-2892	; 0xb4c
      508:	43004c52 	movwmi	r4, #3154	; 0xc52
-
-
-	PUT8(UART0+LCR,0x3);        // set uart as 8 bit
      50c:	4c435f4d 	mcrrmi	15, 4, r5, r3, cr13
      510:	4c45534b 	mcrrmi	3, 4, r5, r5, cr11
      514:	4c50445f 	cfldrdmi	mvd4, [r0], {95}	; 0x5f
      518:	45505f4c 	ldrbmi	r5, [r0, #-3916]	; 0xf4c
-	PUT8(UART0+MDR1,0);          // uart 16x oversampling
      51c:	48504952 	ldmdami	r0, {r1, r4, r6, r8, fp, lr}^
      520:	5f4d4300 	svcpl	0x004d4300
      524:	5f524550 	svcpl	0x00524550
      528:	534c344c 	movtpl	r3, #50252	; 0xc44c
-
-}
-     52c:	4b4c435f 	blmi	13112b0 <.LC0+0x1310bc8>
+     52c:	4b4c435f 	blmi	13112b0 <_start-0x7eceed50>
      530:	4c525443 	cfldrdmi	mvd5, [r2], {67}	; 0x43
      534:	5f4d4300 	svcpl	0x004d4300
      538:	5f524550 	svcpl	0x00524550
      53c:	5f53334c 	svcpl	0x0053334c
-
-void UART_init(unsigned int baudrate, STOP_BIT_t stopBit, PARITY_BIT_t parity, FLOW_t flowControl) 
-{
      540:	534b4c43 	movtpl	r4, #48195	; 0xbc43
      544:	52544354 	subspl	r4, r4, #84, 6	; 0x50000001
      548:	4d43004c 	stclmi	0, cr0, [r3, #-304]	; 0xfffffed0
-     54c:	4b4c435f 	blmi	13112d0 <.LC0+0x1310be8>
+     54c:	4b4c435f 	blmi	13112d0 <_start-0x7eceed30>
      550:	45444f4d 	strbmi	r4, [r4, #-3917]	; 0xf4d
      554:	4c50445f 	cfldrdmi	mvd4, [r0], {95}	; 0x5f
      558:	44445f4c 	strbmi	r5, [r4], #-3916	; 0xf4c
-
-	//	GPIO_init();
-
-	//UART mux config
-	Uart0_Mux();
      55c:	4d430052 	stclmi	0, cr0, [r3, #-328]	; 0xfffffeb8
-
-	//Init clock and muxing of pins
-	Init_UART0_Clk();
      560:	554b575f 	strbpl	r5, [fp, #-1887]	; 0x75f
-
-	//Uart soft reset
-	Uart0_Reset(baudrate);
      564:	4d535f50 	ldclmi	15, cr5, [r3, #-320]	; 0xfffffec0
      568:	52545241 	subspl	r5, r4, #268435460	; 0x10000004
-}
      56c:	454c4645 	strbmi	r4, [ip, #-1605]	; 0x645
      570:	435f3158 	cmpmi	pc, #88, 2
-
-void UART_putC( char c)
-{
      574:	54434b4c 	strbpl	r4, [r3], #-2892	; 0xb4c
      578:	43004c52 	movwmi	r4, #3154	; 0xc52
      57c:	4c435f4d 	mcrrmi	15, 4, r5, r3, cr13
      580:	4c45534b 	mcrrmi	3, 4, r5, r5, cr11
      584:	4c50445f 	cfldrdmi	mvd4, [r0], {95}	; 0x5f
-
-	if (c == '\n')
      588:	49445f4c 	stmdbmi	r4, {r2, r3, r6, r8, r9, sl, fp, ip, lr}^
      58c:	43005053 	movwmi	r5, #83	; 0x53
      590:	45505f4d 	ldrbmi	r5, [r0, #-3917]	; 0xf4d
-		UART_putC('\r');
      594:	4d430052 	stclmi	0, cr0, [r3, #-328]	; 0xfffffeb8
      598:	5245505f 	subpl	r5, r5, #95	; 0x5f
-
-	while((GET8(UART0+0x14)&0x20)!=0x20)	//wait until txfifo is empty
-     59c:	4b4c435f 	blmi	1311320 <.LC0+0x1310c38>
+     59c:	4b4c435f 	blmi	1311320 <_start-0x7eceece0>
      5a0:	4d34325f 	lfmmi	f3, 4, [r4, #-380]!	; 0xfffffe84
      5a4:	435f5a48 	cmpmi	pc, #72, 20	; 0x48000
      5a8:	54534b4c 	ldrbpl	r4, [r3], #-2892	; 0xb4c
@@ -3524,22 +2905,14 @@ void UART_putC( char c)
      5b0:	5f4d4300 	svcpl	0x004d4300
      5b4:	5f524550 	svcpl	0x00524550
      5b8:	30425355 	subcc	r5, r2, r5, asr r3
-		;
-
-
-	PUT8(UART0 +0,c);
-     5bc:	4b4c435f 	blmi	1311340 <.LC0+0x1310c58>
+     5bc:	4b4c435f 	blmi	1311340 <_start-0x7eceecc0>
      5c0:	4c525443 	cfldrdmi	mvd5, [r2], {67}	; 0x43
      5c4:	736e7500 	cmnvc	lr, #0, 10
      5c8:	656e6769 	strbvs	r6, [lr, #-1897]!	; 0x769
-}
      5cc:	68632064 	stmdavs	r3!, {r2, r5, r6, sp}^
      5d0:	43007261 	movwmi	r7, #609	; 0x261
-char UART_getC()
-{
      5d4:	45505f4d 	ldrbmi	r5, [r0, #-3917]	; 0xf4d
      5d8:	414d5f52 	cmpmi	sp, r2, asr pc
-	while((GET8(UART0+0x14)&0x1)==0);     //wait for a character to be in the rx fifo
      5dc:	4f424c49 	svcmi	0x00424c49
      5e0:	435f3058 	cmpmi	pc, #88	; 0x58
      5e4:	54434b4c 	strbpl	r4, [r3], #-2892	; 0xb4c
@@ -3548,87 +2921,53 @@ char UART_getC()
      5f0:	45535546 	ldrbmi	r5, [r3, #-1350]	; 0x546
      5f4:	5f4d4300 	svcpl	0x004d4300
      5f8:	43746547 	cmnmi	r4, #297795584	; 0x11c00000
-	return GET8(UART0+0x0);
      5fc:	43006b6c 	movwmi	r6, #2924	; 0xb6c
      600:	49445f4d 	stmdbmi	r4, {r0, r2, r3, r6, r8, r9, sl, fp, ip, lr}^
      604:	364d5f56 			; <UNDEFINED> instruction: 0x364d5f56
      608:	4c50445f 	cfldrdmi	mvd4, [r0], {95}	; 0x5f
-}
      60c:	4f435f4c 	svcmi	0x00435f4c
      610:	43004552 	movwmi	r4, #1362	; 0x552
-     614:	4b575f4d 	blmi	15d8350 <.LC0+0x15d7c68>
+     614:	4b575f4d 	blmi	15d8350 <_start-0x7ea27cb0>
      618:	43005055 	movwmi	r5, #85	; 0x55
-
-int UART_putString(char *str, unsigned int length)
-{ 
      61c:	44495f4d 	strbmi	r5, [r9], #-3917	; 0xf4d
      620:	5453454c 	ldrbpl	r4, [r3], #-1356	; 0x54c
      624:	4c50445f 	cfldrdmi	mvd4, [r0], {95}	; 0x5f
      628:	4f435f4c 	svcmi	0x00435f4c
      62c:	75004552 	strvc	r4, [r0, #-1362]	; 0x552
-	int i = 0;
      630:	33746e69 	cmncc	r4, #1680	; 0x690
      634:	00745f32 	rsbseq	r5, r4, r2, lsr pc
-	while( i < length)
      638:	495f4d43 	ldmdbmi	pc, {r0, r1, r6, r8, sl, fp, lr}^	; <UNPREDICTABLE>
-	{   
-		UART_putC(str[i]);
      63c:	53454c44 	movtpl	r4, #23620	; 0x5c44
      640:	50445f54 	subpl	r5, r4, r4, asr pc
      644:	505f4c4c 	subspl	r4, pc, ip, asr #24
      648:	43005245 	movwmi	r5, #581	; 0x245
      64c:	45505f4d 	ldrbmi	r5, [r0, #-3917]	; 0xf4d
      650:	52505f52 	subspl	r5, r0, #328	; 0x148
-		i++;
      654:	43495f55 	movtmi	r5, #40789	; 0x9f55
      658:	435f5353 	cmpmi	pc, #1275068417	; 0x4c000001
      65c:	54434b4c 	strbpl	r4, [r3], #-2892	; 0xb4c
-}
-
-int UART_putString(char *str, unsigned int length)
-{ 
-	int i = 0;
-	while( i < length)
      660:	47004c52 	smlsdmi	r0, r2, ip, r4
      664:	4320554e 	teqmi	r0, #327155712	; 0x13800000
      668:	372e3420 	strcc	r3, [lr, -r0, lsr #8]!
      66c:	4300332e 	movwmi	r3, #814	; 0x32e
-	{   
-		UART_putC(str[i]);
-		i++;
-	}   
-	return length;
      670:	4c435f4d 	mcrrmi	15, 4, r5, r3, cr13
-}
-     674:	444f4d4b 	strbmi	r4, [pc], #-3403	; 67c <UART_putString+0x60>
+     674:	444f4d4b 	strbmi	r4, [pc], #-3403	; 67c <_start-0x7ffff984>
      678:	50445f45 	subpl	r5, r4, r5, asr #30
      67c:	505f4c4c 	subspl	r4, pc, ip, asr #24
-
-int UART_getString(char *buf, unsigned int length)
-{
      680:	43005245 	movwmi	r5, #581	; 0x245
      684:	45505f4d 	ldrbmi	r5, [r0, #-3917]	; 0xf4d
      688:	50475f52 	subpl	r5, r7, r2, asr pc
      68c:	5f314f49 	svcpl	0x00314f49
      690:	434b4c43 	movtmi	r4, #48195	; 0xbc43
-	for(int i = 0; i < length; i ++)
      694:	004c5254 	subeq	r5, ip, r4, asr r2
      698:	435f4d43 	cmpmi	pc, #4288	; 0x10c0
      69c:	43444b4c 	movtmi	r4, #19276	; 0x4b4c
-	{
-		buf[i] = UART_getC();
      6a0:	4f444c4f 	svcmi	0x00444c4f
      6a4:	4c50445f 	cfldrdmi	mvd4, [r0], {95}	; 0x5f
      6a8:	45505f4c 	ldrbmi	r5, [r0, #-3916]	; 0xf4c
      6ac:	68730052 	ldmdavs	r3!, {r1, r4, r6}^
      6b0:	2074726f 	rsbscs	r7, r4, pc, ror #4
      6b4:	69736e75 	ldmdbvs	r3!, {r0, r2, r4, r5, r6, r9, sl, fp, sp, lr}^
-	return length;
-}
-
-int UART_getString(char *buf, unsigned int length)
-{
-	for(int i = 0; i < length; i ++)
      6b8:	64656e67 	strbtvs	r6, [r5], #-3687	; 0xe67
      6bc:	746e6920 	strbtvc	r6, [lr], #-2336	; 0x920
      6c0:	5f4d4300 	svcpl	0x004d4300
@@ -3636,12 +2975,7 @@ int UART_getString(char *buf, unsigned int length)
      6c8:	4f495047 	svcmi	0x00495047
      6cc:	4c435f32 	mcrrmi	15, 3, r5, r3, cr2
      6d0:	5254434b 	subspl	r4, r4, #738197505	; 0x2c000001
-	{
-		buf[i] = UART_getC();
-	}
-	return length;
      6d4:	4d43004c 	stclmi	0, cr0, [r3, #-304]	; 0xfffffed0
-}
      6d8:	5245505f 	subpl	r5, r5, #95	; 0x5f
      6dc:	494d455f 	stmdbmi	sp, {r0, r1, r2, r3, r4, r6, r8, sl, lr}^
      6e0:	4c435f46 	mcrrmi	15, 4, r5, r3, cr6
@@ -3649,7 +2983,7 @@ int UART_getString(char *buf, unsigned int length)
      6e8:	4d43004c 	stclmi	0, cr0, [r3, #-304]	; 0xfffffed0
      6ec:	5245505f 	subpl	r5, r5, #95	; 0x5f
      6f0:	4d4c455f 	cfstr64mi	mvdx4, [ip, #-380]	; 0xfffffe84
-     6f4:	4b4c435f 	blmi	1311478 <.LC0+0x1310d90>
+     6f4:	4b4c435f 	blmi	1311478 <_start-0x7eceeb88>
      6f8:	4c525443 	cfldrdmi	mvd5, [r2], {67}	; 0x43
      6fc:	5f4d4300 	svcpl	0x004d4300
      700:	4d4b4c43 	stclmi	12, cr4, [fp, #-268]	; 0xfffffef4
@@ -3670,9 +3004,9 @@ int UART_getString(char *buf, unsigned int length)
      73c:	4354534b 	cmpmi	r4, #738197505	; 0x2c000001
      740:	004c5254 	subeq	r5, ip, r4, asr r2
      744:	505f4d43 	subspl	r4, pc, r3, asr #26
-     748:	545f5245 	ldrbpl	r5, [pc], #-581	; 750 <.LC0+0x68>
+     748:	545f5245 	ldrbpl	r5, [pc], #-581	; 750 <_start-0x7ffff8b0>
      74c:	31435450 	cmpcc	r3, r0, asr r4
-     750:	4b4c435f 	blmi	13114d4 <.LC0+0x1310dec>
+     750:	4b4c435f 	blmi	13114d4 <_start-0x7eceeb2c>
      754:	4c525443 	cfldrdmi	mvd5, [r2], {67}	; 0x43
      758:	5f4d4300 	svcpl	0x004d4300
      75c:	4f545541 	svcmi	0x00545541
@@ -3685,7 +3019,7 @@ int UART_getString(char *buf, unsigned int length)
      778:	534b4c43 	movtpl	r4, #48195	; 0xbc43
      77c:	52544354 	subspl	r4, r4, #84, 6	; 0x50000001
      780:	4d43004c 	stclmi	0, cr0, [r3, #-304]	; 0xfffffed0
-     784:	4b4c435f 	blmi	1311508 <.LC0+0x1310e20>
+     784:	4b4c435f 	blmi	1311508 <_start-0x7eceeaf8>
      788:	5f4c4553 	svcpl	0x004c4553
      78c:	4c4c5044 	mcrrmi	0, 4, r5, ip, cr4
      790:	5244445f 	subpl	r4, r4, #1593835520	; 0x5f000000
@@ -3693,7 +3027,7 @@ int UART_getString(char *buf, unsigned int length)
      798:	5f435353 	svcpl	0x00435353
      79c:	46444f4d 	strbmi	r4, [r4], -sp, asr #30
      7a0:	44514552 	ldrbmi	r4, [r1], #-1362	; 0x552
-     7a4:	445f5649 	ldrbmi	r5, [pc], #-1609	; 7ac <.LC0+0xc4>
+     7a4:	445f5649 	ldrbmi	r5, [pc], #-1609	; 7ac <_start-0x7ffff854>
      7a8:	5f4c4c50 	svcpl	0x004c4c50
      7ac:	45524f43 	ldrbmi	r4, [r2, #-3907]	; 0xf43
      7b0:	5f4d4300 	svcpl	0x004d4300
@@ -3705,21 +3039,21 @@ int UART_getString(char *buf, unsigned int length)
      7c8:	5245505f 	subpl	r5, r5, #95	; 0x5f
      7cc:	4d434f5f 	stclmi	15, cr4, [r3, #-380]	; 0xfffffe84
      7d0:	4d415243 	sfmmi	f5, 2, [r1, #-268]	; 0xfffffef4
-     7d4:	4b4c435f 	blmi	1311558 <.LC0+0x1310e70>
+     7d4:	4b4c435f 	blmi	1311558 <_start-0x7eceeaa8>
      7d8:	4c525443 	cfldrdmi	mvd5, [r2], {67}	; 0x43
      7dc:	5f4d4300 	svcpl	0x004d4300
      7e0:	5f524550 	svcpl	0x00524550
      7e4:	4344434c 	movtmi	r4, #17228	; 0x434c
-     7e8:	4b4c435f 	blmi	131156c <.LC0+0x1310e84>
+     7e8:	4b4c435f 	blmi	131156c <_start-0x7eceea94>
      7ec:	4c525443 	cfldrdmi	mvd5, [r2], {67}	; 0x43
      7f0:	5f4d4300 	svcpl	0x004d4300
      7f4:	454c4449 	strbmi	r4, [ip, #-1097]	; 0x449
-     7f8:	445f5453 	ldrbmi	r5, [pc], #-1107	; 800 <.LC0+0x118>
+     7f8:	445f5453 	ldrbmi	r5, [pc], #-1107	; 800 <_start-0x7ffff800>
      7fc:	5f4c4c50 	svcpl	0x004c4c50
      800:	0055504d 	subseq	r5, r5, sp, asr #32
      804:	435f4d43 	cmpmi	pc, #4288	; 0x10c0
      808:	4f4d4b4c 	svcmi	0x004d4b4c
-     80c:	445f4544 	ldrbmi	r4, [pc], #-1348	; 814 <.LC0+0x12c>
+     80c:	445f4544 	ldrbmi	r4, [pc], #-1348	; 814 <_start-0x7ffff7ec>
      810:	5f4c4c50 	svcpl	0x004c4c50
      814:	50534944 	subspl	r4, r3, r4, asr #18
      818:	5f4d4300 	svcpl	0x004d4300
@@ -3733,14 +3067,14 @@ int UART_getString(char *buf, unsigned int length)
      838:	4354534b 	cmpmi	r4, #738197505	; 0x2c000001
      83c:	004c5254 	subeq	r5, ip, r4, asr r2
      840:	535f4d43 	cmppl	pc, #4288	; 0x10c0
-     844:	445f4353 	ldrbmi	r4, [pc], #-851	; 84c <.LC0+0x164>
+     844:	445f4353 	ldrbmi	r4, [pc], #-851	; 84c <_start-0x7ffff7b4>
      848:	41544c45 	cmpmi	r4, r5, asr #24
      84c:	4554534d 	ldrbmi	r5, [r4, #-845]	; 0x34d
      850:	50445f50 	subpl	r5, r4, r0, asr pc
-     854:	445f4c4c 	ldrbmi	r4, [pc], #-3148	; 85c <.LC0+0x174>
+     854:	445f4c4c 	ldrbmi	r4, [pc], #-3148	; 85c <_start-0x7ffff7a4>
      858:	43005244 	movwmi	r5, #580	; 0x244
-     85c:	4b575f4d 	blmi	15d8598 <.LC0+0x15d7eb0>
-     860:	445f5055 	ldrbmi	r5, [pc], #-85	; 868 <.LC0+0x180>
+     85c:	4b575f4d 	blmi	15d8598 <_start-0x7ea27a68>
+     860:	445f5055 	ldrbmi	r5, [pc], #-85	; 868 <_start-0x7ffff798>
      864:	47554245 	ldrbmi	r4, [r5, -r5, asr #4]
      868:	435f5353 	cmpmi	pc, #1275068417	; 0x4c000001
      86c:	54434b4c 	strbpl	r4, [r3], #-2892	; 0xb4c
@@ -3755,7 +3089,7 @@ int UART_getString(char *buf, unsigned int length)
      890:	5f344c5f 	svcpl	0x00344c5f
      894:	50554b57 	subspl	r4, r5, r7, asr fp
      898:	4e4f415f 	mcrmi	1, 2, r4, cr15, cr15, {2}
-     89c:	4b4c435f 	blmi	1311620 <.LC0+0x1310f38>
+     89c:	4b4c435f 	blmi	1311620 <_start-0x7ecee9e0>
      8a0:	54435453 	strbpl	r5, [r3], #-1107	; 0x453
      8a4:	43004c52 	movwmi	r4, #3154	; 0xc52
      8a8:	45505f4d 	ldrbmi	r5, [r0, #-3917]	; 0xf4d
@@ -3775,11 +3109,11 @@ int UART_getString(char *buf, unsigned int length)
      8e0:	43004c52 	movwmi	r4, #3154	; 0xc52
      8e4:	55415f4d 	strbpl	r5, [r1, #-3917]	; 0xf4d
      8e8:	44494f54 	strbmi	r4, [r9], #-3924	; 0xf54
-     8ec:	445f454c 	ldrbmi	r4, [pc], #-1356	; 8f4 <.LC0+0x20c>
+     8ec:	445f454c 	ldrbmi	r4, [pc], #-1356	; 8f4 <_start-0x7ffff70c>
      8f0:	5f4c4c50 	svcpl	0x004c4c50
      8f4:	0055504d 	subseq	r5, r5, sp, asr #32
      8f8:	505f4d43 	subspl	r4, pc, r3, asr #26
-     8fc:	455f5245 	ldrbmi	r5, [pc, #-581]	; 6bf <UART_getString+0x3f>
+     8fc:	455f5245 	ldrbmi	r5, [pc, #-581]	; 6bf <_start-0x7ffff941>
      900:	5f46494d 	svcpl	0x0046494d
      904:	435f5746 	cmpmi	pc, #18350080	; 0x1180000
      908:	54434b4c 	strbpl	r4, [r3], #-2892	; 0xb4c
@@ -3795,13 +3129,13 @@ int UART_getString(char *buf, unsigned int length)
      930:	4c435f50 	mcrrmi	15, 5, r5, r3, cr0
      934:	4354534b 	cmpmi	r4, #738197505	; 0x2c000001
      938:	004c5254 	subeq	r5, ip, r4, asr r2
-     93c:	445f4d43 	ldrbmi	r4, [pc], #-3395	; 944 <.LC0+0x25c>
-     940:	4d5f5649 	ldclmi	6, cr5, [pc, #-292]	; 824 <.LC0+0x13c>
+     93c:	445f4d43 	ldrbmi	r4, [pc], #-3395	; 944 <_start-0x7ffff6bc>
+     940:	4d5f5649 	ldclmi	6, cr5, [pc, #-292]	; 824 <_start-0x7ffff7dc>
      944:	50445f32 	subpl	r5, r4, r2, lsr pc
      948:	505f4c4c 	subspl	r4, pc, ip, asr #24
      94c:	43005245 	movwmi	r5, #581	; 0x245
-     950:	4b575f4d 	blmi	15d868c <.LC0+0x15d7fa4>
-     954:	545f5055 	ldrbpl	r5, [pc], #-85	; 95c <.LC0+0x274>
+     950:	4b575f4d 	blmi	15d868c <_start-0x7ea27974>
+     954:	545f5055 	ldrbpl	r5, [pc], #-85	; 95c <_start-0x7ffff6a4>
      958:	52454d49 	subpl	r4, r5, #4672	; 0x1240
      95c:	4c435f30 	mcrrmi	15, 3, r5, r3, cr0
      960:	5254434b 	subspl	r4, r4, #738197505	; 0x2c000001
@@ -3832,7 +3166,7 @@ int UART_getString(char *buf, unsigned int length)
      9c4:	5f524550 	svcpl	0x00524550
      9c8:	5f555250 	svcpl	0x00555250
      9cc:	53534349 	cmppl	r3, #603979777	; 0x24000001
-     9d0:	4b4c435f 	blmi	1311754 <.LC0+0x131106c>
+     9d0:	4b4c435f 	blmi	1311754 <_start-0x7ecee8ac>
      9d4:	54435453 	strbpl	r5, [r3], #-1107	; 0x453
      9d8:	43004c52 	movwmi	r4, #3154	; 0xc52
      9dc:	45505f4d 	ldrbmi	r5, [r0, #-3917]	; 0xf4d
@@ -3847,7 +3181,7 @@ int UART_getString(char *buf, unsigned int length)
      a00:	5349445f 	movtpl	r4, #37983	; 0x945f
      a04:	4d430050 	stclmi	0, cr0, [r3, #-320]	; 0xfffffec0
      a08:	4353535f 	cmpmi	r3, #2080374785	; 0x7c000001
-     a0c:	444f4d5f 	strbmi	r4, [pc], #-3423	; a14 <.LC0+0x32c>
+     a0c:	444f4d5f 	strbmi	r4, [pc], #-3423	; a14 <_start-0x7ffff5ec>
      a10:	51455246 	cmppl	r5, r6, asr #4
      a14:	5f564944 	svcpl	0x00564944
      a18:	4c4c5044 	mcrrmi	0, 4, r5, ip, cr4
@@ -3856,13 +3190,13 @@ int UART_getString(char *buf, unsigned int length)
      a24:	50554b57 	subspl	r4, r5, r7, asr fp
      a28:	4344415f 	movtmi	r4, #16735	; 0x415f
      a2c:	4353545f 	cmpmi	r3, #1593835520	; 0x5f000000
-     a30:	4b4c435f 	blmi	13117b4 <.LC0+0x13110cc>
+     a30:	4b4c435f 	blmi	13117b4 <_start-0x7ecee84c>
      a34:	4c525443 	cfldrdmi	mvd5, [r2], {67}	; 0x43
      a38:	5f4d4300 	svcpl	0x004d4300
      a3c:	5f435353 	svcpl	0x00435353
      a40:	46444f4d 	strbmi	r4, [r4], -sp, asr #30
      a44:	44514552 	ldrbmi	r4, [r1], #-1362	; 0x552
-     a48:	445f5649 	ldrbmi	r5, [pc], #-1609	; a50 <.LC0+0x368>
+     a48:	445f5649 	ldrbmi	r5, [pc], #-1609	; a50 <_start-0x7ffff5b0>
      a4c:	5f4c4c50 	svcpl	0x004c4c50
      a50:	50534944 	subspl	r4, r3, r4, asr #18
      a54:	5f4d4300 	svcpl	0x004d4300
@@ -3878,9 +3212,9 @@ int UART_getString(char *buf, unsigned int length)
      a7c:	434b4c43 	movtmi	r4, #48195	; 0xbc43
      a80:	004c5254 	subeq	r5, ip, r4, asr r2
      a84:	505f4d43 	subspl	r4, pc, r3, asr #26
-     a88:	555f5245 	ldrbpl	r5, [pc, #-581]	; 84b <.LC0+0x163>
+     a88:	555f5245 	ldrbpl	r5, [pc, #-581]	; 84b <_start-0x7ffff7b5>
      a8c:	32545241 	subscc	r5, r4, #268435460	; 0x10000004
-     a90:	4b4c435f 	blmi	1311814 <.LC0+0x131112c>
+     a90:	4b4c435f 	blmi	1311814 <_start-0x7ecee7ec>
      a94:	4c525443 	cfldrdmi	mvd5, [r2], {67}	; 0x43
      a98:	5f4d4300 	svcpl	0x004d4300
      a9c:	50554b57 	subspl	r4, r5, r7, asr fp
@@ -3890,7 +3224,7 @@ int UART_getString(char *buf, unsigned int length)
      aac:	004c5254 	subeq	r5, ip, r4, asr r2
      ab0:	5f4b4c43 	svcpl	0x004b4c43
      ab4:	55444f4d 	strbpl	r4, [r4, #-3917]	; 0xf4d
-     ab8:	745f454c 	ldrbvc	r4, [pc], #-1356	; ac0 <.LC0+0x3d8>
+     ab8:	745f454c 	ldrbvc	r4, [pc], #-1356	; ac0 <_start-0x7ffff540>
      abc:	5f4d4300 	svcpl	0x004d4300
      ac0:	50554b57 	subspl	r4, r5, r7, asr fp
      ac4:	4332495f 	teqmi	r2, #1556480	; 0x17c000
@@ -3942,8 +3276,8 @@ int UART_getString(char *buf, unsigned int length)
      b7c:	6d70675f 	ldclvs	7, cr6, [r0, #-380]!	; 0xfffffe84
      b80:	39615f63 	stmdbcc	r1!, {r0, r1, r5, r6, r8, r9, sl, fp, ip, lr}^
      b84:	6e6f6300 	cdpvs	3, 6, cr6, cr15, cr0, {0}
-     b88:	6c6f7274 	sfmvs	f7, 2, [pc], #-464	; 9c0 <.LC0+0x2d8>
-     b8c:	646f6d5f 	strbtvs	r6, [pc], #-3423	; b94 <.LC0+0x4ac>
+     b88:	6c6f7274 	sfmvs	f7, 2, [pc], #-464	; 9c0 <_start-0x7ffff640>
+     b8c:	646f6d5f 	strbtvs	r6, [pc], #-3423	; b94 <_start-0x7ffff46c>
      b90:	2e656c75 	mcrcs	12, 3, r6, cr5, cr5, {3}
      b94:	4d430063 	stclmi	0, cr0, [r3, #-396]	; 0xfffffe74
      b98:	6e6f635f 	mcrvs	3, 3, r6, cr15, cr15, {2}
@@ -3951,7 +3285,7 @@ int UART_getString(char *buf, unsigned int length)
      ba0:	635f3169 	cmpvs	pc, #1073741850	; 0x4000001a
      ba4:	43007372 	movwmi	r7, #882	; 0x372
      ba8:	6f635f4d 	svcvs	0x00635f4d
-     bac:	745f666e 	ldrbvc	r6, [pc], #-1646	; bb4 <.LC0+0x4cc>
+     bac:	745f666e 	ldrbvc	r6, [pc], #-1646	; bb4 <_start-0x7ffff44c>
      bb0:	5f636370 	svcpl	0x00636370
      bb4:	5f747665 	svcpl	0x00747665
      bb8:	5f78756d 	svcpl	0x0078756d
@@ -4064,7 +3398,7 @@ int UART_getString(char *buf, unsigned int length)
      d64:	43003231 	movwmi	r3, #561	; 0x231
      d68:	6f635f4d 	svcvs	0x00635f4d
      d6c:	6c5f666e 	mrrcvs	6, 6, r6, pc, cr14	; <UNPREDICTABLE>
-     d70:	645f6463 	ldrbvs	r6, [pc], #-1123	; d78 <.LC0+0x690>
+     d70:	645f6463 	ldrbvs	r6, [pc], #-1123	; d78 <_start-0x7ffff288>
      d74:	31617461 	cmncc	r1, r1, ror #8
      d78:	4d430033 	stclmi	0, cr0, [r3, #-204]	; 0xffffff34
      d7c:	65726d5f 	ldrbvs	r6, [r2, #-3423]!	; 0xd5f
@@ -4086,7 +3420,7 @@ int UART_getString(char *buf, unsigned int length)
      dbc:	5f36335f 	svcpl	0x0036335f
      dc0:	43003933 	movwmi	r3, #2355	; 0x933
      dc4:	6f635f4d 	svcvs	0x00635f4d
-     dc8:	745f666e 	ldrbvc	r6, [pc], #-1646	; dd0 <.LC0+0x6e8>
+     dc8:	745f666e 	ldrbvc	r6, [pc], #-1646	; dd0 <_start-0x7ffff230>
      dcc:	5f636370 	svcpl	0x00636370
      dd0:	5f747665 	svcpl	0x00747665
      dd4:	5f78756d 	svcpl	0x0078756d
@@ -4110,7 +3444,7 @@ int UART_getString(char *buf, unsigned int length)
      e1c:	43006564 	movwmi	r6, #1380	; 0x564
      e20:	6f635f4d 	svcvs	0x00635f4d
      e24:	6c5f666e 	mrrcvs	6, 6, r6, pc, cr14	; <UNPREDICTABLE>
-     e28:	645f6463 	ldrbvs	r6, [pc], #-1123	; e30 <.LC0+0x748>
+     e28:	645f6463 	ldrbvs	r6, [pc], #-1123	; e30 <_start-0x7ffff1d0>
      e2c:	30617461 	rsbcc	r7, r1, r1, ror #8
      e30:	5f4d4300 	svcpl	0x004d4300
      e34:	666e6f63 	strbtvs	r6, [lr], -r3, ror #30
@@ -4119,7 +3453,7 @@ int UART_getString(char *buf, unsigned int length)
      e40:	43003161 	movwmi	r3, #353	; 0x161
      e44:	6f635f4d 	svcvs	0x00635f4d
      e48:	6c5f666e 	mrrcvs	6, 6, r6, pc, cr14	; <UNPREDICTABLE>
-     e4c:	645f6463 	ldrbvs	r6, [pc], #-1123	; e54 <.LC0+0x76c>
+     e4c:	645f6463 	ldrbvs	r6, [pc], #-1123	; e54 <_start-0x7ffff1ac>
      e50:	32617461 	rsbcc	r7, r1, #1627389952	; 0x61000000
      e54:	5f4d4300 	svcpl	0x004d4300
      e58:	666e6f63 	strbtvs	r6, [lr], -r3, ror #30
@@ -4128,7 +3462,7 @@ int UART_getString(char *buf, unsigned int length)
      e64:	43003361 	movwmi	r3, #865	; 0x361
      e68:	6f635f4d 	svcvs	0x00635f4d
      e6c:	6c5f666e 	mrrcvs	6, 6, r6, pc, cr14	; <UNPREDICTABLE>
-     e70:	645f6463 	ldrbvs	r6, [pc], #-1123	; e78 <.LC0+0x790>
+     e70:	645f6463 	ldrbvs	r6, [pc], #-1123	; e78 <_start-0x7ffff188>
      e74:	34617461 	strbtcc	r7, [r1], #-1121	; 0x461
      e78:	5f4d4300 	svcpl	0x004d4300
      e7c:	666e6f63 	strbtvs	r6, [lr], -r3, ror #30
@@ -4137,7 +3471,7 @@ int UART_getString(char *buf, unsigned int length)
      e88:	43003561 	movwmi	r3, #1377	; 0x561
      e8c:	6f635f4d 	svcvs	0x00635f4d
      e90:	6c5f666e 	mrrcvs	6, 6, r6, pc, cr14	; <UNPREDICTABLE>
-     e94:	645f6463 	ldrbvs	r6, [pc], #-1123	; e9c <.LC0+0x7b4>
+     e94:	645f6463 	ldrbvs	r6, [pc], #-1123	; e9c <_start-0x7ffff164>
      e98:	36617461 	strbtcc	r7, [r1], -r1, ror #8
      e9c:	5f4d4300 	svcpl	0x004d4300
      ea0:	666e6f63 	strbtvs	r6, [lr], -r3, ror #30
@@ -4189,7 +3523,7 @@ int UART_getString(char *buf, unsigned int length)
      f58:	4d430063 	stclmi	0, cr0, [r3, #-396]	; 0xfffffe74
      f5c:	6e6f635f 	mcrvs	3, 3, r6, cr15, cr15, {2}
      f60:	696d5f66 	stmdbvs	sp!, {r1, r2, r5, r6, r8, r9, sl, fp, ip, lr}^
-     f64:	745f3169 	ldrbvc	r3, [pc], #-361	; f6c <.LC0+0x884>
+     f64:	745f3169 	ldrbvc	r3, [pc], #-361	; f6c <_start-0x7ffff094>
      f68:	6c635f78 	stclvs	15, cr5, [r3], #-480	; 0xfffffe20
      f6c:	4d43006b 	stclmi	0, cr0, [r3, #-428]	; 0xfffffe54
      f70:	75706d5f 	ldrbvc	r6, [r0, #-3423]!	; 0xd5f
@@ -4197,14 +3531,14 @@ int UART_getString(char *buf, unsigned int length)
      f78:	74635f6f 	strbtvc	r5, [r3], #-3951	; 0xf6f
      f7c:	43006c72 	movwmi	r6, #3186	; 0xc72
      f80:	6f635f4d 	svcvs	0x00635f4d
-     f84:	655f666e 	ldrbvs	r6, [pc, #-1646]	; 91e <.LC0+0x236>
+     f84:	655f666e 	ldrbvs	r6, [pc, #-1646]	; 91e <_start-0x7ffff6e2>
      f88:	0030756d 	eorseq	r7, r0, sp, ror #10
      f8c:	635f4d43 	cmpvs	pc, #4288	; 0x10c0
      f90:	5f666e6f 	svcpl	0x00666e6f
      f94:	31756d65 	cmncc	r5, r5, ror #26
      f98:	4e4f4300 	cdpmi	3, 4, cr4, cr15, cr0, {0}
      f9c:	4c4f5254 	sfmmi	f5, 2, [pc], {84}	; 0x54
-     fa0:	444f4d5f 	strbmi	r4, [pc], #-3423	; fa8 <.LC0+0x8c0>
+     fa0:	444f4d5f 	strbmi	r4, [pc], #-3423	; fa8 <_start-0x7ffff058>
      fa4:	5f454c55 	svcpl	0x00454c55
      fa8:	5f474552 	svcpl	0x00474552
      fac:	4d430074 	stclmi	0, cr0, [r3, #-464]	; 0xfffffe30
@@ -4214,7 +3548,7 @@ int UART_getString(char *buf, unsigned int length)
      fbc:	43006b6c 	movwmi	r6, #2924	; 0xb6c
      fc0:	6f635f4d 	svcvs	0x00635f4d
      fc4:	725f666e 	subsvc	r6, pc, #115343360	; 0x6e00000
-     fc8:	6b5f6374 	blvs	17d9da0 <.LC0+0x17d96b8>
+     fc8:	6b5f6374 	blvs	17d9da0 <_start-0x7e826260>
      fcc:	6f646c61 	svcvs	0x00646c61
      fd0:	6e6e655f 	mcrvs	5, 3, r6, cr14, cr15, {2}
      fd4:	5f4d4300 	svcpl	0x004d4300
@@ -4231,7 +3565,7 @@ int UART_getString(char *buf, unsigned int length)
     1000:	4d430030 	stclmi	0, cr0, [r3, #-192]	; 0xffffff40
     1004:	6e6f635f 	mcrvs	3, 3, r6, cr15, cr15, {2}
     1008:	6d6d5f66 	stclvs	15, cr5, [sp, #-408]!	; 0xfffffe68
-    100c:	645f3063 	ldrbvs	r3, [pc], #-99	; 1014 <.LC0+0x92c>
+    100c:	645f3063 	ldrbvs	r3, [pc], #-99	; 1014 <_start-0x7fffefec>
     1010:	00317461 	eorseq	r7, r1, r1, ror #8
     1014:	685f4d43 	ldmdavs	pc, {r0, r1, r6, r8, sl, fp, lr}^	; <UNPREDICTABLE>
     1018:	76655f77 	uqsub16vc	r5, r5, r7
@@ -4239,7 +3573,7 @@ int UART_getString(char *buf, unsigned int length)
     1020:	5f6c6573 	svcpl	0x006c6573
     1024:	31707267 	cmncc	r0, r7, ror #4
     1028:	5f4d4300 	svcpl	0x004d4300
-    102c:	655f7768 	ldrbvs	r7, [pc, #-1896]	; 8cc <.LC0+0x1e4>
+    102c:	655f7768 	ldrbvs	r7, [pc, #-1896]	; 8cc <_start-0x7ffff734>
     1030:	746e6576 	strbtvc	r6, [lr], #-1398	; 0x576
     1034:	6c65735f 	stclvs	3, cr7, [r5], #-380	; 0xfffffe84
     1038:	7072675f 	rsbsvc	r6, r2, pc, asr r7
@@ -4254,7 +3588,7 @@ int UART_getString(char *buf, unsigned int length)
     105c:	735f746e 	cmpvc	pc, #1845493760	; 0x6e000000
     1060:	675f6c65 	ldrbvs	r6, [pc, -r5, ror #24]
     1064:	00347072 	eorseq	r7, r4, r2, ror r0
-    1068:	645f4d43 	ldrbvs	r4, [pc], #-3395	; 1070 <.LC0+0x988>
+    1068:	645f4d43 	ldrbvs	r4, [pc], #-3395	; 1070 <_start-0x7fffef90>
     106c:	73706565 	cmnvc	r0, #423624704	; 0x19400000
     1070:	7065656c 	rsbvc	r6, r5, ip, ror #10
     1074:	7274635f 	rsbsvc	r6, r4, #2080374785	; 0x7c000001
@@ -4291,7 +3625,7 @@ int UART_getString(char *buf, unsigned int length)
     10f0:	4300656c 	movwmi	r6, #1388	; 0x56c
     10f4:	6f635f4d 	svcvs	0x00635f4d
     10f8:	615f666e 	cmpvs	pc, lr, ror #12
-    10fc:	655f6364 	ldrbvs	r6, [pc, #-868]	; da0 <.LC0+0x6b8>
+    10fc:	655f6364 	ldrbvs	r6, [pc, #-868]	; da0 <_start-0x7ffff260>
     1100:	635f7476 	cmpvs	pc, #1979711488	; 0x76000000
     1104:	00747061 	rsbseq	r7, r4, r1, rrx
     1108:	635f4d43 	cmpvs	pc, #4288	; 0x10c0
@@ -4353,12 +3687,12 @@ int UART_getString(char *buf, unsigned int length)
     11e8:	72745f70 	rsbsvc	r5, r4, #112, 30	; 0x1c0
     11ec:	43006d69 	movwmi	r6, #3433	; 0xd69
     11f0:	6f635f4d 	svcvs	0x00635f4d
-    11f4:	645f666e 	ldrbvs	r6, [pc], #-1646	; 11fc <.LC0+0xb14>
+    11f4:	645f666e 	ldrbvs	r6, [pc], #-1646	; 11fc <_start-0x7fffee04>
     11f8:	695f7264 	ldmdbvs	pc, {r2, r5, r6, r9, ip, sp, lr}^	; <UNPREDICTABLE>
     11fc:	74635f6f 	strbtvc	r5, [r3], #-3951	; 0xf6f
     1200:	43006c72 	movwmi	r6, #3186	; 0xc72
     1204:	6f635f4d 	svcvs	0x00635f4d
-    1208:	6d5f666e 	ldclvs	6, cr6, [pc, #-440]	; 1058 <.LC0+0x970>
+    1208:	6d5f666e 	ldclvs	6, cr6, [pc, #-440]	; 1058 <_start-0x7fffefa8>
     120c:	70736163 	rsbsvc	r6, r3, r3, ror #2
     1210:	73665f30 	cmnvc	r6, #48, 30	; 0xc0
     1214:	4d430078 	stclmi	0, cr0, [r3, #-480]	; 0xfffffe20
@@ -4379,7 +3713,7 @@ int UART_getString(char *buf, unsigned int length)
     1250:	5f316469 	svcpl	0x00316469
     1254:	43006968 	movwmi	r6, #2408	; 0x968
     1258:	6f635f4d 	svcvs	0x00635f4d
-    125c:	655f666e 	ldrbvs	r6, [pc, #-1646]	; bf6 <.LC0+0x50e>
+    125c:	655f666e 	ldrbvs	r6, [pc, #-1646]	; bf6 <_start-0x7ffff40a>
     1260:	775f7478 			; <UNDEFINED> instruction: 0x775f7478
     1264:	75656b61 	strbvc	r6, [r5, #-2913]!	; 0xb61
     1268:	4d430070 	stclmi	0, cr0, [r3, #-448]	; 0xfffffe40
@@ -4400,7 +3734,7 @@ int UART_getString(char *buf, unsigned int length)
     12a4:	735f6775 	cmpvc	pc, #30670848	; 0x1d40000
     12a8:	43006c65 	movwmi	r6, #3173	; 0xc65
     12ac:	6f635f4d 	svcvs	0x00635f4d
-    12b0:	6d5f666e 	ldclvs	6, cr6, [pc, #-440]	; 1100 <.LC0+0xa18>
+    12b0:	6d5f666e 	ldclvs	6, cr6, [pc, #-440]	; 1100 <_start-0x7fffef00>
     12b4:	5f316969 	svcpl	0x00316969
     12b8:	32647872 	rsbcc	r7, r4, #7471104	; 0x720000
     12bc:	5f4d4300 	svcpl	0x004d4300
@@ -4428,7 +3762,7 @@ int UART_getString(char *buf, unsigned int length)
     1314:	006f6c5f 	rsbeq	r6, pc, pc, asr ip	; <UNPREDICTABLE>
     1318:	635f4d43 	cmpvs	pc, #4288	; 0x10c0
     131c:	5f666e6f 	svcpl	0x00666e6f
-    1320:	745f336d 	ldrbvc	r3, [pc], #-877	; 1328 <.LC0+0xc40>
+    1320:	745f336d 	ldrbvc	r3, [pc], #-877	; 1328 <_start-0x7fffecd8>
     1324:	5f766578 	svcpl	0x00766578
     1328:	00696f65 	rsbeq	r6, r9, r5, ror #30
     132c:	635f4d43 	cmpvs	pc, #4288	; 0x10c0
@@ -4456,13 +3790,13 @@ int UART_getString(char *buf, unsigned int length)
     1384:	646d5f66 	strbtvs	r5, [sp], #-3942	; 0xf66
     1388:	43006f69 	movwmi	r6, #3945	; 0xf69
     138c:	6f635f4d 	svcvs	0x00635f4d
-    1390:	645f666e 	ldrbvs	r6, [pc], #-1646	; 1398 <.LC0+0xcb0>
+    1390:	645f666e 	ldrbvs	r6, [pc], #-1646	; 1398 <_start-0x7fffec68>
     1394:	635f7264 	cmpvs	pc, #100, 4	; 0x40000006
     1398:	5f31646d 	svcpl	0x0031646d
     139c:	74636f69 	strbtvc	r6, [r3], #-3945	; 0xf69
     13a0:	43006c72 	movwmi	r6, #3186	; 0xc72
     13a4:	6f635f4d 	svcvs	0x00635f4d
-    13a8:	745f666e 	ldrbvc	r6, [pc], #-1646	; 13b0 <.LC0+0xcc8>
+    13a8:	745f666e 	ldrbvc	r6, [pc], #-1646	; 13b0 <_start-0x7fffec50>
     13ac:	6e747372 	mrcvs	3, 3, r7, cr4, cr2, {3}
     13b0:	5f4d4300 	svcpl	0x004d4300
     13b4:	666e6f63 	strbtvs	r6, [lr], -r3, ror #30
@@ -4484,7 +3818,7 @@ int UART_getString(char *buf, unsigned int length)
     13f4:	315f7070 	cmpcc	pc, r0, ror r0	; <UNPREDICTABLE>
     13f8:	43003030 	movwmi	r3, #48	; 0x30
     13fc:	6f635f4d 	svcvs	0x00635f4d
-    1400:	6d5f666e 	ldclvs	6, cr6, [pc, #-440]	; 1250 <.LC0+0xb68>
+    1400:	6d5f666e 	ldclvs	6, cr6, [pc, #-440]	; 1250 <_start-0x7fffedb0>
     1404:	5f316969 	svcpl	0x00316969
     1408:	635f7872 	cmpvs	pc, #7471104	; 0x720000
     140c:	43006b6c 	movwmi	r6, #2924	; 0xb6c
@@ -4512,7 +3846,7 @@ int UART_getString(char *buf, unsigned int length)
     1464:	74617473 	strbtvc	r7, [r1], #-1139	; 0x473
     1468:	43007375 	movwmi	r7, #885	; 0x375
     146c:	6f635f4d 	svcvs	0x00635f4d
-    1470:	755f666e 	ldrbvc	r6, [pc, #-1646]	; e0a <.LC0+0x722>
+    1470:	755f666e 	ldrbvc	r6, [pc, #-1646]	; e0a <_start-0x7ffff1f6>
     1474:	30747261 	rsbscc	r7, r4, r1, ror #4
     1478:	6478725f 	ldrbtvs	r7, [r8], #-607	; 0x25f
     147c:	5f4d4300 	svcpl	0x004d4300
@@ -4527,7 +3861,7 @@ int UART_getString(char *buf, unsigned int length)
     14a0:	4d430032 	stclmi	0, cr0, [r3, #-200]	; 0xffffff38
     14a4:	6e6f635f 	mcrvs	3, 3, r6, cr15, cr15, {2}
     14a8:	6d6d5f66 	stclvs	15, cr5, [sp, #-408]!	; 0xfffffe68
-    14ac:	645f3063 	ldrbvs	r3, [pc], #-99	; 14b4 <.LC0+0xdcc>
+    14ac:	645f3063 	ldrbvs	r3, [pc], #-99	; 14b4 <_start-0x7fffeb4c>
     14b0:	00337461 	eorseq	r7, r3, r1, ror #8
     14b4:	635f4d43 	cmpvs	pc, #4288	; 0x10c0
     14b8:	5f666e6f 	svcpl	0x00666e6f
@@ -4537,7 +3871,7 @@ int UART_getString(char *buf, unsigned int length)
     14c8:	5f34325f 	svcpl	0x0034325f
     14cc:	43003732 	movwmi	r3, #1842	; 0x732
     14d0:	6f635f4d 	svcvs	0x00635f4d
-    14d4:	6d5f666e 	ldclvs	6, cr6, [pc, #-440]	; 1324 <.LC0+0xc3c>
+    14d4:	6d5f666e 	ldclvs	6, cr6, [pc, #-440]	; 1324 <_start-0x7fffecdc>
     14d8:	70736163 	rsbsvc	r6, r3, r3, ror #2
     14dc:	68615f30 	stmdavs	r1!, {r4, r5, r8, r9, sl, fp, ip, lr}^
     14e0:	726b6c63 	rsbvc	r6, fp, #25344	; 0x6300
@@ -4552,7 +3886,7 @@ int UART_getString(char *buf, unsigned int length)
     1504:	635f4d43 	cmpvs	pc, #4288	; 0x10c0
     1508:	5f666e6f 	svcpl	0x00666e6f
     150c:	3169696d 	cmncc	r9, sp, ror #18
-    1510:	6c6f635f 	stclvs	3, cr6, [pc], #-380	; 139c <.LC0+0xcb4>
+    1510:	6c6f635f 	stclvs	3, cr6, [pc], #-380	; 139c <_start-0x7fffec64>
     1514:	5f4d4300 	svcpl	0x004d4300
     1518:	666e6f63 	strbtvs	r6, [lr], -r3, ror #30
     151c:	61636d5f 	cmnvs	r3, pc, asr sp
@@ -4560,7 +3894,7 @@ int UART_getString(char *buf, unsigned int length)
     1524:	6c636861 	stclvs	8, cr6, [r3], #-388	; 0xfffffe7c
     1528:	4300786b 	movwmi	r7, #2155	; 0x86b
     152c:	6f635f4d 	svcvs	0x00635f4d
-    1530:	645f666e 	ldrbvs	r6, [pc], #-1646	; 1538 <.LC0+0xe50>
+    1530:	645f666e 	ldrbvs	r6, [pc], #-1646	; 1538 <_start-0x7fffeac8>
     1534:	635f7264 	cmpvs	pc, #100, 4	; 0x40000006
     1538:	635f656b 	cmpvs	pc, #448790528	; 0x1ac00000
     153c:	006c7274 	rsbeq	r7, ip, r4, ror r2
@@ -4580,7 +3914,7 @@ int UART_getString(char *buf, unsigned int length)
     1574:	65725f67 	ldrbvs	r5, [r2, #-3943]!	; 0xf67
     1578:	43003167 	movwmi	r3, #359	; 0x167
     157c:	6f635f4d 	svcvs	0x00635f4d
-    1580:	755f666e 	ldrbvc	r6, [pc, #-1646]	; f1a <.LC0+0x832>
+    1580:	755f666e 	ldrbvc	r6, [pc, #-1646]	; f1a <_start-0x7ffff0e6>
     1584:	31747261 	cmncc	r4, r1, ror #4
     1588:	6478725f 	ldrbtvs	r7, [r8], #-607	; 0x25f
     158c:	5f4d4300 	svcpl	0x004d4300
@@ -4595,7 +3929,7 @@ int UART_getString(char *buf, unsigned int length)
     15b0:	65725f67 	ldrbvs	r5, [r2, #-3943]!	; 0xf67
     15b4:	43003467 	movwmi	r3, #1127	; 0x467
     15b8:	6f635f4d 	svcvs	0x00635f4d
-    15bc:	755f666e 	ldrbvc	r6, [pc, #-1646]	; f56 <.LC0+0x86e>
+    15bc:	755f666e 	ldrbvc	r6, [pc, #-1646]	; f56 <_start-0x7ffff0aa>
     15c0:	30747261 	rsbscc	r7, r4, r1, ror #4
     15c4:	6478745f 	ldrbtvs	r7, [r8], #-1119	; 0x45f
     15c8:	5f4d4300 	svcpl	0x004d4300
@@ -4608,7 +3942,7 @@ int UART_getString(char *buf, unsigned int length)
     15e4:	635f4d43 	cmpvs	pc, #4288	; 0x10c0
     15e8:	5f666e6f 	svcpl	0x00666e6f
     15ec:	636d7067 	cmnvs	sp, #103	; 0x67
-    15f0:	6b6c635f 	blvs	1b1a374 <.LC0+0x1b19c8c>
+    15f0:	6b6c635f 	blvs	1b1a374 <_start-0x7e4e5c8c>
     15f4:	5f4d4300 	svcpl	0x004d4300
     15f8:	6e616364 	cdpvs	3, 6, cr6, cr1, cr4, {3}
     15fc:	6d61725f 	sfmvs	f7, 2, [r1, #-380]!	; 0xfffffe84
@@ -4625,7 +3959,7 @@ int UART_getString(char *buf, unsigned int length)
     1628:	725f6e65 	subsvc	r6, pc, #1616	; 0x650
     162c:	43006e65 	movwmi	r6, #3685	; 0xe65
     1630:	6f635f4d 	svcvs	0x00635f4d
-    1634:	6d5f666e 	ldclvs	6, cr6, [pc, #-440]	; 1484 <.LC0+0xd9c>
+    1634:	6d5f666e 	ldclvs	6, cr6, [pc, #-440]	; 1484 <_start-0x7fffeb7c>
     1638:	5f316969 	svcpl	0x00316969
     163c:	30647874 	rsbcc	r7, r4, r4, ror r8
     1640:	5f4d4300 	svcpl	0x004d4300
@@ -4634,7 +3968,7 @@ int UART_getString(char *buf, unsigned int length)
     164c:	78745f31 	ldmdavc	r4!, {r0, r4, r5, r8, r9, sl, fp, ip, lr}^
     1650:	43003164 	movwmi	r3, #356	; 0x164
     1654:	6f635f4d 	svcvs	0x00635f4d
-    1658:	6d5f666e 	ldclvs	6, cr6, [pc, #-440]	; 14a8 <.LC0+0xdc0>
+    1658:	6d5f666e 	ldclvs	6, cr6, [pc, #-440]	; 14a8 <_start-0x7fffeb58>
     165c:	5f316969 	svcpl	0x00316969
     1660:	32647874 	rsbcc	r7, r4, #116, 16	; 0x740000
     1664:	5f4d4300 	svcpl	0x004d4300
@@ -4669,7 +4003,7 @@ int UART_getString(char *buf, unsigned int length)
     16d8:	43006c65 	movwmi	r6, #3173	; 0xc65
     16dc:	6f635f4d 	svcvs	0x00635f4d
     16e0:	695f666e 	ldmdbvs	pc, {r1, r2, r3, r5, r6, r9, sl, sp, lr}^	; <UNPREDICTABLE>
-    16e4:	6d5f6370 	ldclvs	3, cr6, [pc, #-448]	; 152c <.LC0+0xe44>
+    16e4:	6d5f6370 	ldclvs	3, cr6, [pc, #-448]	; 152c <_start-0x7fffead4>
     16e8:	725f6773 	subsvc	r6, pc, #30146560	; 0x1cc0000
     16ec:	00326765 	eorseq	r6, r2, r5, ror #14
     16f0:	635f4d43 	cmpvs	pc, #4288	; 0x10c0
@@ -4679,7 +4013,7 @@ int UART_getString(char *buf, unsigned int length)
     1700:	74635f6f 	strbtvc	r5, [r3], #-3951	; 0xf6f
     1704:	43006c72 	movwmi	r6, #3186	; 0xc72
     1708:	6f635f4d 	svcvs	0x00635f4d
-    170c:	755f666e 	ldrbvc	r6, [pc, #-1646]	; 10a6 <.LC0+0x9be>
+    170c:	755f666e 	ldrbvc	r6, [pc, #-1646]	; 10a6 <_start-0x7fffef5a>
     1710:	5f306273 	svcpl	0x00306273
     1714:	76767264 	ldrbtvc	r7, [r6], -r4, ror #4
     1718:	00737562 	rsbseq	r7, r3, r2, ror #10
@@ -4703,7 +4037,7 @@ int UART_getString(char *buf, unsigned int length)
     1760:	75646f6d 	strbvc	r6, [r4, #-3949]!	; 0xf6d
     1764:	6d00656c 	cfstr32vs	mvfx6, [r0, #-432]	; 0xfffffe50
     1768:	0065646f 	rsbeq	r6, r5, pc, ror #8
-    176c:	645f4d43 	ldrbvs	r4, [pc], #-3395	; 1774 <.LC0+0x108c>
+    176c:	645f4d43 	ldrbvs	r4, [pc], #-3395	; 1774 <_start-0x7fffe88c>
     1770:	63697665 	cmnvs	r9, #105906176	; 0x6500000
     1774:	64695f65 	strbtvs	r5, [r9], #-3941	; 0xf65
     1778:	5f4d4300 	svcpl	0x004d4300
@@ -4711,10 +4045,10 @@ int UART_getString(char *buf, unsigned int length)
     1780:	6972705f 	ldmdbvs	r2!, {r0, r1, r2, r3, r4, r6, ip, sp, lr}^
     1784:	7469726f 	strbtvc	r7, [r9], #-623	; 0x26f
     1788:	00315f79 	eorseq	r5, r1, r9, ror pc
-    178c:	755f4d43 	ldrbvc	r4, [pc, #-3395]	; a51 <.LC0+0x369>
+    178c:	755f4d43 	ldrbvc	r4, [pc, #-3395]	; a51 <_start-0x7ffff5af>
     1790:	735f6273 	cmpvc	pc, #805306375	; 0x30000007
     1794:	00307374 	eorseq	r7, r0, r4, ror r3
-    1798:	755f4d43 	ldrbvc	r4, [pc, #-3395]	; a5d <.LC0+0x375>
+    1798:	755f4d43 	ldrbvc	r4, [pc, #-3395]	; a5d <_start-0x7ffff5a3>
     179c:	735f6273 	cmpvc	pc, #805306375	; 0x30000007
     17a0:	00317374 	eorseq	r7, r1, r4, ror r3
     17a4:	635f4d43 	cmpvs	pc, #4288	; 0x10c0
@@ -4754,9 +4088,9 @@ int UART_getString(char *buf, unsigned int length)
     182c:	4d430037 	stclmi	0, cr0, [r3, #-220]	; 0xffffff24
     1830:	6e6f635f 	mcrvs	3, 3, r6, cr15, cr15, {2}
     1834:	70745f66 	rsbsvc	r5, r4, r6, ror #30
-    1838:	655f6363 	ldrbvs	r6, [pc, #-867]	; 14dd <.LC0+0xdf5>
-    183c:	6d5f7476 	cfldrdvs	mvd7, [pc, #-472]	; 166c <.LC0+0xf84>
-    1840:	345f7875 	ldrbcc	r7, [pc], #-2165	; 1848 <.LC0+0x1160>
+    1838:	655f6363 	ldrbvs	r6, [pc, #-867]	; 14dd <_start-0x7fffeb23>
+    183c:	6d5f7476 	cfldrdvs	mvd7, [pc, #-472]	; 166c <_start-0x7fffe994>
+    1840:	345f7875 	ldrbcc	r7, [pc], #-2165	; 1848 <_start-0x7fffe7b8>
     1844:	31355f38 	teqcc	r5, r8, lsr pc
     1848:	5f4d4300 	svcpl	0x004d4300
     184c:	666e6f63 	strbtvs	r6, [lr], -r3, ror #30
@@ -4794,10 +4128,10 @@ int UART_getString(char *buf, unsigned int length)
     18cc:	5f78745f 	svcpl	0x0078745f
     18d0:	43006e65 	movwmi	r6, #3685	; 0xe65
     18d4:	6f635f4d 	svcvs	0x00635f4d
-    18d8:	745f666e 	ldrbvc	r6, [pc], #-1646	; 18e0 <.LC0+0x11f8>
+    18d8:	745f666e 	ldrbvc	r6, [pc], #-1646	; 18e0 <_start-0x7fffe720>
     18dc:	43006b63 	movwmi	r6, #2915	; 0xb63
     18e0:	6f635f4d 	svcvs	0x00635f4d
-    18e4:	755f666e 	ldrbvc	r6, [pc, #-1646]	; 127e <.LC0+0xb96>
+    18e4:	755f666e 	ldrbvc	r6, [pc, #-1646]	; 127e <_start-0x7fffed82>
     18e8:	30747261 	rsbscc	r7, r4, r1, ror #4
     18ec:	7374635f 	cmnvc	r4, #2080374785	; 0x7c000001
     18f0:	4d43006e 	stclmi	0, cr0, [r3, #-440]	; 0xfffffe48
@@ -4807,7 +4141,7 @@ int UART_getString(char *buf, unsigned int length)
     1900:	73755f4d 	cmnvc	r5, #308	; 0x134
     1904:	74635f62 	strbtvc	r5, [r3], #-3938	; 0xf62
     1908:	00316c72 	eorseq	r6, r1, r2, ror ip
-    190c:	755f4d43 	ldrbvc	r4, [pc, #-3395]	; bd1 <.LC0+0x4e9>
+    190c:	755f4d43 	ldrbvc	r4, [pc, #-3395]	; bd1 <_start-0x7ffff42f>
     1910:	765f6273 			; <UNDEFINED> instruction: 0x765f6273
     1914:	705f6469 	subsvc	r6, pc, r9, ror #8
     1918:	43006469 	movwmi	r6, #1129	; 0x469
@@ -4815,7 +4149,7 @@ int UART_getString(char *buf, unsigned int length)
     1920:	695f666e 	ldmdbvs	pc, {r1, r2, r3, r5, r6, r9, sl, sp, lr}^	; <UNPREDICTABLE>
     1924:	5f306332 	svcpl	0x00306332
     1928:	006c6373 	rsbeq	r6, ip, r3, ror r3
-    192c:	755f4d43 	ldrbvc	r4, [pc, #-3395]	; bf1 <.LC0+0x509>
+    192c:	755f4d43 	ldrbvc	r4, [pc, #-3395]	; bf1 <_start-0x7ffff40f>
     1930:	775f6273 			; <UNDEFINED> instruction: 0x775f6273
     1934:	5f70756b 	svcpl	0x0070756b
     1938:	6c727463 	cfldrdvs	mvd7, [r2], #-396	; 0xfffffe74
@@ -4825,7 +4159,7 @@ int UART_getString(char *buf, unsigned int length)
     1948:	78725f31 	ldmdavc	r2!, {r0, r4, r5, r8, r9, sl, fp, ip, lr}^
     194c:	43003064 	movwmi	r3, #100	; 0x64
     1950:	6f635f4d 	svcvs	0x00635f4d
-    1954:	6d5f666e 	ldclvs	6, cr6, [pc, #-440]	; 17a4 <.LC0+0x10bc>
+    1954:	6d5f666e 	ldclvs	6, cr6, [pc, #-440]	; 17a4 <_start-0x7fffe85c>
     1958:	5f316969 	svcpl	0x00316969
     195c:	31647872 	smccc	18306	; 0x4782
     1960:	5f4d4300 	svcpl	0x004d4300
@@ -4841,8 +4175,8 @@ int UART_getString(char *buf, unsigned int length)
     1988:	4d430069 	stclmi	0, cr0, [r3, #-420]	; 0xfffffe5c
     198c:	6e6f635f 	mcrvs	3, 3, r6, cr15, cr15, {2}
     1990:	70745f66 	rsbsvc	r5, r4, r6, ror #30
-    1994:	655f6363 	ldrbvs	r6, [pc, #-867]	; 1639 <.LC0+0xf51>
-    1998:	6d5f7476 	cfldrdvs	mvd7, [pc, #-472]	; 17c8 <.LC0+0x10e0>
+    1994:	655f6363 	ldrbvs	r6, [pc, #-867]	; 1639 <_start-0x7fffe9c7>
+    1998:	6d5f7476 	cfldrdvs	mvd7, [pc, #-472]	; 17c8 <_start-0x7fffe838>
     199c:	365f7875 			; <UNDEFINED> instruction: 0x365f7875
     19a0:	33365f30 	teqcc	r6, #48, 30	; 0xc0
     19a4:	5f4d4300 	svcpl	0x004d4300
@@ -4859,7 +4193,7 @@ int UART_getString(char *buf, unsigned int length)
     19d0:	666e6f63 	strbtvs	r6, [lr], -r3, ror #30
     19d4:	61636d5f 	cmnvs	r3, pc, asr sp
     19d8:	5f307073 	svcpl	0x00307073
-    19dc:	6b6c6361 	blvs	1b1a768 <.LC0+0x1b1a080>
+    19dc:	6b6c6361 	blvs	1b1a768 <_start-0x7e4e5898>
     19e0:	4d430072 	stclmi	0, cr0, [r3, #-456]	; 0xfffffe38
     19e4:	6e6f635f 	mcrvs	3, 3, r6, cr15, cr15, {2}
     19e8:	70675f66 	rsbvc	r5, r7, r6, ror #30
@@ -4912,12 +4246,12 @@ int UART_getString(char *buf, unsigned int length)
     1aa4:	7261755f 	rsbvc	r7, r1, #398458880	; 0x17c00000
     1aa8:	635f3174 	cmpvs	pc, #116, 2
     1aac:	006e7374 	rsbeq	r7, lr, r4, ror r3
-    1ab0:	6d5f4d43 	ldclvs	13, cr4, [pc, #-268]	; 19ac <.LC0+0x12c4>
+    1ab0:	6d5f4d43 	ldclvs	13, cr4, [pc, #-268]	; 19ac <_start-0x7fffe654>
     1ab4:	695f6361 	ldmdbvs	pc, {r0, r5, r6, r8, r9, sp, lr}^	; <UNPREDICTABLE>
     1ab8:	685f3064 	ldmdavs	pc, {r2, r5, r6, ip, sp}^	; <UNPREDICTABLE>
     1abc:	4d430069 	stclmi	0, cr0, [r3, #-420]	; 0xfffffe5c
     1ac0:	6e6f635f 	mcrvs	3, 3, r6, cr15, cr15, {2}
-    1ac4:	6c6f7274 	sfmvs	f7, 2, [pc], #-464	; 18fc <.LC0+0x1214>
+    1ac4:	6c6f7274 	sfmvs	f7, 2, [pc], #-464	; 18fc <_start-0x7fffe704>
     1ac8:	696d655f 	stmdbvs	sp!, {r0, r1, r2, r3, r4, r6, r8, sl, sp, lr}^
     1acc:	64735f66 	ldrbtvs	r5, [r3], #-3942	; 0xf66
     1ad0:	5f6d6172 	svcpl	0x006d6172
@@ -4941,9 +4275,9 @@ int UART_getString(char *buf, unsigned int length)
     1b18:	4d430061 	stclmi	0, cr0, [r3, #-388]	; 0xfffffe7c
     1b1c:	6e6f635f 	mcrvs	3, 3, r6, cr15, cr15, {2}
     1b20:	70745f66 	rsbsvc	r5, r4, r6, ror #30
-    1b24:	655f6363 	ldrbvs	r6, [pc, #-867]	; 17c9 <.LC0+0x10e1>
-    1b28:	6d5f7476 	cfldrdvs	mvd7, [pc, #-472]	; 1958 <.LC0+0x1270>
-    1b2c:	345f7875 	ldrbcc	r7, [pc], #-2165	; 1b34 <.LC0+0x144c>
+    1b24:	655f6363 	ldrbvs	r6, [pc, #-867]	; 17c9 <_start-0x7fffe837>
+    1b28:	6d5f7476 	cfldrdvs	mvd7, [pc, #-472]	; 1958 <_start-0x7fffe6a8>
+    1b2c:	345f7875 	ldrbcc	r7, [pc], #-2165	; 1b34 <_start-0x7fffe4cc>
     1b30:	37345f34 			; <UNDEFINED> instruction: 0x37345f34
     1b34:	616d5f00 	cmnvs	sp, r0, lsl #30
     1b38:	6d006e69 	stcvs	14, cr6, [r0, #-420]	; 0xfffffe5c
@@ -4960,7 +4294,7 @@ int UART_getString(char *buf, unsigned int length)
     1b64:	5f574f4c 	svcpl	0x00574f4c
     1b68:	50004e4f 	andpl	r4, r0, pc, asr #28
     1b6c:	54495241 	strbpl	r5, [r9], #-577	; 0x241
-    1b70:	444f5f59 	strbmi	r5, [pc], #-3929	; 1b78 <.LC0+0x1490>
+    1b70:	444f5f59 	strbmi	r5, [pc], #-3929	; 1b78 <_start-0x7fffe488>
     1b74:	54530044 	ldrbpl	r0, [r3], #-68	; 0x44
     1b78:	5f31504f 	svcpl	0x0031504f
     1b7c:	41500035 	cmpmi	r0, r5, lsr r0
@@ -4980,7 +4314,7 @@ int UART_getString(char *buf, unsigned int length)
     1bb4:	74696e69 	strbtvc	r6, [r9], #-3689	; 0xe69
     1bb8:	72617500 	rsbvc	r7, r1, #0, 10
     1bbc:	6f635f74 	svcvs	0x00635f74
-    1bc0:	6c6f736e 	stclvs	3, cr7, [pc], #-440	; 1a10 <.LC0+0x1328>
+    1bc0:	6c6f736e 	stclvs	3, cr7, [pc], #-440	; 1a10 <_start-0x7fffe5f0>
     1bc4:	00632e65 	rsbeq	r2, r3, r5, ror #28
     1bc8:	54524155 	ldrbpl	r4, [r2], #-341	; 0x155
     1bcc:	7475705f 	ldrbtvc	r7, [r5], #-95	; 0x5f
@@ -5040,14 +4374,14 @@ int UART_getString(char *buf, unsigned int length)
     1ca4:	454d5553 	strbmi	r5, [sp, #-1363]	; 0x553
     1ca8:	6f6c6600 	svcvs	0x006c6600
     1cac:	6e6f4377 	mcrvs	3, 3, r4, cr15, cr7, {3}
-    1cb0:	6c6f7274 	sfmvs	f7, 2, [pc], #-464	; 1ae8 <.LC0+0x1400>
+    1cb0:	6c6f7274 	sfmvs	f7, 2, [pc], #-464	; 1ae8 <_start-0x7fffe518>
     1cb4:	4f4c4600 	svcmi	0x004c4600
     1cb8:	00745f57 	rsbseq	r5, r4, r7, asr pc
     1cbc:	706f7473 	rsbvc	r7, pc, r3, ror r4	; <UNPREDICTABLE>
     1cc0:	00746942 	rsbseq	r6, r4, r2, asr #18
     1cc4:	49524150 	ldmdbmi	r2, {r4, r6, r8, lr}^
     1cc8:	425f5954 	subsmi	r5, pc, #84, 18	; 0x150000
-    1ccc:	745f5449 	ldrbvc	r5, [pc], #-1097	; 1cd4 <.LC0+0x15ec>
+    1ccc:	745f5449 	ldrbvc	r5, [pc], #-1097	; 1cd4 <_start-0x7fffe32c>
     1cd0:	46585200 	ldrbmi	r5, [r8], -r0, lsl #4
     1cd4:	5200484c 	andpl	r4, r0, #76, 16	; 0x4c0000
     1cd8:	4c4c4658 	mcrrmi	6, 5, r4, ip, cr8
@@ -5062,159 +4396,113 @@ Disassembly of section .debug_frame:
    c:	000d0c0e 	andeq	r0, sp, lr, lsl #24
   10:	00000014 	andeq	r0, r0, r4, lsl r0
   14:	00000000 	andeq	r0, r0, r0
-  18:	0000006c 	andeq	r0, r0, ip, rrx
+  18:	8000006c 	andhi	r0, r0, ip, rrx
   1c:	00000038 	andeq	r0, r0, r8, lsr r0
-  20:	8b040e42 	blhi	103930 <.LC0+0x103248>
-  24:	0b0d4201 	bleq	350830 <.LC0+0x350148>
+  20:	8b040e42 	blhi	103930 <_start-0x7fefc6d0>
+  24:	0b0d4201 	bleq	350830 <_start-0x7fcaf7d0>
   28:	00000014 	andeq	r0, r0, r4, lsl r0
   2c:	00000000 	andeq	r0, r0, r0
-  30:	000000a4 	andeq	r0, r0, r4, lsr #1
+  30:	800000a4 	andhi	r0, r0, r4, lsr #1
   34:	00000034 	andeq	r0, r0, r4, lsr r0
-  38:	8b040e42 	blhi	103948 <.LC0+0x103260>
-  3c:	0b0d4201 	bleq	350848 <.LC0+0x350160>
+  38:	8b040e42 	blhi	103948 <_start-0x7fefc6b8>
+  3c:	0b0d4201 	bleq	350848 <_start-0x7fcaf7b8>
   40:	00000018 	andeq	r0, r0, r8, lsl r0
   44:	00000000 	andeq	r0, r0, r0
-  48:	000000d8 	ldrdeq	r0, [r0], -r8
+  48:	800000d8 	ldrdhi	r0, [r0], -r8
   4c:	000000d4 	ldrdeq	r0, [r0], -r4
-  50:	8b080e42 	blhi	203960 <.LC0+0x203278>
+  50:	8b080e42 	blhi	203960 <_start-0x7fdfc6a0>
   54:	42018e02 	andmi	r8, r1, #2, 28
   58:	00040b0c 	andeq	r0, r4, ip, lsl #22
   5c:	0000000c 	andeq	r0, r0, ip
   60:	ffffffff 			; <UNDEFINED> instruction: 0xffffffff
   64:	7c020001 	stcvc	0, cr0, [r2], {1}
   68:	000d0c0e 	andeq	r0, sp, lr, lsl #24
-#include "clock.h"
-
-void CM_SetClk(CLK_MODULE_t module, CM_PER_REG reg, unsigned int value)
-{
   6c:	00000014 	andeq	r0, r0, r4, lsl r0
   70:	0000005c 	andeq	r0, r0, ip, asr r0
-  74:	000001ac 	andeq	r0, r0, ip, lsr #3
+  74:	800001ac 	andhi	r0, r0, ip, lsr #3
   78:	00000034 	andeq	r0, r0, r4, lsr r0
-  7c:	8b040e42 	blhi	10398c <.LC0+0x1032a4>
-  80:	0b0d4201 	bleq	35088c <.LC0+0x3501a4>
-
-	PUT32(module+reg, value);
+  7c:	8b040e42 	blhi	10398c <_start-0x7fefc674>
+  80:	0b0d4201 	bleq	35088c <_start-0x7fcaf774>
   84:	00000014 	andeq	r0, r0, r4, lsl r0
   88:	0000005c 	andeq	r0, r0, ip, asr r0
-  8c:	000001e0 	andeq	r0, r0, r0, ror #3
+  8c:	800001e0 	andhi	r0, r0, r0, ror #3
   90:	00000030 	andeq	r0, r0, r0, lsr r0
-  94:	8b040e42 	blhi	1039a4 <.LC0+0x1032bc>
-}
-  98:	0b0d4201 	bleq	3508a4 <.LC0+0x3501bc>
+  94:	8b040e42 	blhi	1039a4 <_start-0x7fefc65c>
+  98:	0b0d4201 	bleq	3508a4 <_start-0x7fcaf75c>
   9c:	00000018 	andeq	r0, r0, r8, lsl r0
   a0:	0000005c 	andeq	r0, r0, ip, asr r0
-
-unsigned int CM_GetClk(CLK_MODULE_t module, CM_PER_REG reg)
-{
-  a4:	00000210 	andeq	r0, r0, r0, lsl r2
+  a4:	80000210 	andhi	r0, r0, r0, lsl r2
   a8:	00000050 	andeq	r0, r0, r0, asr r0
-  ac:	8b080e42 	blhi	2039bc <.LC0+0x2032d4>
+  ac:	8b080e42 	blhi	2039bc <_start-0x7fdfc644>
   b0:	42018e02 	andmi	r8, r1, #2, 28
   b4:	00040b0c 	andeq	r0, r4, ip, lsl #22
-	return GET32(module+reg);
   b8:	00000018 	andeq	r0, r0, r8, lsl r0
   bc:	0000005c 	andeq	r0, r0, ip, asr r0
-  c0:	00000260 	andeq	r0, r0, r0, ror #4
+  c0:	80000260 	andhi	r0, r0, r0, ror #4
   c4:	00000024 	andeq	r0, r0, r4, lsr #32
-}
-  c8:	8b080e42 	blhi	2039d8 <.LC0+0x2032f0>
+  c8:	8b080e42 	blhi	2039d8 <_start-0x7fdfc628>
   cc:	42018e02 	andmi	r8, r1, #2, 28
   d0:	00040b0c 	andeq	r0, r4, ip, lsl #22
   d4:	0000000c 	andeq	r0, r0, ip
-
-void Init_UART0_Clk()
-{
   d8:	ffffffff 			; <UNDEFINED> instruction: 0xffffffff
   dc:	7c020001 	stcvc	0, cr0, [r2], {1}
   e0:	000d0c0e 	andeq	r0, sp, lr, lsl #24
-
-	unsigned int temp;
-	 // software-forced wake-up transition on the "always on clock domain", TRM Table 8-92
-	temp = CM_GetClk(CM_WKUP, CM_WKUP_CLKSTCTRL);		//This register enables the domain power state transition. It controls the SW supervised clock domain state transition between ON-ACTIVE and ON-INACTIVE states. It also hold one status bit per clock input of the domain
   e4:	00000018 	andeq	r0, r0, r8, lsl r0
   e8:	000000d4 	ldrdeq	r0, [r0], -r4
-  ec:	00000284 	andeq	r0, r0, r4, lsl #5
+  ec:	80000284 	andhi	r0, r0, r4, lsl #5
   f0:	00000094 	muleq	r0, r4, r0
-  f4:	8b080e42 	blhi	203a04 <.LC0+0x20331c>
-	temp &= ~(0x3);
+  f4:	8b080e42 	blhi	203a04 <_start-0x7fdfc5fc>
   f8:	42018e02 	andmi	r8, r1, #2, 28
   fc:	00040b0c 	andeq	r0, r4, ip, lsl #22
  100:	0000000c 	andeq	r0, r0, ip
-	temp |= (0x2);
  104:	ffffffff 			; <UNDEFINED> instruction: 0xffffffff
  108:	7c020001 	stcvc	0, cr0, [r2], {1}
  10c:	000d0c0e 	andeq	r0, sp, lr, lsl #24
-	CM_SetClk(CM_WKUP, CM_WKUP_CLKSTCTRL, temp);		//0x2=SW_WKUP
  110:	00000018 	andeq	r0, r0, r8, lsl r0
  114:	00000100 	andeq	r0, r0, r0, lsl #2
- 118:	00000318 	andeq	r0, r0, r8, lsl r3
+ 118:	80000318 	andhi	r0, r0, r8, lsl r3
  11c:	00000058 	andeq	r0, r0, r8, asr r0
- 120:	8b080e42 	blhi	203a30 <.LC0+0x203348>
-
-	// software-forced wake up transition on the L4 high speed domain
-	temp = CM_GetClk(CM_PER, CM_PER_L4HS_CLKSTCTRL);	//This register enables the domain power state transition. It controls the SW supervised clock domain state transition between ON-ACTIVE and ON-INACTIVE states. It also hold one status bit per clock input of the domain
+ 120:	8b080e42 	blhi	203a30 <_start-0x7fdfc5d0>
  124:	42018e02 	andmi	r8, r1, #2, 28
  128:	00040b0c 	andeq	r0, r4, ip, lsl #22
  12c:	00000014 	andeq	r0, r0, r4, lsl r0
  130:	00000100 	andeq	r0, r0, r0, lsl #2
- 134:	00000370 	andeq	r0, r0, r0, ror r3
-	temp &= ~(0x3);
+ 134:	80000370 	andhi	r0, r0, r0, ror r3
  138:	000001d0 	ldrdeq	r0, [r0], -r0	; <UNPREDICTABLE>
- 13c:	8b040e42 	blhi	103a4c <.LC0+0x103364>
- 140:	0b0d4201 	bleq	35094c <.LC0+0x350264>
-	temp |= (0x2);
+ 13c:	8b040e42 	blhi	103a4c <_start-0x7fefc5b4>
+ 140:	0b0d4201 	bleq	35094c <_start-0x7fcaf6b4>
  144:	00000018 	andeq	r0, r0, r8, lsl r0
  148:	00000100 	andeq	r0, r0, r0, lsl #2
- 14c:	00000540 	andeq	r0, r0, r0, asr #10
-	CM_SetClk(CM_PER, CM_PER_L4HS_CLKSTCTRL, temp);		//0x2=SW_WKUP
+ 14c:	80000540 	andhi	r0, r0, r0, asr #10
  150:	00000034 	andeq	r0, r0, r4, lsr r0
- 154:	8b080e42 	blhi	203a64 <.LC0+0x20337c>
+ 154:	8b080e42 	blhi	203a64 <_start-0x7fdfc59c>
  158:	42018e02 	andmi	r8, r1, #2, 28
  15c:	00040b0c 	andeq	r0, r4, ip, lsl #22
  160:	00000018 	andeq	r0, r0, r8, lsl r0
-
-	// Module is explicitly enabled,    TRM Table 8-137
-	temp = CM_GetClk(CM_WKUP, CM_WKUP_UART0_CLKCTRL);		//This register enables the domain power state transition. It controls the SW supervised clock domain state transition between ON-ACTIVE and ON-INACTIVE states. It also hold one status bit per clock input of the domain
  164:	00000100 	andeq	r0, r0, r0, lsl #2
- 168:	00000574 	andeq	r0, r0, r4, ror r5
+ 168:	80000574 	andhi	r0, r0, r4, ror r5
  16c:	00000060 	andeq	r0, r0, r0, rrx
- 170:	8b080e42 	blhi	203a80 <.LC0+0x203398>
+ 170:	8b080e42 	blhi	203a80 <_start-0x7fdfc580>
  174:	42018e02 	andmi	r8, r1, #2, 28
-	temp &= ~(0x3);
  178:	00040b0c 	andeq	r0, r4, ip, lsl #22
  17c:	00000014 	andeq	r0, r0, r4, lsl r0
  180:	00000100 	andeq	r0, r0, r0, lsl #2
-	temp |= (0x2);
- 184:	000005d4 	ldrdeq	r0, [r0], -r4
+ 184:	800005d4 	ldrdhi	r0, [r0], -r4
  188:	00000048 	andeq	r0, r0, r8, asr #32
- 18c:	8b040e42 	blhi	103a9c <.LC0+0x1033b4>
-	CM_SetClk(CM_WKUP, CM_WKUP_UART0_CLKCTRL, temp);		//0x2=SW_WKUP
- 190:	0b0d4201 	bleq	35099c <.LC0+0x3502b4>
+ 18c:	8b040e42 	blhi	103a9c <_start-0x7fefc564>
+ 190:	0b0d4201 	bleq	35099c <_start-0x7fcaf664>
  194:	00000018 	andeq	r0, r0, r8, lsl r0
  198:	00000100 	andeq	r0, r0, r0, lsl #2
- 19c:	0000061c 	andeq	r0, r0, ip, lsl r6
+ 19c:	8000061c 	andhi	r0, r0, ip, lsl r6
  1a0:	00000064 	andeq	r0, r0, r4, rrx
-*/
-	
-
-   
-
-}
- 1a4:	8b080e42 	blhi	203ab4 <.LC0+0x2033cc>
+ 1a4:	8b080e42 	blhi	203ab4 <_start-0x7fdfc54c>
  1a8:	42018e02 	andmi	r8, r1, #2, 28
-#include "control_module.h"
-
-void CM_setCtrlModule(CONTROL_MODULE_REG_t module, unsigned int value)
-{
  1ac:	00040b0c 	andeq	r0, r4, ip, lsl #22
  1b0:	0000001c 	andeq	r0, r0, ip, lsl r0
  1b4:	00000100 	andeq	r0, r0, r0, lsl #2
- 1b8:	00000680 	andeq	r0, r0, r0, lsl #13
+ 1b8:	80000680 	andhi	r0, r0, r0, lsl #13
  1bc:	00000064 	andeq	r0, r0, r4, rrx
-
-	PUT32(CONTROL_MODULE_REGISTER_BASE + module, value);
  1c0:	840c0e42 	strhi	r0, [ip], #-3650	; 0xe42
  1c4:	8e028b03 	vmlahi.f64	d8, d2, d3
- 1c8:	0b0c4201 	bleq	3109d4 <.LC0+0x3102ec>
+ 1c8:	0b0c4201 	bleq	3109d4 <_start-0x7fcef62c>
  1cc:	00000004 	andeq	r0, r0, r4
