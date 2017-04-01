@@ -5,9 +5,20 @@
    void *memcpy (void *, const void *, int)
    void *memmove (void *, const void *, int)
    void *memset (void *, int, int)
-   int memcmp (const void *, const void *, int)
    void *memchr (const void *, int, int)
  */
+int memcmp (const void *dst, const void *src, int n) 
+{
+	const char *a = dst;
+	const char *b = src;
+	if (!n)
+		return 0;
+
+	while ((n-- > 0) && (*a++ == *b++) 
+		;
+	
+	return (*a - *b);
+}
 int strlen (const char *str)
 { 
 	int i = 0;

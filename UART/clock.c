@@ -41,10 +41,7 @@ void Init_UART0_Clk()
 	temp &= ~(0x3);
 	temp |= (0x2);
 	CM_SetClk(CM_PER, CM_PER_UART1_CLKCTRL, temp);		//0x2=SW_WKUP
-*/
-	
-
-   
+*/   
 
 }
 
