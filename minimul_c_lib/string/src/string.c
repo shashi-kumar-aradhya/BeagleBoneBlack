@@ -14,7 +14,7 @@ int memcmp (const void *dst, const void *src, int n)
 	if (!n)
 		return 0;
 
-	while ((n-- > 0) && (*a++ == *b++) 
+	while ((n-- > 0) && (*a++ == *b++))
 		;
 	
 	return (*a - *b);
