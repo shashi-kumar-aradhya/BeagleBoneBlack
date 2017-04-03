@@ -3,6 +3,8 @@
 #include "clock.h"
 #include "control_module.h"
 #include "string.h"
+
+unsigned short int value = 0;
 void GPIO_init()
 {
 	unsigned int setting = (1<<18) | (0x2<<0);
@@ -10,7 +12,9 @@ void GPIO_init()
 	while((CM_GetClk(CM_PER, CM_PER_GPIO1_CLKCTRL) & (0x3<<16)) != 0);
 
 }
-
+/* 
+ * UART procedure described in 19.4 UART/IrDA/CIR Basic Programming Model
+ */
 
 void Uart0_Reset(unsigned int baudrate) 
 {
@@ -19,16 +23,20 @@ void Uart0_Reset(unsigned int baudrate)
 	temp |= 0x2;
 	PUT32(UART0+SYSC, temp);		
 	while (((GET32(UART0+SYSS)) & 0x1) == 0);		/* Wait till reset is complete */
-
 	temp = GET8(UART0+SYSC);
 	temp |= (0x1 << 0x3);
 	PUT8(UART0+SYSC, temp);					/* No idle/Wakeup capability is enabled */
 
+	/* UART init*/
+	/* Check below condition is necessary ??*/
 	while(!(GET32(UART0+LSR) & 0x40));    		// Transmitter hold (TX	FIFO) and shift	registers are empty
+
 	/* UART Interrupt Enable Register */
 	PUT8(UART0+IER, 0);					//Disable uart interrupts
 	PUT8(UART0+MDR1,0x7);        				/* Disable modeselect (default) 19.5.1.19*/
 	PUT8(UART0+LCR,~(0x7C));    // divisor latch enable, access DLL DHL, set uart as 8bit
+
+	value = GET8(UART0+LCR);
 	PUT8(UART0+RHR,0);          // DLL = 0
 	PUT8(UART0+IER,0);          // DHL = 0
 	PUT8(UART0+LCR,0x3);        // set uart as 8bit

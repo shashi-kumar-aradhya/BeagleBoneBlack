@@ -21,7 +21,7 @@ _start:
 
 .loop: b .loop
 
-
+/*
 .globl PUT32
 PUT32:
 	str r1,[r0]
@@ -51,7 +51,7 @@ PUT8:
 GET8:
 	ldrb r0,[r0]
 	bx lr
-	
+*/	
 
 
 /*

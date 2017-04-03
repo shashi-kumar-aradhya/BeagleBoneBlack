@@ -1,20 +1,27 @@
-CHAIN=arm-linux-gnueabi
+CHAIN=arm-none-eabi
 CFLAGS=-std=gnu99 -g -Wall -mfpu=neon -mhard-float -mcpu=cortex-a8
 AFLAGS=-mfpu=neon
 OBJ=obj/
 BIN=bin/
-LIB_PATH=./../minimul_c_lib/string/obj/
+SRC=src/
+LIB_PATH=./../minimul_c_lib/string/
 
 
 all: test copy
 
-test : dir start.o1 control_module.o clock.o uart_console.o main.o GPIO.o
-	$(CHAIN)-ld -T memmap.ld $(OBJ)start.o1 $(OBJ)*.o $(LIB_PATH)string.o -o $(OBJ)main.elf
+test : dir $(LIB_PATH)$(OBJ)string.o start.o1 control_module.o clock.o uart_console.o main.o GPIO.o
+	$(CHAIN)-ld -T memmap.ld $(OBJ)start.o1 $(OBJ)*.o $(LIB_PATH)$(OBJ)string.o -o $(OBJ)main.elf
 	$(CHAIN)-objcopy $(OBJ)main.elf $(BIN)spl.boot -O binary
 	$(CHAIN)-objdump -DS $(OBJ)main.elf > $(BIN)startup.lst
 
 dir :
 	@mkdir -p $(OBJ) $(BIN)
+	@mkdir -p $(LIB_PATH)$(BIN)
+	@mkdir -p $(LIB_PATH)$(OBJ)
+
+$(LIB_PATH)$(OBJ)string.o : 
+	@echo "building string lib/"
+	@cd $(LIB_PATH); $(MAKE)
 start.o1: start.s
 	$(CHAIN)-as $(AFLAGS) start.s -o $(OBJ)start.o1
 
@@ -50,6 +57,8 @@ clean:
 	@rm -rf ../boot/*.boot
 	@rm -rf $(OBJ)
 	@rm -rf $(BIN)
+	@rm -rf $(LIB_PATH)$(BIN)*
+	@rm -rf $(LIB_PATH)$(OBJ)*
 
 cscope :
 	@cscope -R
