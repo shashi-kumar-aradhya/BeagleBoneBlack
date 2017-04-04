@@ -1,0 +1,76 @@
+CHAIN=arm-none-eabi
+CFLAGS=-std=gnu99 -g -Wall -mfpu=neon -mhard-float -mcpu=cortex-a8
+AFLAGS=-mfpu=neon
+OBJ=obj/
+BIN=bin/
+SRC=src/
+INC=include/
+LIB_PATH=./../minimul_c_lib/string/
+#mul_c_lib/string/include
+
+all: dir lib src combine copy
+combine :
+	@$(CHAIN)-ld -T memmap.ld $(OBJ)*.o $(LIB_PATH)$(OBJ)string.o -o $(OBJ)main.elf
+	@$(CHAIN)-objcopy $(OBJ)main.elf $(BIN)spl.boot -O binary
+	@$(CHAIN)-objdump -DS $(OBJ)main.elf > $(BIN)startup.lst
+	@echo "Compilation done"
+
+
+dir :
+	@echo "Starting compilation"
+	@mkdir -p $(OBJ) $(BIN)
+	@mkdir -p $(LIB_PATH)$(BIN)
+	@mkdir -p $(LIB_PATH)$(OBJ)
+lib : $(LIB_PATH)$(OBJ)string.o
+
+$(LIB_PATH)$(OBJ)string.o : 
+	@echo "building string lib/"
+	@cd $(LIB_PATH); $(MAKE)
+
+src :  start.o control_module.o clock.o uart_console.o main.o GPIO.o
+	@echo "building src"
+start.o: start.s
+	@$(CHAIN)-as $(AFLAGS) start.s -o $(OBJ)start.o
+
+main.o: main.c
+	@$(CHAIN)-gcc $(CFLAGS) -c main.c -o $(OBJ)main.o
+
+GPIO.o: GPIO.c
+	@$(CHAIN)-gcc $(CFLAGS) -c GPIO.c -o $(OBJ)GPIO.o
+
+pad.o: pad.c
+	@$(CHAIN)-gcc $(CFLAGS) -c pad.c -o $(OBJ)pad.o
+
+control_module.o: control_module.c
+	@$(CHAIN)-gcc $(CFLAGS) -c control_module.c -o $(OBJ)control_module.o
+
+clock.o: clock.c
+	@$(CHAIN)-gcc $(CFLAGS) -c clock.c -o $(OBJ)clock.o
+
+LED.o: LED.c
+	@$(CHAIN)-gcc $(CFLAGS) -c LED.c -o $(OBJ)LED.o
+
+uart_console.o:uart_console.c
+	@$(CHAIN)-gcc $(CFLAGS) -c -I$(LIB_PATH)$(INC) uart_console.c -o $(OBJ)uart_console.o
+
+copy:
+	@cp -v $(BIN)spl.boot /tftpboot/download.bin 
+	@echo "Bin tranfer done !!"
+
+
+clean:
+	@rm -rf $(OBJ)*.o
+	@rm -rf $(OBJ)*.objstart
+	@rm -rf $(OBJ)*.elf
+	@rm -rf $(BIN)*.boot
+	@rm -rf ../boot/*.boot
+	@rm -rf $(OBJ)
+	@rm -rf $(BIN)
+	@rm -rf $(LIB_PATH)$(BIN)*
+	@rm -rf $(LIB_PATH)$(OBJ)*
+
+cscope :
+	@cscope -R
+
+dump:
+	$(CHAIN)-objdump -D $(OBJ)main.elf
