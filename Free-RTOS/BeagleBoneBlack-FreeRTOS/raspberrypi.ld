@@ -1,70 +1,57 @@
-/**
- * BlueThunder Linker Script for the raspberry Pi!
- *
- *
- *
- **/
-MEMORY
+MEMORY 
 {
-	RESERVED	(r)	: ORIGIN = 0x00000000, LENGTH = 32K
-	INIT_RAM	(rwx)	: ORIGIN = 0x00008000, LENGTH = 32K
-	RAM		(rwx)	: ORIGIN = 0x00010000, LENGTH = 128M
+	q0	: ORIGIN = 0, LENGTH = 1000M
+	q1	: ORIGIN = 0x40000000, LENGTH = 1000M
+	loady	: ORIGIN = 0x80300000, LENGTH = 1M
 }
 
-ENTRY(_start)
+__stack_end__ = 0x80800000 + 64K - 4;
 
-SECTIONS {
-    /*
-	 * Our init section allows us to place the bootstrap code at address 0x8000
-	 *
-	 * This is where the Graphics processor forces the ARM to start execution.
-	 * However the interrupt vector code remains at 0x0000, and so we must copy the correct
-	 * branch instructions to 0x0000 - 0x001C in order to get the processor to handle interrupts.
-	 *
-	 */
-	.init : {
-		KEEP(*(.init))
-	} > INIT_RAM = 0
+SECTIONS 
+{
+	. = 0;
+	startup : { *(.startup)} >loady
 
-	.module_entries : {
-		__module_entries_start = .;
-	  	KEEP(*(.module_entries))
-		KEEP(*(.module_entries.*))
-		__module_entries_end = .;
-		__module_entries_size = SIZEOF(.module_entries);
-	} > INIT_RAM
-
-
-	/**
- 	 *	This is the main code section, it is essentially of unlimited size. (128Mb).
-	 *
-	 **/
-	.text : {
-		*(.text)
-	} > RAM
-
-	/*
-	* Next we put the data.
-	*/
-	.data : {
-		*(.data)
-	} > RAM
-
-	.bss :
+	prog : 
 	{
-		__bss_start = .;
+		*(.text)
+		*(.text*)
+		*(.rodata)
+		*(.rodata*)
+		*(.glue_7)
+		*(.glue_7t)
+	} >loady
+
+	__end_of_text__ = .;
+
+	.data : 
+	{
+		__data_beg__ = .;
+		__data_beg_src__ = __end_of_text__;
+		*(.data)
+		__data_end__ = .;
+	} >loady
+
+	.bss : 
+	{
+		__bss_beg__ = .;
 		*(.bss)
-		*(.bss.*)
-		__bss_end = .;
-	} > RAM
+	} >loady
 
-	/**
-	 *	Place HEAP here???
-	 **/
-
-	/**
-	 *	Stack starts at the top of the RAM, and moves down!
-	 **/
-	_estack = ORIGIN(RAM) + LENGTH(RAM);
+	. = ALIGN(4);
+	.eh_frame :
+	{
+		 KEEP (*(.eh_frame))
+	} > loady
+	
+	/* Align here to ensure that the .bss section occupies space up to
+	_end.  Align after .bss to ensure correct alignment even if the
+	.bss section disappears because there are no input sections.  */
+	. = ALIGN(32 / 8);
 }
+	. = ALIGN(32 / 8);
+	_end = .;
+	_bss_end__ = . ; __bss_end__ = . ; __end__ = . ;
+	PROVIDE (end = .);
+
 

@@ -1,42 +1,96 @@
 /*
- *	Raspberry Pi Porting layer for FreeRTOS.
- */
+    FreeRTOS V7.0.1 - Copyright (C) 2011 Real Time Engineers Ltd.
 
+    ***************************************************************************
+    *                                                                         *
+    * If you are:                                                             *
+    *                                                                         *
+    *    + New to FreeRTOS,                                                   *
+    *    + Wanting to learn FreeRTOS or multitasking in general quickly       *
+    *    + Looking for basic training,                                        *
+    *    + Wanting to improve your FreeRTOS skills and productivity           *
+    *                                                                         *
+    * then take a look at the FreeRTOS books - available as PDF or paperback  *
+    *                                                                         *
+    *        "Using the FreeRTOS Real Time Kernel - a Practical Guide"        *
+    *                  http://www.FreeRTOS.org/Documentation                  *
+    *                                                                         *
+    * A pdf reference manual is also available.  Both are usually delivered   *
+    * to your inbox within 20 minutes to two hours when purchased between 8am *
+    * and 8pm GMT (although please allow up to 24 hours in case of            *
+    * exceptional circumstances).  Thank you for your support!                *
+    *                                                                         *
+    ***************************************************************************
+
+    This file is part of the FreeRTOS distribution.
+
+    FreeRTOS is free software; you can redistribute it and/or modify it under
+    the terms of the GNU General Public License (version 2) as published by the
+    Free Software Foundation AND MODIFIED BY the FreeRTOS exception.
+    ***NOTE*** The exception to the GPL is included to allow you to distribute
+    a combined work that includes FreeRTOS without being obliged to provide the
+    source code for proprietary components outside of the FreeRTOS kernel.
+    FreeRTOS is distributed in the hope that it will be useful, but WITHOUT
+    ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+    FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+    more details. You should have received a copy of the GNU General Public 
+    License and the FreeRTOS license exception along with FreeRTOS; if not it 
+    can be viewed here: http://www.freertos.org/a00114.html and also obtained 
+    by writing to Richard Barry, contact details for whom are available on the
+    FreeRTOS WEB site.
+
+    1 tab == 4 spaces!
+
+    http://www.FreeRTOS.org - Documentation, latest information, license and
+    contact details.
+
+    http://www.SafeRTOS.com - A version that is certified for use in safety
+    critical systems.
+
+    http://www.OpenRTOS.com - Commercial support, development, porting,
+    licensing and training services.
+*/
+
+
+/*-----------------------------------------------------------
+ * Implementation of functions defined in portable.h for the ARM7 port.
+ *
+ * Components that can be compiled to either ARM or THUMB mode are
+ * contained in this file.  The ISR routines, which can only be compiled
+ * to ARM mode are contained in portISR.c.
+ *----------------------------------------------------------*/
+
+
+/* Standard includes. */
+#include <stdlib.h>
+
+/* Scheduler includes. */
 #include "FreeRTOS.h"
 #include "task.h"
-#include <Drivers/irq.h>
+#include "am335.h"
 
 /* Constants required to setup the task context. */
-#define portINITIAL_SPSR						( ( portSTACK_TYPE ) 0x1f ) /* System mode, ARM mode, interrupts enabled. */
-#define portTHUMB_MODE_BIT						( ( portSTACK_TYPE ) 0x20 )
-#define portINSTRUCTION_SIZE					( ( portSTACK_TYPE ) 4 )
-#define portNO_CRITICAL_SECTION_NESTING			( ( portSTACK_TYPE ) 0 )
+#define portINITIAL_SPSR				( ( portSTACK_TYPE ) 0x1f ) /* System mode, ARM mode, interrupts enabled. */
+#define portTHUMB_MODE_BIT				( ( portSTACK_TYPE ) 0x20 )
+#define portINSTRUCTION_SIZE			( ( portSTACK_TYPE ) 4 )
+#define portNO_CRITICAL_SECTION_NESTING	( ( portSTACK_TYPE ) 0 )
 
-#define portTIMER_PRESCALE 						( ( unsigned long ) 0xF9 )
-
-
-/* Constants required to setup the VIC for the tick ISR. */
-#define portTIMER_BASE                    		( (unsigned long ) 0x2000B400 )
-
-typedef struct _BCM2835_TIMER_REGS {
-	unsigned long LOD;
-	unsigned long VAL;
-	unsigned long CTL;
-	unsigned long CLI;
-	unsigned long RIS;
-	unsigned long MIS;
-	unsigned long RLD;
-	unsigned long DIV;
-	unsigned long CNT;
-} BCM2835_TIMER_REGS;
-
-static volatile BCM2835_TIMER_REGS * const pRegs = (BCM2835_TIMER_REGS *) (portTIMER_BASE);
+/*-----------------------------------------------------------*/
+/* Helper functions */
+extern void RegWrite( unsigned int base, unsigned int offset, unsigned int value);
+extern void dumpinterrupts( void );
+extern void dumptimer( void );
+extern unsigned int RegRead( unsigned int base, unsigned int offset);
 
 /*-----------------------------------------------------------*/
 
 /* Setup the timer to generate the tick interrupts. */
 static void prvSetupTimerInterrupt( void );
 
+/* U-boot code uses Timer 1 */
+
+
+/*--------------------------------------------------*/
 /* 
  * The scheduler can only be started from ARM mode, so 
  * vPortISRStartFirstSTask() is defined in portISR.c. 
@@ -56,10 +110,6 @@ portSTACK_TYPE *pxPortInitialiseStack( portSTACK_TYPE *pxTopOfStack, pdTASK_CODE
 portSTACK_TYPE *pxOriginalTOS;
 
 	pxOriginalTOS = pxTopOfStack;
-
-	/* To ensure asserts in tasks.c don't fail, although in this case the assert
-	is not really required. */
-	pxTopOfStack--;
 
 	/* Setup the initial stack of the task.  The stack is set exactly as 
 	expected by the portRESTORE_CONTEXT() macro. */
@@ -99,7 +149,7 @@ portSTACK_TYPE *pxOriginalTOS;
 	*pxTopOfStack = ( portSTACK_TYPE ) 0x01010101;	/* R1 */
 	pxTopOfStack--;	
 
-	/* When the task starts it will expect to find the function parameter in
+	/* When the task starts is will expect to find the function parameter in
 	R0. */
 	*pxTopOfStack = ( portSTACK_TYPE ) pvParameters; /* R0 */
 	pxTopOfStack--;
@@ -147,22 +197,6 @@ void vPortEndScheduler( void )
 }
 /*-----------------------------------------------------------*/
 
-/*
- *	This is the TICK interrupt service routine, note. no SAVE/RESTORE_CONTEXT here
- *	as thats done in the bottom-half of the ISR.
- *
- *	See bt_interrupts.c in the RaspberryPi Drivers folder.
- */
-void vTickISR (unsigned int nIRQ, void *pParam)
-{
-	vTaskIncrementTick();
-
-	#if configUSE_PREEMPTION == 1
-	vTaskSwitchContext();
-	#endif
-
-	pRegs->CLI = 0;			// Acknowledge the timer interrupt.
-}
 
 /*
  * Setup the timer 0 to generate the tick interrupts at the required frequency.
@@ -170,33 +204,78 @@ void vTickISR (unsigned int nIRQ, void *pParam)
 static void prvSetupTimerInterrupt( void )
 {
 	unsigned long ulCompareMatch;
+	extern void ( vIRQHandler )( void );
+	extern void ( vPortYieldProcessor ) ( void );
+
+	/* Reset Interrupt Controller */
+    /* Performing a software reset to trigger a Memory Protection Unit 
+     * Interrupt Controller module reset */
+	(*(REG32(MPU_INTC + INTC_SYSCONFIG))) = 0x00000002;
+    /* Functional clock auto-idle mode : FuncFree */
+	(*(REG32(MPU_INTC + INTC_IDLE))) = 0x00000001;
+
+	/* Enable Interrupt 37 which is used for GPTIMER 1 and interrupt 74 for UART3*/
+//	(*(REG32(MPU_INTC + INTC_MIR_CLEAR1))) = ~(*(REG32(MPU_INTC + INTC_MIR1)))|0x20;
+//	(*(REG32(MPU_INTC + INTC_MIR_CLEAR2))) = ~(*(REG32(MPU_INTC + INTC_MIR2)))|0x400;
 	
 
-	/* Calculate the match value required for our wanted tick rate. */
-	ulCompareMatch = 1000000 / configTICK_RATE_HZ;
+	/* Enable Interrupt 37 which is used for DMTIMER 0 */
+    (*(REG32(MPU_INTC + INTC_MIR_CLEAR1))) = ~(*(REG32(MPU_INTC + INTC_MIR1)))|0x20;
+	(*(REG32(MPU_INTC + INTC_MIR_CLEAR2))) = ~(*(REG32(MPU_INTC + INTC_MIR2)))|0x400;
 
-	/* Protect against divide by zero.  Using an if() statement still results
-	in a warning - hence the #if. */
+	/* Calculate the match value required for our wanted tick rate */
+	ulCompareMatch = configCPU_CLOCK_HZ / configTICK_RATE_HZ;
+	
+	/* Protect against divide by zero */
 	#if portPRESCALE_VALUE != 0
-	{
-		ulCompareMatch /= ( portPRESCALE_VALUE + 1 );
-	}
+		ulCompareMatch /= ( portPRESCALE_VALUE +1 );
 	#endif
+	
+	/* Setup Interrupts */
+	E_SWI = ( long ) vPortYieldProcessor;
+	/* Setup interrupt handler */
+	E_IRQ = ( long ) vIRQHandler;
 
-	irqBlock();
+	
+	/* The timer must be in compare mode, and should be the value
+	 * holded in ulCompareMatch
+	 * bit 0=1 -> enable timer
+	 * bit 1=1 -> autoreload
+	 * bit 6=1 -> compare mode
+	 * The source is 32Khz
+	 * */
+	
+    //(*(REG32(GPTI1 + GPTI_TIOCP_CFG))) = 0x2; // reset interface
+    (*(REG32(DMTIMER0 + DMTIMER_TIOCP_CFG))) = 0x2; // reset interface
 
-	pRegs->CTL = 0x003E0000;
-	pRegs->LOD = 1000 - 1;
-	pRegs->RLD = 1000 - 1;
-	pRegs->DIV = portTIMER_PRESCALE;
-	pRegs->CLI = 0;
-	pRegs->CTL = 0x003E00A2;
+	//(*(REG32(GPTI1 + GPTI_TCRR))) = 0; // initialize counter
+    (*(REG32(DMTIMER0 + DMTIMER_TCRR))) = 0; // initialize counter
 
-	irqRegister(64, vTickISR, NULL);
+	//(*(REG32(GPTI1 + GPTI_TMAR))) = ulCompareMatch; // load match value
+	(*(REG32(DMTIMER0 + DMTIMER_TMAR))) = ulCompareMatch; // load match value
 
-	irqEnable(64);
+	/* Clear pending matching interrupt (if any) */
+	//(*(REG32(GPTI1 + GPTI_TISR))) = 0x1;
+	(*(REG32(DMTIMER0 + GPTI_TISR))) = 0x1;
 
-	irqUnblock();
+	/* Enable matching interrupts */
+	(*(REG32(GPTI1 + GPTI_TIER))) = 0x1;
+
+	/* Timer Control Register
+	 * bit 0 -> start
+	 * bit 1 -> autoreload
+	 * bit 6 -> compare enabled
+	 */
+
+	(*(REG32(GPTI1 + GPTI_TCLR))) = 0x43;
+	
+	/* Reset the timer */
+	(*(REG32(GPTI1 + GPTI_TTGR))) = 0xFF;
+
 }
+
+
 /*-----------------------------------------------------------*/
+
+
 

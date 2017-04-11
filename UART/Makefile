@@ -4,52 +4,58 @@ AFLAGS=-mfpu=neon
 OBJ=obj/
 BIN=bin/
 SRC=src/
-LIB_PATH=./../minimul_c_lib/string/
-
+LIB_PATH=./../minimul_c_lib/
+INC=-I./../minimul_c_lib/string/include/	\
+    -I./../minimul_c_lib/misc/include/
 
 all: test copy
 
-test : dir $(LIB_PATH)$(OBJ)string.o start.o1 control_module.o clock.o uart_console.o main.o GPIO.o
-	$(CHAIN)-ld -T memmap.ld $(OBJ)start.o1 $(OBJ)*.o $(LIB_PATH)$(OBJ)string.o -o $(OBJ)main.elf
+test : dir $(LIB_PATH)$(OBJ)*.o start.o1 control_module.o clock.o uart_console.o main.o GPIO.o div.o
+	$(CHAIN)-ld -T memmap.ld $(OBJ)start.o1 $(OBJ)*.o $(LIB_PATH)$(OBJ)*.o -o $(OBJ)main.elf
 	$(CHAIN)-objcopy $(OBJ)main.elf $(BIN)spl.boot -O binary
 	$(CHAIN)-objdump -DS $(OBJ)main.elf > $(BIN)startup.lst
 
 dir :
 	@mkdir -p $(OBJ) $(BIN)
-	@mkdir -p $(LIB_PATH)$(BIN)
-	@mkdir -p $(LIB_PATH)$(OBJ)
 
-$(LIB_PATH)$(OBJ)string.o : 
+$(LIB_PATH)$(OBJ)*.o :force_look 
 	@echo "building string lib/"
 	@cd $(LIB_PATH); $(MAKE)
 start.o1: start.s
 	$(CHAIN)-as $(AFLAGS) start.s -o $(OBJ)start.o1
 
 main.o: main.c
-	$(CHAIN)-gcc $(CFLAGS) -c main.c -o $(OBJ)main.o
+	$(CHAIN)-gcc $(CFLAGS) $(INC) -c main.c -o $(OBJ)main.o
 
 GPIO.o: GPIO.c
-	$(CHAIN)-gcc $(CFLAGS) -c GPIO.c -o $(OBJ)GPIO.o
+	$(CHAIN)-gcc $(CFLAGS) $(INC) -c GPIO.c -o $(OBJ)GPIO.o
 
 pad.o: pad.c
-	$(CHAIN)-gcc $(CFLAGS) -c pad.c -o $(OBJ)pad.o
+	$(CHAIN)-gcc $(CFLAGS) $(INC) -c pad.c -o $(OBJ)pad.o
 
 control_module.o: control_module.c
-	$(CHAIN)-gcc $(CFLAGS) -c control_module.c -o $(OBJ)control_module.o
+	$(CHAIN)-gcc $(CFLAGS) $(INC) -c control_module.c -o $(OBJ)control_module.o
 
 clock.o: clock.c
-	$(CHAIN)-gcc $(CFLAGS) -c clock.c -o $(OBJ)clock.o
+	$(CHAIN)-gcc $(CFLAGS) $(INC) -c clock.c -o $(OBJ)clock.o
 
 LED.o: LED.c
-	$(CHAIN)-gcc $(CFLAGS) -c LED.c -o $(OBJ)LED.o
+	$(CHAIN)-gcc $(CFLAGS) $(INC) -c LED.c -o $(OBJ)LED.o
 
 uart_console.o:uart_console.c
-	$(CHAIN)-gcc $(CFLAGS) -c uart_console.c -o $(OBJ)uart_console.o
+	$(CHAIN)-gcc $(CFLAGS) $(INC) -c uart_console.c -o $(OBJ)uart_console.o
+div.o: div.c
+	$(CHAIN)-gcc $(CFLAGS) $(INC) -c div.c -o $(OBJ)div.o
 
 copy:
 	@cp -v $(BIN)spl.boot /tftpboot/download.bin 
 
+force_look:
+	@true
+
+
 clean:
+	@cd $(LIB_PATH); $(MAKE) clean
 	@rm -rf $(OBJ)*.o
 	@rm -rf $(OBJ)*.objstart
 	@rm -rf $(OBJ)*.elf
