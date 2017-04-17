@@ -1,4 +1,4 @@
-setenv ipaddr 192.168.0.102;setenv loadaddr 0x80000000; setenv serverip 192.168.0.3;
+setenv ipaddr 10.242.166.56;setenv loadaddr 0x80000000; setenv serverip 10.242.166.15;
 setenv tftproot /tftpboot;setenv bootfile ${tftproot}/download.bin;
 tftp ${loadaddr} ${bootfile};echo *** Booting to BareMetal ***;go ${loadaddr};
 
@@ -6,3 +6,6 @@ tftp ${loadaddr} ${bootfile};echo *** Booting to BareMetal ***;go ${loadaddr};
 setenv ipaddr 192.168.0.102;setenv loadaddr 0x402F0400; setenv serverip 192.168.0.3;
 setenv tftproot /tftpboot;setenv bootfile ${tftproot}/download.bin;
 tftp ${loadaddr} ${bootfile};echo *** Booting to BareMetal ***;go ${loadaddr};
+
+
+/home/shashi/Shashi/EE_WIKI/bb-kernel/dl/gcc-linaro-5.4.1-2017.01-x86_64_arm-linux-gnueabihf.tar.xz
