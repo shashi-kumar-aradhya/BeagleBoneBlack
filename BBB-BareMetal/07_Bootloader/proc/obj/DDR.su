@@ -1,0 +1,11 @@
+DDR.c:28:6:enable_emif_clocks_x	8	static
+DDR.c:48:6:ddr_pll_config_x	24	static
+DDR.c:120:6:config_cmd_ctrl_x	8	static
+DDR.c:150:6:config_ddr_data_x_0	8	static
+DDR.c:172:6:config_ddr_data_x_1	8	static
+DDR.c:195:6:config_io_ctrl_x	8	static
+DDR.c:233:6:config_ddr_phy_x	8	static
+DDR.c:251:6:set_sdram_timings_x	8	static
+DDR.c:296:6:config_sdram_x	8	static
+DDR.c:373:13:config_vtp_x	8	static
+DDR.c:412:6:config_ddr_x	8	static

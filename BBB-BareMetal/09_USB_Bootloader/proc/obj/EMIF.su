@@ -1,0 +1,16 @@
+EMIF.c:328:13:EMIF_PRCM_CLK_ENABLE	8	static
+EMIF.c:342:13:VTP_Enable	8	static
+EMIF.c:360:13:PHY_Config_CMD	16	static
+EMIF.c:372:13:PHY_Config_DATA	16	static
+EMIF.c:402:13:enable_SYS_CLKOUT2	16	static
+EMIF.c:410:13:set_CLKOUT2	24	static
+EMIF.c:438:6:OSC_32KHz	8	static
+EMIF.c:443:6:L3_CLK	8	static
+EMIF.c:449:6:DDR_PHY_Clock	8	static
+EMIF.c:455:6:PER_Clock	8	static
+EMIF.c:460:6:LCD_Clock	8	static
+EMIF.c:470:6:Device_Type	16	static
+EMIF.c:492:6:EMIF_PRCM_CLK_DISABLE	8	static
+EMIF.c:501:6:Enter_DS0	8	static
+EMIF.c:551:6:Exit_DS0	4	static
+EMIF.c:556:6:DDR3_EMIF_Config	8	static

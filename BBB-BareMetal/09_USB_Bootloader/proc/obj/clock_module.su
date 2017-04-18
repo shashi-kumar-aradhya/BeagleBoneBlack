@@ -1,0 +1,2 @@
+clock_module.c:15:6:CKM_setCLKModuleRegister	32	static
+clock_module.c:20:14:CKM_getCLKModuleRegister	24	static

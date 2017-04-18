@@ -1,0 +1,12 @@
+USB.c:375:5:USB_WriteTo	32	static
+USB.c:384:6:USB_putBuffer	24	static
+USB.c:391:6:EP0_TX_routine	8	static
+USB.c:410:5:USB_ReadFrom	40	static
+USB.c:419:6:USB_getBuffer	24	static
+USB.c:426:6:EP0_RX_routine	16	static
+USB.c:454:6:USBINT0_IRQHandler	16	static
+USB.c:526:6:USB_print_setup	16	static
+USB.c:563:6:USB_getDescriptor	24	static
+USB.c:607:6:USB_Setup_Standard	16	static
+USB.c:734:6:USB0_ENDP0Handler	32	static
+USB.c:853:6:USB_init	8	static

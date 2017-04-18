@@ -1,0 +1,5 @@
+proc_Handlers.c:253:6:procIrqHandler	24	static
+proc_Handlers.c:260:6:BSP_fiq	4	static
+proc_Handlers.c:266:6:BSP_abort	16	static
+proc_Handlers.c:271:6:IntDefaultHandler	4	static
+proc_Handlers.c:276:13:Reserved	4	static

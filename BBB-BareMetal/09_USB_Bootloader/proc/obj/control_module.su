@@ -1,0 +1,2 @@
+control_module.c:14:6:CM_setCtrlModule	16	static
+control_module.c:19:14:CM_getCtrlModule	16	static

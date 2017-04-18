@@ -1,0 +1,2 @@
+pad.c:12:6:PAD_setMode	24	static
+pad.c:27:11:PAD_getMode	24	static

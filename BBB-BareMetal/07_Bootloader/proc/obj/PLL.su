@@ -1,0 +1,6 @@
+PLL.c:265:10:GetInputClockFrequency	16	static
+PLL.c:280:6:MPU_PLL_Config	40	static
+PLL.c:309:6:CORE_PLL_Config	48	static
+PLL.c:345:6:DDR_PLL_Config	40	static
+PLL.c:372:6:PER_PLL_Config	40	static
+PLL.c:399:6:DISP_PLL_Config	40	static

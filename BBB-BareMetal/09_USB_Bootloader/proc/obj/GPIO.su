@@ -1,0 +1,11 @@
+GPIO.c:83:6:GPIO_checkValidPortPin	16	static
+GPIO.c:104:13:GPIO_CheckValidDirection	16	static
+GPIO.c:114:6:GPIO_initPort	24	static
+GPIO.c:144:6:GPIO_initPin	24	static
+GPIO.c:153:6:GPIO_setDirection	24	static
+GPIO.c:167:17:GPIO_getDirection	24	static
+GPIO.c:188:6:GPIO_setPin	24	static
+GPIO.c:197:6:GPIO_clrPin	24	static
+GPIO.c:207:9:GPIO_getPin	24	static
+GPIO.c:229:14:GPIO_getPort	24	static
+GPIO.c:240:6:GPIO_setPort	24	static

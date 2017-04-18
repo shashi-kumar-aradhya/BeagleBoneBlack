@@ -1,0 +1,6 @@
+UART.c:201:13:UART_checkValidUart	16	static
+UART.c:210:6:UART_initUART	32	static
+UART.c:295:6:UART_putC	24	static
+UART.c:303:6:UART_getC	24	static
+UART.c:310:5:UART_putString	32	static
+UART.c:319:5:UART_getString	40	static

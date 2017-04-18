@@ -1,0 +1,72 @@
+.
+|-- bin
+|-- board
+|   |-- board_init.c
+|   |-- LED.c
+|   |-- LED.h
+|   |-- makefile
+|   `-- obj
+|       |-- board_init.o
+|       `-- LED.o
+|-- core
+|   |-- __aeabi.s
+|   |-- core_handlers.s
+|   |-- core_init.c
+|   |-- llma.h
+|   |-- llma.s
+|   |-- makefile
+|   |-- obj
+|   |   |-- __aeabi.o
+|   |   |-- core_handlers.o
+|   |   |-- core_init.o
+|   |   |-- llma.o
+|   |   |-- startup_ARMCA8.o1
+|   |   `-- startup.o1
+|   `-- startup_ARMCA8.s
+|-- kernel
+|   |-- main.c
+|   |-- makefile
+|   `-- obj
+|       `-- main.o
+|-- makefile
+|-- memmap.ld
+|-- obj
+|   |-- board.o
+|   |-- core.o
+|   |-- kernel.o
+|   |-- proc.o
+|   `-- sys.o
+|-- proc
+|   |-- clock_module.c
+|   |-- clock_module.h
+|   |-- control_module.c
+|   |-- control_module.h
+|   |-- GPIO.c
+|   |-- GPIO.h
+|   |-- makefile
+|   |-- obj
+|   |   |-- clock_module.o
+|   |   |-- control_module.o
+|   |   |-- GPIO.o
+|   |   |-- pad.o
+|   |   |-- proc_Handlers.o
+|   |   |-- proc_init.o
+|   |   `-- UART.o
+|   |-- pad.c
+|   |-- pad.h
+|   |-- proc_Handlers.c
+|   |-- proc_init.c
+|   |-- UART.c
+|   `-- UART.h
+|-- README.md
+|-- sys
+|   |-- makefile
+|   |-- obj
+|   |   |-- syscalls.o
+|   |   `-- types.o
+|   |-- syscalls.c
+|   |-- types.c
+|   `-- types.h
+`-- tree.txt
+
+12 directories, 57 files
