@@ -1,11 +1,11 @@
 #include "clock.h"
 
-void CM_SetClk(CLK_MODULE_t module, CM_PER_REG reg, unsigned int value)
+/*void CM_SetClk(CLK_MODULE_t module, CM_PER_REG reg, unsigned int value)
 {
 
 	PUT32(module+reg, value);
 }
-
+*/
 unsigned int CM_GetClk(CLK_MODULE_t module, CM_PER_REG reg)
 {
 	return GET32(module+reg);

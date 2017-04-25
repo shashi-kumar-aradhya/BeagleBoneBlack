@@ -14,6 +14,8 @@ $(OBJ)GPIO.o : GPIO.c
 $(OBJ)EEPROM.o : EEPROM.c
 	$(CHAIN)gcc $(CFLAGS) -c EEPROM.c -o $(OBJ)EEPROM.o
 
+$(OBJ)I2C.o : I2C.c
+	$(CHAIN)gcc $(CFLAGS) -c I2C.c -o $(OBJ)I2C.o
 clean :
 	rm -rf $(OBJ) 
 

@@ -1,5 +1,5 @@
 //#include <stdint.h>
-#include "types.h"
+#include "type.h"
 #include "I2C.h" 
 #include "EEPROM.h" 
 

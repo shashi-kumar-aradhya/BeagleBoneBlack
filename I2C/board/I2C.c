@@ -110,7 +110,7 @@
 #define I2C_IRQSTATUS_RDR	(0x1 << 13)
 #define I2C_IRQSTATUS_XDR	(0x1 << 14)
 
-//I2C_IRQENABLE_SET
+		//I2C_IRQENABLE_SET
 #define I2C_IRQENABLE_SET_AL_IE		(0x1 << 0)
 #define I2C_IRQENABLE_SET_NACK_IE	(0x1 << 1)
 #define I2C_IRQENABLE_SET_ARDY_IE	(0x1 << 2)
@@ -167,3 +167,42 @@
 
 //I2C_SCLH
 #define I2C_SCLH			(0xff << 0)
+
+
+/** 
+1.The I2C_EN bit in the I2C_CON register can be used to hold the I2C module in reset. When the
+  system bus reset is removed (PIRSTNA = 1), I2C_EN = 0 keeps the functional part of I2C module in
+  reset state and all configuration registers can be accessed. I2C_EN = 0 does not reset the registers to
+  power up reset values 
+2.A software reset by setting the SRST bit in the I2C_SYSC register. This bit has exactly the same
+  action on the module logic as the system bus reset. All registers are reset to power up reset values. 
+3.The I2C_EN bit in the I2C_CON register can be used to hold the I2C module in reset. When the
+  system bus reset is removed (PIRSTNA = 1), I2C_EN = 0 keeps the functional part of I2C module in
+  reset state and all configuration registers can be accessed. I2C_EN = 0 does not reset the registers to
+  power up reset values.
+*/
+
+static void I2CMasterDisable(uint32_t baseaddr)
+{
+	PUT32(baseaddr + I2C_CON) &= ~I2C_EN;
+}
+
+static void I2CSoftReset(uint32_t baseaddr)
+{
+	PUT32(baseaddr + I2C_SYSC) |= I2C_SYSC_SRST;
+
+}
+static void I2CAutoIdleDisable(uint32_t baseaddr)
+{
+	PUT32(baseaddr + I2C_SYSC) &= ~I2C_SYSC_AUTOIDLE;
+}
+static void _i2c_init(I2C_t i2c)
+{
+	uint32_t inst_addr = get_i2c_addr(i2c);
+
+	/** do soft reset : 21.3.3 I2C Reset */
+	I2CMasterDisable(inst_addr);
+	I2CSoftReset(inst_addr);
+
+	
+}
