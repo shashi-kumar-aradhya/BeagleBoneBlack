@@ -15,6 +15,7 @@ SECTIONS
 	prog : 
 	{
 		*(.text)
+		*(.text*)
 		*(.rodata)
 		*(.rodata*)
 		*(.glue_7)

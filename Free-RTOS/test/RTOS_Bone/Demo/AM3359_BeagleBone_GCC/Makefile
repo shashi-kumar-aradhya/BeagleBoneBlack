@@ -90,12 +90,10 @@ DEMO_SOURCE_DIR=../Common/Minimal
 #
 THUMB_SRC = \
 main.c \
-serial_unsupported/serial.c \
 ParTest/ParTest.c \
 $(DEMO_SOURCE_DIR)/integer.c \
 $(DEMO_SOURCE_DIR)/flash.c \
 $(DEMO_SOURCE_DIR)/PollQ.c \
-$(DEMO_SOURCE_DIR)/comtest.c \
 $(DEMO_SOURCE_DIR)/flop.c \
 $(DEMO_SOURCE_DIR)/semtest.c \
 $(DEMO_SOURCE_DIR)/dynamic.c \
