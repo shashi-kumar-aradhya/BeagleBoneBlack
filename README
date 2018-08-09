@@ -1,2 +1,10 @@
 Reference :
 	https://github.com/allexoll/BBB-BareMetal
+
+Partitioning :
+	http://www.armhf.com/posts/
+TFTP server initialization:
+	https://wiki.linaro.org/Platform/QA/BBBtftpboot
+
+RTOS : https://www.osrtos.com/
+
