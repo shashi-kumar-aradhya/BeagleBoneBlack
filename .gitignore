@@ -3,6 +3,7 @@
 *.bin
 *.elf
 *.boot
+*.lst
 *cscope.out
 # Compiled source #
 ###################
@@ -10,7 +11,7 @@
 *.class
 *.dll
 *.exe
-*.o
+*.o1
 *.so
 *.a
 
