@@ -55,11 +55,13 @@ clean:
 	@$(MAKE) --no-print-directory -C Src/ clean
 	rm -rf $(BIN)
 	-@echo ' '
+size :
+	arm-none-eabi-size Debug/Src/syscalls.o
 
 #secondary-outputs: $(SIZE_OUTPUT) $(OBJDUMP_LIST)
 secondary-outputs: $(OBJDUMP_LIST) $(SIZE_OUTPUT)
 
-.PHONY: all clean dependents
+.PHONY: all clean dependents size
 .SECONDARY:
 
 -include ../makefile.targets
